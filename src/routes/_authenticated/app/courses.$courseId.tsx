@@ -7,16 +7,22 @@ export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
   head: ({ params }) => {
     const c = courses.find((x) => x.id === params.courseId);
     return { meta: [{ title: c ? `${c.title} — VetClass Pro` : "Curso" }] };
+export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
+  head: ({ params }) => {
+    const c = courses.find((x) => x.id === params.courseId);
+    return { meta: [{ title: c ? `${c.title} — VetClass Pro` : "Curso" }] };
   },
   loader: ({ params }) => {
-    const c = courses.find((x) => x.id === params.courseId);
-    if (!c) throw notFound();
-    return c;
+    const found = courses.find((x) => x.id === params.courseId);
+    if (!found) throw notFound();
+    return { course: found };
   },
   component: CourseDetail,
 });
 
 function CourseDetail() {
+  const { course: c } = Route.useLoaderData();
+
   const c = Route.useLoaderData();
 
   const modules = Array.from({ length: c.modules }, (_, i) => ({
