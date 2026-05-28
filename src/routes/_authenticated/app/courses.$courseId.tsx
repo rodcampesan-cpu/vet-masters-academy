@@ -1,12 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowLeft, BookOpen, CheckCircle2, Clock, FileText, MessagesSquare, Play, Trophy, Users } from "lucide-react";
 import { courses } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
-export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
-  head: ({ params }) => {
-    const c = courses.find((x) => x.id === params.courseId);
-    return { meta: [{ title: c ? `${c.title} — VetClass Pro` : "Curso" }] };
 export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
   head: ({ params }) => {
     const c = courses.find((x) => x.id === params.courseId);
@@ -22,8 +20,8 @@ export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
 
 function CourseDetail() {
   const { course: c } = Route.useLoaderData();
-
-  const c = Route.useLoaderData();
+  const [activeTab, setActiveTab] = useState("Conteúdo");
+  const [notes, setNotes] = useState("");
 
   const modules = Array.from({ length: c.modules }, (_, i) => ({
     id: i + 1,
@@ -60,14 +58,15 @@ function CourseDetail() {
             <Stat icon={Users} label="Alunos" value={`${(c.students/1000).toFixed(1)}k`} />
           </div>
 
-          {/* Tabs (visual only for MVP) */}
+          {/* Tabs */}
           <div className="border-b border-border">
             <div className="flex gap-1 overflow-x-auto">
-              {["Conteúdo", "Material", "Casos clínicos", "Quizzes", "Comunidade", "Certificado"].map((t, i) => (
+              {["Conteúdo", "Material", "Anotações", "Casos clínicos"].map((t) => (
                 <button
                   key={t}
+                  onClick={() => setActiveTab(t)}
                   className={`whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition ${
-                    i === 0 ? "border-coral text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
+                    activeTab === t ? "border-coral text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {t}
@@ -76,9 +75,9 @@ function CourseDetail() {
             </div>
           </div>
 
-          {/* Modules list */}
+          {/* Tab Content */}
           <div className="space-y-3">
-            {modules.map((m) => (
+            {activeTab === "Conteúdo" && modules.map((m) => (
               <div key={m.id} className="rounded-2xl border border-border bg-card p-4 shadow-soft">
                 <div className="flex items-center gap-3">
                   <div className={`grid h-10 w-10 place-items-center rounded-xl ${m.done ? "bg-coral text-coral-foreground" : "bg-secondary text-muted-foreground"}`}>
@@ -94,6 +93,56 @@ function CourseDetail() {
                 </div>
               </div>
             ))}
+
+            {activeTab === "Material" && (
+              <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+                <h3 className="font-display font-semibold mb-4">Materiais Complementares</h3>
+                <div className="space-y-3">
+                  {[
+                    { title: "Slides da Aula 1", size: "2.4 MB" },
+                    { title: "Protocolo Clínico Atualizado", size: "1.1 MB" },
+                    { title: "Artigo de Referência (Nature)", size: "4.5 MB" }
+                  ].map((doc, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-3 rounded-lg border border-border bg-background">
+                      <div className="flex items-center gap-3">
+                        <FileText className="h-5 w-5 text-coral" />
+                        <div>
+                          <p className="text-sm font-medium">{doc.title}.pdf</p>
+                          <p className="text-xs text-muted-foreground">{doc.size}</p>
+                        </div>
+                      </div>
+                      <Button variant="outline" size="sm">Baixar</Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === "Anotações" && (
+              <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+                <h3 className="font-display font-semibold mb-4">Suas Anotações Pessoais</h3>
+                <Textarea 
+                  placeholder="Faça anotações sobre este curso aqui. Elas são salvas automaticamente..."
+                  className="min-h-[200px] resize-y bg-secondary/30"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+                <div className="flex justify-end mt-4">
+                  <Button className="bg-coral text-coral-foreground hover:bg-coral/90">Salvar Anotações</Button>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "Casos clínicos" && (
+              <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center shadow-soft flex flex-col items-center">
+                <Activity className="h-10 w-10 text-coral opacity-50 mb-4" />
+                <h3 className="font-display font-semibold mb-2">Casos Clínicos deste Módulo</h3>
+                <p className="text-sm text-muted-foreground max-w-sm mb-6">Acesse a aba lateral "Casos Clínicos" no menu principal para interagir com todos os casos do sistema.</p>
+                <Link to="/app/clinical-cases">
+                  <Button variant="outline">Acessar Banco de Casos</Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 

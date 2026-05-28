@@ -15,8 +15,12 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
+import { Route as AuthenticatedAppTeacherRouteImport } from './routes/_authenticated/app/teacher'
 import { Route as AuthenticatedAppLibraryRouteImport } from './routes/_authenticated/app/library'
 import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app/community'
+import { Route as AuthenticatedAppClinicalCasesRouteImport } from './routes/_authenticated/app/clinical-cases'
+import { Route as AuthenticatedAppAiTutorRouteImport } from './routes/_authenticated/app/ai-tutor'
+import { Route as AuthenticatedAppAdminRouteImport } from './routes/_authenticated/app/admin'
 import { Route as AuthenticatedAppAchievementsRouteImport } from './routes/_authenticated/app/achievements'
 import { Route as AuthenticatedAppCoursesIndexRouteImport } from './routes/_authenticated/app/courses.index'
 import { Route as AuthenticatedAppCoursesCourseIdRouteImport } from './routes/_authenticated/app/courses.$courseId'
@@ -50,6 +54,11 @@ const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppTeacherRoute = AuthenticatedAppTeacherRouteImport.update({
+  id: '/teacher',
+  path: '/teacher',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppLibraryRoute = AuthenticatedAppLibraryRouteImport.update({
   id: '/library',
   path: '/library',
@@ -61,6 +70,22 @@ const AuthenticatedAppCommunityRoute =
     path: '/community',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppClinicalCasesRoute =
+  AuthenticatedAppClinicalCasesRouteImport.update({
+    id: '/clinical-cases',
+    path: '/clinical-cases',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppAiTutorRoute = AuthenticatedAppAiTutorRouteImport.update({
+  id: '/ai-tutor',
+  path: '/ai-tutor',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppAdminRoute = AuthenticatedAppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 const AuthenticatedAppAchievementsRoute =
   AuthenticatedAppAchievementsRouteImport.update({
     id: '/achievements',
@@ -86,8 +111,12 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/app/achievements': typeof AuthenticatedAppAchievementsRoute
+  '/app/admin': typeof AuthenticatedAppAdminRoute
+  '/app/ai-tutor': typeof AuthenticatedAppAiTutorRoute
+  '/app/clinical-cases': typeof AuthenticatedAppClinicalCasesRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/library': typeof AuthenticatedAppLibraryRoute
+  '/app/teacher': typeof AuthenticatedAppTeacherRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/courses/$courseId': typeof AuthenticatedAppCoursesCourseIdRoute
   '/app/courses/': typeof AuthenticatedAppCoursesIndexRoute
@@ -97,8 +126,12 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/achievements': typeof AuthenticatedAppAchievementsRoute
+  '/app/admin': typeof AuthenticatedAppAdminRoute
+  '/app/ai-tutor': typeof AuthenticatedAppAiTutorRoute
+  '/app/clinical-cases': typeof AuthenticatedAppClinicalCasesRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/library': typeof AuthenticatedAppLibraryRoute
+  '/app/teacher': typeof AuthenticatedAppTeacherRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/courses/$courseId': typeof AuthenticatedAppCoursesCourseIdRoute
   '/app/courses': typeof AuthenticatedAppCoursesIndexRoute
@@ -111,8 +144,12 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/_authenticated/app/achievements': typeof AuthenticatedAppAchievementsRoute
+  '/_authenticated/app/admin': typeof AuthenticatedAppAdminRoute
+  '/_authenticated/app/ai-tutor': typeof AuthenticatedAppAiTutorRoute
+  '/_authenticated/app/clinical-cases': typeof AuthenticatedAppClinicalCasesRoute
   '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
   '/_authenticated/app/library': typeof AuthenticatedAppLibraryRoute
+  '/_authenticated/app/teacher': typeof AuthenticatedAppTeacherRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/courses/$courseId': typeof AuthenticatedAppCoursesCourseIdRoute
   '/_authenticated/app/courses/': typeof AuthenticatedAppCoursesIndexRoute
@@ -125,8 +162,12 @@ export interface FileRouteTypes {
     | '/signup'
     | '/app'
     | '/app/achievements'
+    | '/app/admin'
+    | '/app/ai-tutor'
+    | '/app/clinical-cases'
     | '/app/community'
     | '/app/library'
+    | '/app/teacher'
     | '/app/'
     | '/app/courses/$courseId'
     | '/app/courses/'
@@ -136,8 +177,12 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/achievements'
+    | '/app/admin'
+    | '/app/ai-tutor'
+    | '/app/clinical-cases'
     | '/app/community'
     | '/app/library'
+    | '/app/teacher'
     | '/app'
     | '/app/courses/$courseId'
     | '/app/courses'
@@ -149,8 +194,12 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/app'
     | '/_authenticated/app/achievements'
+    | '/_authenticated/app/admin'
+    | '/_authenticated/app/ai-tutor'
+    | '/_authenticated/app/clinical-cases'
     | '/_authenticated/app/community'
     | '/_authenticated/app/library'
+    | '/_authenticated/app/teacher'
     | '/_authenticated/app/'
     | '/_authenticated/app/courses/$courseId'
     | '/_authenticated/app/courses/'
@@ -207,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/teacher': {
+      id: '/_authenticated/app/teacher'
+      path: '/teacher'
+      fullPath: '/app/teacher'
+      preLoaderRoute: typeof AuthenticatedAppTeacherRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/library': {
       id: '/_authenticated/app/library'
       path: '/library'
@@ -219,6 +275,27 @@ declare module '@tanstack/react-router' {
       path: '/community'
       fullPath: '/app/community'
       preLoaderRoute: typeof AuthenticatedAppCommunityRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/clinical-cases': {
+      id: '/_authenticated/app/clinical-cases'
+      path: '/clinical-cases'
+      fullPath: '/app/clinical-cases'
+      preLoaderRoute: typeof AuthenticatedAppClinicalCasesRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/ai-tutor': {
+      id: '/_authenticated/app/ai-tutor'
+      path: '/ai-tutor'
+      fullPath: '/app/ai-tutor'
+      preLoaderRoute: typeof AuthenticatedAppAiTutorRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/admin': {
+      id: '/_authenticated/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AuthenticatedAppAdminRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/achievements': {
@@ -247,8 +324,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAppRouteChildren {
   AuthenticatedAppAchievementsRoute: typeof AuthenticatedAppAchievementsRoute
+  AuthenticatedAppAdminRoute: typeof AuthenticatedAppAdminRoute
+  AuthenticatedAppAiTutorRoute: typeof AuthenticatedAppAiTutorRoute
+  AuthenticatedAppClinicalCasesRoute: typeof AuthenticatedAppClinicalCasesRoute
   AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
   AuthenticatedAppLibraryRoute: typeof AuthenticatedAppLibraryRoute
+  AuthenticatedAppTeacherRoute: typeof AuthenticatedAppTeacherRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedAppCoursesCourseIdRoute: typeof AuthenticatedAppCoursesCourseIdRoute
   AuthenticatedAppCoursesIndexRoute: typeof AuthenticatedAppCoursesIndexRoute
@@ -256,8 +337,12 @@ interface AuthenticatedAppRouteChildren {
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppAchievementsRoute: AuthenticatedAppAchievementsRoute,
+  AuthenticatedAppAdminRoute: AuthenticatedAppAdminRoute,
+  AuthenticatedAppAiTutorRoute: AuthenticatedAppAiTutorRoute,
+  AuthenticatedAppClinicalCasesRoute: AuthenticatedAppClinicalCasesRoute,
   AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,
   AuthenticatedAppLibraryRoute: AuthenticatedAppLibraryRoute,
+  AuthenticatedAppTeacherRoute: AuthenticatedAppTeacherRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedAppCoursesCourseIdRoute: AuthenticatedAppCoursesCourseIdRoute,
   AuthenticatedAppCoursesIndexRoute: AuthenticatedAppCoursesIndexRoute,
@@ -287,3 +372,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -1,5 +1,5 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
-import { Award, Bell, BookOpen, Home, Library, MessagesSquare, Search, Sparkles, Stethoscope, Trophy, LogOut } from "lucide-react";
+import { Award, Bell, BookOpen, Home, Library, MessagesSquare, Search, Sparkles, Stethoscope, Trophy, LogOut, Activity, Briefcase, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +8,10 @@ const nav = [
   { to: "/app/courses", label: "Cursos", icon: BookOpen },
   { to: "/app/library", label: "Biblioteca", icon: Library },
   { to: "/app/community", label: "Comunidade", icon: MessagesSquare },
+  { to: "/app/clinical-cases", label: "Casos", icon: Activity },
   { to: "/app/achievements", label: "Conquistas", icon: Trophy },
+  { to: "/app/teacher", label: "Professor", icon: Briefcase },
+  { to: "/app/admin", label: "Admin", icon: ShieldCheck },
 ];
 
 export function AppShell() {
@@ -50,13 +53,13 @@ export function AppShell() {
           })}
         </nav>
         <div className="border-t border-sidebar-border p-4">
-          <div className="rounded-xl bg-sidebar-accent p-3">
+          <Link to="/app/ai-tutor" className="block rounded-xl bg-sidebar-accent p-3 transition hover:ring-1 hover:ring-coral/50">
             <div className="flex items-center gap-2 text-coral">
               <Sparkles className="h-4 w-4" />
               <span className="text-xs font-semibold uppercase tracking-wide">Tutor Vet IA</span>
             </div>
             <p className="mt-1.5 text-xs text-sidebar-foreground/70">Tire dúvidas e gere planos de estudo.</p>
-          </div>
+          </Link>
           <button
             onClick={() => signOut()}
             className="mt-3 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground"
@@ -101,11 +104,11 @@ export function AppShell() {
 
       {/* Mobile bottom nav */}
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card/95 backdrop-blur lg:hidden">
-        <div className="grid grid-cols-5">
+        <div className="flex overflow-x-auto hide-scrollbar">
           {nav.map((n) => {
             const active = isActive(n.to, n.exact);
             return (
-              <Link key={n.to} to={n.to} className="flex flex-col items-center gap-1 py-3 text-[11px]">
+              <Link key={n.to} to={n.to} className="flex flex-col items-center gap-1 py-3 px-4 min-w-[72px] text-[11px]">
                 <n.icon className={`h-5 w-5 ${active ? "text-coral" : "text-muted-foreground"}`} />
                 <span className={active ? "font-semibold text-coral" : "text-muted-foreground"}>{n.label}</span>
               </Link>
