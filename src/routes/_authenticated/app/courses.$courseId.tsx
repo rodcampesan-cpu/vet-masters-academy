@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, BookOpen, CheckCircle2, Clock, FileText, MessagesSquare, Play, Trophy, Users } from "lucide-react";
-import { courses } from "@/lib/courses-data";
+import { courses, ortopediaModules } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -23,12 +23,18 @@ function CourseDetail() {
   const [activeTab, setActiveTab] = useState("Conteúdo");
   const [notes, setNotes] = useState("");
 
-  const modules = Array.from({ length: c.modules }, (_, i) => ({
-    id: i + 1,
-    title: `Módulo ${i + 1} — ${["Fundamentos", "Diagnóstico", "Técnicas", "Casos clínicos", "Protocolos", "Cirurgia", "Pós-operatório", "Reabilitação", "Atualizações", "Revisão", "Estudos de caso", "Avaliação final"][i] ?? "Conteúdo"}`,
-    lessons: Math.ceil(c.lessons / c.modules),
-    done: i < Math.floor(c.modules * c.progress / 100),
-  }));
+  let modules: any[] = [];
+
+  if (c.id === "ortopedia-avancada") {
+    modules = ortopediaModules;
+  } else {
+    modules = Array.from({ length: c.modules }, (_, i) => ({
+      id: i + 1,
+      title: `Módulo ${i + 1} — ${["Fundamentos", "Diagnóstico", "Técnicas", "Casos clínicos", "Protocolos", "Cirurgia", "Pós-operatório", "Reabilitação", "Atualizações", "Revisão", "Estudos de caso", "Avaliação final"][i] ?? "Conteúdo"}`,
+      done: i < Math.floor(c.modules * c.progress / 100),
+      topics: Array.from({ length: Math.ceil(c.lessons / c.modules) }, (_, j) => `Aula ${j + 1} do módulo`)
+    }));
+  }
 
   return (
     <div>
@@ -79,18 +85,40 @@ function CourseDetail() {
           <div className="space-y-3">
             {activeTab === "Conteúdo" && modules.map((m) => (
               <div key={m.id} className="rounded-2xl border border-border bg-card p-4 shadow-soft">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mb-4">
                   <div className={`grid h-10 w-10 place-items-center rounded-xl ${m.done ? "bg-coral text-coral-foreground" : "bg-secondary text-muted-foreground"}`}>
                     {m.done ? <CheckCircle2 className="h-5 w-5" /> : <span className="font-display font-bold">{m.id}</span>}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-display text-sm font-semibold sm:text-base truncate">{m.title}</h3>
-                    <p className="text-xs text-muted-foreground">{m.lessons} aulas</p>
+                    <p className="text-xs text-muted-foreground">{m.topics?.length || 0} aulas</p>
                   </div>
                   <Button size="sm" variant={m.done ? "outline" : "default"} className={m.done ? "" : "bg-coral text-coral-foreground hover:bg-coral/90"}>
                     {m.done ? "Revisar" : "Iniciar"}
                   </Button>
                 </div>
+                
+                {m.topics && m.topics.length > 0 && (
+                  <div className="pl-14 pr-4 space-y-2 mt-2 border-t border-border pt-4">
+                    {m.topics.map((topic: string, idx: number) => {
+                      const lessonSlug = topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                      return (
+                        <Link 
+                          key={idx} 
+                          to="/app/lessons/$lessonId" 
+                          params={{ lessonId: lessonSlug }}
+                          className="flex items-center justify-between group cursor-pointer rounded-lg p-2 hover:bg-secondary/30 transition-colors"
+                        >
+                          <div className="flex items-center gap-3">
+                            <Play className="h-3 w-3 text-coral/70 group-hover:text-coral transition-colors" />
+                            <span className="text-sm text-foreground/90 font-medium group-hover:text-coral transition-colors">{topic}</span>
+                          </div>
+                          <span className="text-xs text-muted-foreground group-hover:text-coral transition-colors">Assistir Agora</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             ))}
 

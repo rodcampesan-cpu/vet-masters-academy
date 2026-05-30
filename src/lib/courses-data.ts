@@ -2,7 +2,7 @@ import ortho from "@/assets/course-ortho.jpg";
 import cardio from "@/assets/course-cardio.jpg";
 import derma from "@/assets/course-derma.jpg";
 import neuro from "@/assets/course-neuro.jpg";
-import t1 from "@/assets/teacher-1.jpg";
+import t1 from "@/assets/dr-rodrigo.png";
 import t2 from "@/assets/teacher-2.jpg";
 import t3 from "@/assets/teacher-3.jpg";
 
@@ -31,18 +31,18 @@ export interface Course {
 }
 
 export const teachers: Teacher[] = [
-  { id: "t1", name: "Dr. Ricardo Almeida", title: "PhD em Cirurgia Veterinária", specialty: "Ortopedia & Neurocirurgia", avatar: t1 },
-  { id: "t2", name: "Dra. Camila Souza", title: "Especialista em Cardiologia", specialty: "Cardiologia Veterinária", avatar: t2 },
-  { id: "t3", name: "Dr. Eduardo Mendes", title: "Mestre em Diagnóstico por Imagem", specialty: "Neurologia & Imagem", avatar: t3 },
+  { id: "t1", name: "Dr. Rodrigo Nicola", title: "Médico Veterinário de Respeito", specialty: "Ortopedia e Neurocirurgia", avatar: t1 },
+  { id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia", specialty: "Neurologista e Neurocirurgião", avatar: t2 },
+  { id: "t3", name: "Dr. Renan Dias", title: "Mestre em Neurologia", specialty: "Neurologista e Neurocirurgião", avatar: t2 },
 ];
 
 export const courses: Course[] = [
   {
     id: "ortopedia-avancada",
-    title: "Ortopedia Avançada em Pequenos Animais",
+    title: "Ortopedia Clínica de Excelência",
     specialty: "Ortopedia",
     description:
-      "Do diagnóstico ao procedimento cirúrgico: técnicas modernas em osteossíntese, manejo de fraturas complexas e reabilitação pós-cirúrgica.",
+      "Domine a ortopedia clínica sem precisar operar. Aprenda a diagnosticar com segurança, solicitar exames precisos e conduzir atendimentos que encantam o tutor, gerando confiança absoluta na sua conduta médica.",
     cover: ortho,
     hours: 48,
     modules: 12,
@@ -52,36 +52,6 @@ export const courses: Course[] = [
     teacher: teachers[0],
     level: "Avançado",
     featured: true,
-  },
-  {
-    id: "cardiologia-clinica",
-    title: "Cardiologia Clínica Veterinária",
-    specialty: "Cardiologia",
-    description:
-      "Interpretação de ECG, ecocardiograma e protocolos terapêuticos para cardiopatias mais prevalentes em cães e gatos.",
-    cover: cardio,
-    hours: 36,
-    modules: 9,
-    lessons: 62,
-    students: 980,
-    progress: 0,
-    teacher: teachers[1],
-    level: "Intermediário",
-  },
-  {
-    id: "dermatologia-pratica",
-    title: "Dermatologia Prática",
-    specialty: "Dermatologia",
-    description:
-      "Abordagem sistemática das dermatopatias: do exame físico ao diagnóstico diferencial e tratamentos atualizados.",
-    cover: derma,
-    hours: 28,
-    modules: 8,
-    lessons: 54,
-    students: 1530,
-    progress: 0,
-    teacher: teachers[1],
-    level: "Iniciante",
   },
   {
     id: "neurologia-essencial",
@@ -95,12 +65,68 @@ export const courses: Course[] = [
     lessons: 71,
     students: 760,
     progress: 0,
-    teacher: teachers[2],
-  level: "Avançado",
+    teacher: teachers[1],
+    level: "Avançado",
   },
 ];
 
 export const specialties = [
-  "Ortopedia", "Neurologia", "Cardiologia", "Dermatologia",
-  "Clínica Médica", "Diagnóstico por Imagem", "Oftalmologia", "Anestesiologia",
+  "Ortopedia", "Neurologia"
+];
+
+export const ortopediaModules = [
+  {
+    id: 1,
+    title: "Módulo 1 — Introdução à Ortopedia Clínica",
+    done: true,
+    topics: [
+      "Biomecânica do cão e gato na clínica médica",
+      "Como realizar uma avaliação clínica de excelência",
+      "Biologia x score da lesão ortopédica",
+      "Montando uma anamnese ortopédica",
+      "Alterações ortopédicas clássicas e como tratá-las"
+    ]
+  },
+  {
+    id: 2,
+    title: "Módulo 2 — Diferenciando lesão motora muscular x neurológica",
+    done: false,
+    topics: ["Sinais clínicos", "Testes de reflexo", "Casos práticos de diagnóstico diferencial"]
+  },
+  {
+    id: 3,
+    title: "Módulo 3 — Tratando lesões ortopédicas",
+    done: false,
+    topics: ["Protocolos de tratamento conservador", "Indicações cirúrgicas", "Manejo da dor"]
+  },
+  {
+    id: 4,
+    title: "Módulo 4 — A conexão com o tutor é o sucesso do tratamento",
+    done: false,
+    topics: ["Como comunicar o diagnóstico", "Alinhando expectativas", "Adesão ao tratamento em casa"]
+  },
+  {
+    id: 5,
+    title: "Módulo 5 — Manejo Alimentar",
+    done: false,
+    topics: [
+      "Importância da nutrição na recuperação ortopédica",
+      "Suplementação: Condroprotetores e Ômega-3",
+      "Controle e manejo de peso no paciente osteoartrósico",
+      "Dietas terapêuticas e prescrição nutricional",
+      "Casos práticos de evolução com suporte nutricional"
+    ]
+  },
+  {
+    id: 6,
+    title: "Módulo 6 — 90% das alterações que vão chegar na sua clínica",
+    done: false,
+    topics: [
+      "Displasia Coxofemoral",
+      "Ruptura de Ligamento Cruzado Cranial (RLCC)",
+      "Artrose Articular",
+      "Doença do Disco Intervertebral (DDIV)",
+      "Alterações Metabólicas"
+    ]
+  }
 ];

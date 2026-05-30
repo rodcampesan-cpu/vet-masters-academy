@@ -3,21 +3,33 @@ import { Award, Bell, BookOpen, Home, Library, MessagesSquare, Search, Sparkles,
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 
-const nav = [
+const allNavLinks = [
   { to: "/app", label: "Início", icon: Home, exact: true },
   { to: "/app/courses", label: "Cursos", icon: BookOpen },
   { to: "/app/library", label: "Biblioteca", icon: Library },
   { to: "/app/community", label: "Comunidade", icon: MessagesSquare },
   { to: "/app/clinical-cases", label: "Casos", icon: Activity },
   { to: "/app/achievements", label: "Conquistas", icon: Trophy },
-  { to: "/app/teacher", label: "Professor", icon: Briefcase },
-  { to: "/app/admin", label: "Admin", icon: ShieldCheck },
+  { to: "/app/teacher", label: "Painel Prof", icon: Briefcase, exact: true },
+  { to: "/app/admin", label: "Admin", icon: ShieldCheck, exact: true },
 ];
 
 export function AppShell() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { user, signOut } = useAuth();
+  const role = user?.user_metadata?.role || "student";
   const initials = (user?.user_metadata?.full_name || user?.email || "V").slice(0, 1).toUpperCase();
+
+  const getNavLinks = () => {
+    if (role === "admin") return allNavLinks;
+    if (role === "teacher") {
+      return allNavLinks.filter(n => ["/app/teacher", "/app/courses", "/app/clinical-cases"].includes(n.to));
+    }
+    // student
+    return allNavLinks.filter(n => !["/app/teacher", "/app/admin"].includes(n.to));
+  };
+
+  const nav = getNavLinks();
 
   const isActive = (to: string, exact?: boolean) => exact ? path === to : path === to || path.startsWith(to + "/");
 
