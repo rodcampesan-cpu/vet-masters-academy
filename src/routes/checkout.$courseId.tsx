@@ -67,16 +67,30 @@ function CheckoutPage() {
               
               <div className="space-y-3 mb-6">
                 {[
-                  "Acesso completo por 12 meses",
-                  "Material didático em PDF para download",
-                  "Certificado de conclusão reconhecido",
+                  "1 Ano de Acesso Total ao Curso",
+                  "Biblioteca e Casos Interativos do Curso",
+                  "Desconto VIP de 25% em novos cursos",
                   "Acesso à Comunidade VIP de Alunos"
                 ].map((benefit, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
+                    <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                     <span className="text-sm font-medium text-slate-700">{benefit}</span>
                   </div>
                 ))}
+              </div>
+
+              {/* Bônus */}
+              <div className="bg-coral/5 border border-coral/20 rounded-xl p-4 mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-coral text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Bônus Exclusivo</span>
+                  <span className="text-xs font-semibold text-coral animate-pulse">Restam poucas vagas</span>
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mb-1">Mentoria Flix: Método P.E.T.</h4>
+                <p className="text-xs text-slate-600 mb-2">Transforme seu negócio pet com Dr. Rodrigo Nicola.</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-400 line-through">Valor R$ 799,00</span>
+                  <span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded">GRÁTIS HOJE</span>
+                </div>
               </div>
 
               <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-4">
@@ -164,12 +178,12 @@ function CheckoutPage() {
               <div className="border-t border-slate-200 pt-6">
                 <div className="flex justify-between items-end mb-6">
                   <div>
-                    <p className="text-sm text-slate-500 line-through">De R$ 1.497,00</p>
-                    <p className="text-xs font-semibold text-coral mt-1">Oferta Especial</p>
+                    <p className="text-sm text-slate-500 line-through">De R$ 2.997,00</p>
+                    <p className="text-xs font-semibold text-coral mt-1">Oferta Especial com Bônus</p>
                   </div>
                   <div className="text-right">
                     <p className="font-display font-black text-3xl text-slate-900">R$ 997<span className="text-lg text-slate-500">,00</span></p>
-                    <p className="text-xs text-slate-500">ou 12x de R$ 99,70</p>
+                    <p className="text-xs font-bold text-slate-500">ou 12x de R$ 97,50</p>
                   </div>
                 </div>
 
