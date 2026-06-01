@@ -3,6 +3,7 @@ import { ArrowRight, Award, Brain, GraduationCap, Library, MessagesSquare, Play,
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/landing/Navbar";
 import heroImg from "@/assets/hero-vet.jpg";
+import drRodrigoImg from "@/assets/dr-rodrigo.png";
 import { courses, specialties, teachers } from "@/lib/courses-data";
 
 export const Route = createFileRoute("/")({
@@ -187,6 +188,54 @@ function Landing() {
         </div>
       </section>
 
+      {/* MENTORIA FLIX SECTION */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-secondary/20 skew-y-3 origin-top-left -z-10" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <div className="absolute inset-0 bg-coral/20 rounded-3xl blur-2xl transform rotate-3" />
+              <img src={drRodrigoImg} alt="Dr. Rodrigo Nicola" className="relative rounded-3xl shadow-xl w-full max-w-md mx-auto" />
+            </div>
+            <div className="order-1 lg:order-2">
+              <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-bold text-blue-800 mb-6 uppercase tracking-wider">
+                <Store className="h-4 w-4" /> Bônus Especial
+              </div>
+              <h2 className="font-display text-3xl font-bold sm:text-4xl text-gray-900 leading-tight">
+                Como montar seu Negócio de Sucesso com a <span className="text-coral">Mentoria Flix</span>
+              </h2>
+              <p className="mt-6 text-lg text-gray-600">
+                Aprenda diretamente com o Dr. Rodrigo Nicola como transformar sua clínica ou consultório em uma empresa extremamente lucrativa. Você vai descobrir os segredos de gestão, contratação e estruturação de quem já construiu empresas sólidas na medicina veterinária.
+              </p>
+              
+              <ul className="mt-8 space-y-4">
+                {[
+                  "Curso completo com 8 aulas exclusivas",
+                  "E-book interativo e Playbook de execução",
+                  "Acesso ao Mentor IA para tirar dúvidas do negócio",
+                  "Aulas gravadas para assistir quando e onde quiser"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
+                    <CheckCircle className="h-5 w-5 text-coral shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              
+              <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-100 flex items-center gap-4">
+                <div className="bg-green-100 p-3 rounded-full">
+                  <Gift className="h-6 w-6 text-green-600" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-gray-900">Totalmente Gratuito (Valor R$ 799)</p>
+                  <p className="text-sm text-gray-500">Exclusivo para os primeiros 15 inscritos no VetClass Pro.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* BONUS VIP OFFER */}
       <section id="oferta" className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-[#0A0A0A]" /> {/* Very dark background */}
@@ -222,7 +271,7 @@ function Landing() {
                         <span className="text-sm font-bold text-green-400">GRÁTIS HOJE</span>
                       </div>
                       <p className="mt-3 text-white/70">
-                        Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gestão, estruturação, contratação e vendas com quem já construiu impérios na medicina veterinária.
+                        Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.
                       </p>
                     </div>
                   </div>
