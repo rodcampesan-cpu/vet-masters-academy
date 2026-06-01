@@ -257,7 +257,7 @@ function Landing() {
                   Condição Vip de Lançamento
                 </h2>
                 <p className="mt-4 text-lg text-white/80">
-                  Além de acesso ilimitado a todos os cursos de especialidades, comunidade e à Inteligência Artificial, os **15 primeiros** a garantirem a vaga hoje vão levar um bônus inacreditável:
+                  Ao garantir sua vaga, você terá <strong>1 Ano de Acesso Total</strong> ao curso, tempo de sobra para rever as aulas e dominar a prática. Além disso, os <strong>15 primeiros</strong> inscritos hoje vão levar um bônus inacreditável:
                 </p>
                 
                 <div className="mt-8 rounded-2xl bg-gradient-to-r from-coral/10 to-transparent border-l-4 border-coral p-6">
@@ -298,9 +298,9 @@ function Landing() {
 
                 <ul className="space-y-4 text-left mb-8">
                   {[
-                    "Acesso completo à plataforma",
-                    "Biblioteca e Casos Interativos",
-                    "Acesso ilimitado ao Tutor Vet IA",
+                    "1 Ano de Acesso Completo ao Curso",
+                    "Biblioteca e Casos Interativos do Curso",
+                    "Desconto VIP de 25% em novos cursos",
                     "Mentoria Flix: Negócio de Sucesso (Para os 15 primeiros)"
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
