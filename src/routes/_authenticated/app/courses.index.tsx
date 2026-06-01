@@ -67,8 +67,8 @@ function CoursesPage() {
                     <span className="font-bold text-lg">🎁</span>
                   </span>
                   <p className="text-white font-black text-lg uppercase tracking-wider mb-2 leading-tight">Bônus Exclusivo</p>
-                  <p className="text-white/95 text-sm font-medium leading-relaxed">
-                    Este curso de <span className="line-through opacity-70">R$ 799</span> sai <span className="bg-white text-coral px-1.5 py-0.5 rounded font-bold ml-1">GRÁTIS</span><br/> na compra de qualquer outro curso da plataforma!
+                  <p className="text-white/95 text-xs sm:text-sm font-medium leading-relaxed">
+                    Este incrível curso de gestão com o renomado Dr. Rodrigo Nicola, com 28 anos de experiência em negócios pet, é <span className="bg-white text-coral px-1 rounded font-bold mx-0.5">GRATUITO</span> na compra dos nossos cursos de Ortopedia, Neurologia, Hematologia ou Emergência Médica.
                   </p>
                 </div>
               )}

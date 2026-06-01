@@ -36,6 +36,8 @@ export interface Course {
 export const teachers: Teacher[] = [
   { id: "t1", name: "Dr. Rodrigo Nicola", title: "Médico Veterinário de Respeito", specialty: "Ortopedia e Neurocirurgia", avatar: t1 },
   { id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia", specialty: "Neurologista e Neurocirurgião", avatar: t2 },
+  { id: "t3", name: "Dra. Carolina", title: "Especialista em Hematologia", specialty: "Hematologista", avatar: "https://i.pravatar.cc/150?img=5" },
+  { id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Emergência", specialty: "Intensivista", avatar: "https://i.pravatar.cc/150?img=9" },
 ];
 
 export const courses: Course[] = [
@@ -88,10 +90,40 @@ export const courses: Course[] = [
     purchased: false,
     externalLink: "https://mentoriaflix.com.br", // Link externo hipotético para a plataforma
   },
+  {
+    id: "hematologia-clinica",
+    title: "Hematologia Descomplicada",
+    specialty: "Hematologia",
+    description: "Interpretação avançada de exames laboratoriais, anemias, leucogramas e distúrbios da coagulação no dia a dia da clínica.",
+    cover: "https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=600&auto=format&fit=crop",
+    hours: 30,
+    modules: 6,
+    lessons: 45,
+    students: 420,
+    progress: 0,
+    teacher: teachers[2],
+    level: "Intermediário",
+    purchased: false,
+  },
+  {
+    id: "emergencia-medica",
+    title: "Emergência Médica e Terapia Intensiva",
+    specialty: "Emergência",
+    description: "Abordagem do paciente crítico, protocolos de reanimação, estabilização hemodinâmica e monitoramento intensivo.",
+    cover: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=600&auto=format&fit=crop",
+    hours: 50,
+    modules: 15,
+    lessons: 90,
+    students: 890,
+    progress: 0,
+    teacher: teachers[3],
+    level: "Avançado",
+    purchased: false,
+  },
 ];
 
 export const specialties = [
-  "Ortopedia", "Neurologia", "Gestão"
+  "Ortopedia", "Neurologia", "Gestão", "Hematologia", "Emergência"
 ];
 
 export const ortopediaModules = [
