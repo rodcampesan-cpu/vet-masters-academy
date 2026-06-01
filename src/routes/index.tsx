@@ -58,7 +58,7 @@ function Landing() {
             <div className="mt-6 flex items-center gap-3 rounded-xl bg-coral/10 border border-coral/30 p-3 backdrop-blur-sm max-w-lg">
               <Gift className="h-5 w-5 text-coral flex-shrink-0 animate-pulse" />
               <p className="text-sm font-medium text-white/90">
-                <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Negócio de Sucesso com Mentoria Flix".
+                <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Negócio de Sucesso com Mentoria Flix" <span className="font-bold text-green-400 bg-green-400/10 px-1 rounded">(Valor R$ 799)</span>.
               </p>
             </div>
             
@@ -217,6 +217,10 @@ function Landing() {
                     <div>
                       <h3 className="text-xl font-bold text-white">Como montar seu Negócio de Sucesso</h3>
                       <p className="text-coral text-sm font-bold mt-1 tracking-wider uppercase">Bônus Exclusivo: Mentoria Flix</p>
+                      <div className="mt-2 inline-flex items-center gap-2 bg-white/5 px-3 py-1 rounded-md border border-white/10">
+                        <span className="text-sm text-white/50 line-through">De R$ 799,00</span>
+                        <span className="text-sm font-bold text-green-400">GRÁTIS HOJE</span>
+                      </div>
                       <p className="mt-3 text-white/70">
                         Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gestão, estruturação, contratação e vendas com quem já construiu impérios na medicina veterinária.
                       </p>
