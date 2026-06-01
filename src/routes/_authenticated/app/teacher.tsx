@@ -79,6 +79,15 @@ function TeacherPanel() {
                   <Button variant="ghost" size="sm" className="text-coral">Adicionar Aula</Button>
                 </div>
                 
+                <div className="p-4 border-b border-border bg-card/50">
+                  <label className="text-xs font-semibold text-muted-foreground mb-2 block">Introdução / Descrição do Módulo</label>
+                  <Textarea 
+                    placeholder="Escreva um breve resumo do que os alunos vão aprender neste módulo..."
+                    className="h-20 resize-none text-sm"
+                    defaultValue={module.description || ""}
+                  />
+                </div>
+                
                 <div className="p-4 space-y-6">
                   {module.topics.map((topic, idx) => (
                     <div key={idx} className="bg-background border border-border rounded-lg p-4 space-y-4">
