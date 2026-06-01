@@ -20,37 +20,78 @@ function Landing() {
     <div className="min-h-screen bg-background font-sans">
       <Navbar />
 
-      {/* HERO SECTION - PERSUASIVE */}
-      <section className="relative overflow-hidden pt-24 pb-16">
-        <div className="absolute inset-0 -z-10 bg-gradient-hero" />
-        <div className="absolute inset-0 -z-10 opacity-[0.10] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:32px_32px]" />
+      {/* HERO SECTION - PERSUASIVE & PREMIUM */}
+      <section className="relative overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-28">
+        <div className="absolute inset-0 -z-10 bg-[#0A0A0A]" /> {/* Dark background for contrast */}
+        <div className="absolute inset-0 -z-10 bg-gradient-hero opacity-50" />
+        <div className="absolute inset-0 -z-10 opacity-[0.15] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:32px_32px]" />
 
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-4 py-1.5 text-sm font-medium text-coral backdrop-blur animate-fade-up">
-            <AlertTriangle className="h-4 w-4" />
-            O fim da insegurança nos plantões
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16 items-center">
+          <div className="flex flex-col justify-center text-left animate-fade-up">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-4 py-1.5 text-sm font-medium text-coral backdrop-blur">
+              <AlertTriangle className="h-4 w-4" />
+              O fim da insegurança nos plantões
+            </div>
+            
+            <h1 className="mt-6 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.1]">
+              A teoria não salva pacientes.<br/>
+              <span className="text-coral">A prática clínica, sim.</span>
+            </h1>
+            
+            <p className="mt-6 max-w-xl text-lg text-white/80 md:text-xl">
+              Aprenda a medicina do mundo real. Saiba exatamente o que fazer quando o tutor te olha esperando um milagre e descubra como comunicar seu diagnóstico para ter <strong>100% de adesão ao tratamento</strong>.
+            </p>
+            
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button asChild size="lg" className="h-14 bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral px-8 text-lg font-semibold rounded-xl transition-all hover:scale-105">
+                <a href="#oferta">
+                  Garantir minha vaga agora <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="h-14 border-white/20 bg-white/5 text-white hover:bg-white/10 px-8 text-lg rounded-xl backdrop-blur transition-all">
+                <a href="#metodo">
+                  Entender o método
+                </a>
+              </Button>
+            </div>
+            
+            <div className="mt-10 flex items-center gap-4 text-sm text-white/60 font-medium">
+              <div className="flex -space-x-2">
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=1" alt=""/>
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=2" alt=""/>
+                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=3" alt=""/>
+              </div>
+              <p>Junte-se a <strong className="text-white">12.450+</strong> veterinários</p>
+            </div>
           </div>
           
-          <h1 className="mt-8 font-display text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl animate-fade-up" style={{ animationDelay: '100ms' }}>
-            A teoria não salva pacientes.<br/>
-            <span className="text-coral">A prática clínica, sim.</span>
-          </h1>
-          
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80 md:text-xl animate-fade-up" style={{ animationDelay: '200ms' }}>
-            Aprenda a medicina do mundo real. Saiba exatamente o que fazer quando o tutor te olha esperando um milagre e descubra como comunicar seu diagnóstico para ter <strong>100% de adesão ao tratamento</strong>.
-          </p>
-          
-          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 animate-fade-up" style={{ animationDelay: '300ms' }}>
-            <Button asChild size="lg" className="h-14 bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral px-8 text-lg font-semibold rounded-xl">
-              <a href="#oferta">
-                Garantir minha vaga agora <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="h-14 border-white/20 bg-white/5 text-white hover:bg-white/10 px-8 text-lg rounded-xl">
-              <a href="#metodo">
-                Entender a metodologia
-              </a>
-            </Button>
+          <div className="relative animate-fade-up" style={{ animationDelay: '200ms' }}>
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl border border-white/10 group">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10"></div>
+              <img
+                src={heroImg}
+                alt="Veterinária examinando paciente"
+                className="h-[500px] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute bottom-6 left-6 right-6 z-20 rounded-2xl bg-white/10 p-5 backdrop-blur-md border border-white/20 shadow-xl">
+                <div className="flex items-center gap-4">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-coral text-white shadow-lg">
+                    <Play className="h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-display text-base font-bold text-white">Live agora · Ortopedia Clínica</div>
+                    <div className="text-sm text-white/80">Dr. Rodrigo Nicola · 234 assistindo</div>
+                  </div>
+                  <span className="rounded-full bg-coral/20 border border-coral/30 px-3 py-1.5 text-xs font-bold text-coral uppercase tracking-wider animate-pulse">
+                    AO VIVO
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Decorative element */}
+            <div className="absolute -top-6 -right-6 h-24 w-24 bg-coral/30 blur-2xl rounded-full z-0"></div>
+            <div className="absolute -bottom-10 -left-10 h-32 w-32 bg-primary/30 blur-2xl rounded-full z-0"></div>
           </div>
         </div>
       </section>
