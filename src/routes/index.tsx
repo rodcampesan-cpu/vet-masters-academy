@@ -22,7 +22,7 @@ function Landing() {
       <Navbar />
 
       {/* NEW HERO SECTION (OBJECTIVE & BRIGHT) */}
-      <section className="bg-secondary/30 pt-24 pb-20 lg:pt-32 lg:pb-28 overflow-hidden relative">
+      <section className="bg-secondary/30 pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden relative">
         <div className="absolute inset-0 -z-10 opacity-[0.4] [background-image:radial-gradient(circle_at_1px_1px,var(--tw-colors-coral-500)_1px,transparent_0)] [background-size:40px_40px]" />
         
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
