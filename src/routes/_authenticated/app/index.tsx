@@ -12,7 +12,11 @@ export const Route = createFileRoute("/_authenticated/app/")({
 function Dashboard() {
   const { user } = useAuth();
   const name = (user?.user_metadata?.full_name as string | undefined)?.split(" ")[0] || "veterinário(a)";
-  const continueCourse = courses[0];
+  
+  const myCourses = courses.filter(c => c.purchased);
+  const storeCourses = courses.filter(c => !c.purchased);
+  
+  const continueCourse = myCourses[0] || courses[0];
   const upcoming = courses.slice(1, 3);
 
   return (
@@ -66,7 +70,7 @@ function Dashboard() {
       <section>
         <SectionHeader title="Meus cursos" to="/app/courses" />
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {courses.map((c) => (
+          {myCourses.map((c) => (
             <Link
               key={c.id}
               to="/app/courses/$courseId"
@@ -88,6 +92,41 @@ function Dashboard() {
           ))}
         </div>
       </section>
+
+      {/* Store courses */}
+      {storeCourses.length > 0 && (
+        <section>
+          <div className="flex items-end justify-between">
+            <div>
+              <h2 className="font-display text-xl font-bold sm:text-2xl">Cursos Disponíveis</h2>
+              <p className="text-sm text-coral font-bold mt-1">Benefício de Aluno: 25% OFF em qualquer curso abaixo</p>
+            </div>
+            <Link to="/app/courses" className="text-sm font-medium text-coral hover:underline">Explorar loja →</Link>
+          </div>
+          <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {storeCourses.map((c) => (
+              <Link
+                key={c.id}
+                to="/app/courses/$courseId"
+                params={{ courseId: c.id }}
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-card transition hover:-translate-y-1 hover:shadow-elevated"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden opacity-80 group-hover:opacity-100 transition-opacity">
+                  <img src={c.cover} alt={c.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <div className="absolute top-3 left-3 bg-coral text-white text-[10px] font-black uppercase px-2 py-1 rounded-md shadow-lg">
+                    25% OFF Aluno
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-xs font-medium text-coral">{c.specialty}</p>
+                  <h3 className="mt-1 font-display text-sm font-semibold leading-snug line-clamp-2">{c.title}</h3>
+                  <p className="mt-2 text-xs text-muted-foreground">{c.teacher.name}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Live + AI */}
       <section className="grid gap-6 lg:grid-cols-2">

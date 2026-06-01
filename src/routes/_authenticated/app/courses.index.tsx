@@ -53,6 +53,11 @@ function CoursesPage() {
             <div className="relative aspect-[4/3] overflow-hidden">
               <img src={c.cover} alt={c.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold text-primary">{c.specialty}</span>
+              {!c.purchased && (
+                <div className="absolute bottom-3 right-3 bg-coral text-white text-xs font-black uppercase px-2 py-1 rounded-md shadow-lg animate-pulse">
+                  25% OFF Aluno
+                </div>
+              )}
             </div>
             <div className="p-4">
               <h3 className="font-display text-base font-semibold leading-snug line-clamp-2">{c.title}</h3>

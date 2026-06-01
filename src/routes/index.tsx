@@ -3,7 +3,7 @@ import { ArrowRight, Award, Brain, GraduationCap, Library, MessagesSquare, Play,
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/landing/Navbar";
 import heroImg from "@/assets/hero-vet.jpg";
-import drRodrigoImg from "@/assets/dr-rodrigo.png";
+import mentoriaFlixImg from "@/assets/mentoria-flix.png";
 import { courses, specialties, teachers } from "@/lib/courses-data";
 
 export const Route = createFileRoute("/")({
@@ -21,98 +21,23 @@ function Landing() {
     <div className="min-h-screen bg-background font-sans">
       <Navbar />
 
-      {/* HERO SECTION - PERSUASIVE & PREMIUM */}
-      <section className="relative overflow-hidden pt-24 pb-20 lg:pt-32 lg:pb-28">
-        <div className="absolute inset-0 -z-10 bg-[#0A0A0A]" /> {/* Dark background for contrast */}
-        <div className="absolute inset-0 -z-10 bg-gradient-hero opacity-50" />
-        <div className="absolute inset-0 -z-10 opacity-[0.15] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:32px_32px]" />
-
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:gap-16 items-center">
-          <div className="flex flex-col justify-center text-left animate-fade-up">
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-4 py-1.5 text-sm font-medium text-coral backdrop-blur">
-              <AlertTriangle className="h-4 w-4" />
-              O fim da insegurança nos plantões
-            </div>
-            
-            <h1 className="mt-6 font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.1]">
-              A teoria não salva pacientes.<br/>
-              <span className="text-coral">A prática clínica, sim.</span>
-            </h1>
-            
-            <p className="mt-6 max-w-xl text-lg text-white/80 md:text-xl">
-              Aprenda a medicina do mundo real. Saiba exatamente o que fazer quando o tutor te olha esperando um milagre e descubra como comunicar seu diagnóstico para ter <strong>100% de adesão ao tratamento</strong>.
-            </p>
-            
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Button asChild size="lg" className="h-14 bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral px-8 text-lg font-semibold rounded-xl transition-all hover:scale-105">
-                <a href="#oferta">
-                  Garantir minha vaga agora <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-14 border-white/20 bg-white/5 text-white hover:bg-white/10 px-8 text-lg rounded-xl backdrop-blur transition-all">
-                <a href="#metodo">
-                  Entender o método
-                </a>
-              </Button>
-            </div>
-            
-            <div className="mt-6 flex items-center gap-3 rounded-xl bg-coral/10 border border-coral/30 p-3 backdrop-blur-sm max-w-lg">
-              <Gift className="h-5 w-5 text-coral flex-shrink-0 animate-pulse" />
-              <p className="text-sm font-medium text-white/90">
-                <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Negócio de Sucesso com Mentoria Flix" <span className="font-bold text-green-400 bg-green-400/10 px-1 rounded">(Valor R$ 799)</span>.
-              </p>
-            </div>
-            
-            <div className="mt-8 flex items-center gap-4 text-sm text-white/60 font-medium">
-              <div className="flex -space-x-2">
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=1" alt=""/>
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=2" alt=""/>
-                <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=3" alt=""/>
-              </div>
-              <p>Junte-se a <strong className="text-white">12.450+</strong> veterinários</p>
-            </div>
-          </div>
-          
-          <div className="relative animate-fade-up" style={{ animationDelay: '200ms' }}>
-            <div className="relative overflow-hidden rounded-3xl shadow-2xl border border-white/10 group">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10"></div>
-              <img
-                src={heroImg}
-                alt="Veterinária examinando paciente"
-                className="h-[500px] w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute bottom-6 left-6 right-6 z-20 rounded-2xl bg-white/10 p-5 backdrop-blur-md border border-white/20 shadow-xl">
-                <div className="flex items-center gap-4">
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-coral text-white shadow-lg">
-                    <Play className="h-5 w-5" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-display text-base font-bold text-white">Live agora · Ortopedia Clínica</div>
-                    <div className="text-sm text-white/80">Dr. Rodrigo Nicola · 234 assistindo</div>
-                  </div>
-                  <span className="rounded-full bg-coral/20 border border-coral/30 px-3 py-1.5 text-xs font-bold text-coral uppercase tracking-wider animate-pulse">
-                    AO VIVO
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Decorative element */}
-            <div className="absolute -top-6 -right-6 h-24 w-24 bg-coral/30 blur-2xl rounded-full z-0"></div>
-            <div className="absolute -bottom-10 -left-10 h-32 w-32 bg-primary/30 blur-2xl rounded-full z-0"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* AGITATION & PROBLEM SECTION */}
-      <section id="metodo" className="bg-secondary/30 py-24">
+      {/* NEW HERO SECTION (OBJECTIVE & BRIGHT) */}
+      <section className="bg-secondary/30 pt-24 pb-20 lg:pt-32 lg:pb-28 overflow-hidden relative">
+        <div className="absolute inset-0 -z-10 opacity-[0.4] [background-image:radial-gradient(circle_at_1px_1px,var(--tw-colors-coral-500)_1px,transparent_0)] [background-size:40px_40px]" />
+        
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="font-display text-3xl font-bold sm:text-4xl text-foreground">
-                A faculdade te ensinou a anatomia. Mas quem te ensina a lidar com o tutor desesperado?
-              </h2>
-              <div className="mt-8 space-y-6">
+            <div className="animate-fade-up">
+              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-4 py-1.5 text-sm font-medium text-coral backdrop-blur mb-6">
+                <AlertTriangle className="h-4 w-4" />
+                O fim da insegurança nos plantões
+              </div>
+              <h1 className="font-display text-4xl font-extrabold sm:text-5xl lg:text-6xl text-foreground leading-[1.1]">
+                A faculdade te ensinou a anatomia. <br/>
+                <span className="text-coral">Mas quem te ensina a lidar com o tutor desesperado?</span>
+              </h1>
+              
+              <div className="mt-8 space-y-4">
                 {[
                   "Você tem medo de fechar um diagnóstico complexo na frente do cliente?",
                   "Você prescreve o tratamento, mas o tutor não adere porque não entendeu o valor?",
@@ -120,21 +45,50 @@ function Landing() {
                 ].map((text, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="flex-shrink-0 mt-1">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-                        <AlertTriangle className="h-4 w-4" />
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500/10 text-red-500">
+                        <AlertTriangle className="h-3 w-3" />
                       </div>
                     </div>
-                    <p className="text-lg text-muted-foreground">{text}</p>
+                    <p className="text-base text-muted-foreground">{text}</p>
                   </div>
                 ))}
               </div>
+              
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Button asChild size="lg" className="h-14 bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral px-8 text-lg font-semibold rounded-xl transition-all hover:scale-105">
+                  <a href="#oferta">
+                    Garantir minha vaga agora <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="h-14 border-border bg-card text-foreground hover:bg-secondary px-8 text-lg rounded-xl transition-all">
+                  <a href="#metodo">
+                    Ver a metodologia
+                  </a>
+                </Button>
+              </div>
+              
+              <div className="mt-6 flex items-center gap-3 rounded-xl bg-coral/10 border border-coral/20 p-3 max-w-lg">
+                <Gift className="h-5 w-5 text-coral flex-shrink-0 animate-pulse" />
+                <p className="text-sm font-medium text-foreground">
+                  <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Negócio de Sucesso com Mentoria Flix" <span className="font-bold text-green-600 bg-green-100 px-1 rounded">(Valor R$ 799)</span>.
+                </p>
+              </div>
+              
+              <div className="mt-8 flex items-center gap-4 text-sm text-muted-foreground font-medium">
+                <div className="flex -space-x-2">
+                  <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=1" alt=""/>
+                  <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=2" alt=""/>
+                  <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=3" alt=""/>
+                </div>
+                <p>Junte-se a <strong className="text-foreground">12.450+</strong> veterinários</p>
+              </div>
             </div>
             
-            <div className="relative">
+            <div className="relative animate-fade-up" style={{ animationDelay: '200ms' }}>
               <div className="absolute -inset-4 bg-gradient-to-r from-coral/20 to-primary/20 rounded-3xl blur-2xl opacity-50"></div>
-              <img src={heroImg} alt="Veterinário atendendo" className="relative rounded-2xl shadow-2xl border border-white/10" />
+              <img src={heroImg} alt="Veterinário atendendo" className="relative rounded-2xl shadow-2xl border border-border" />
               
-              <div className="absolute -bottom-6 -left-6 bg-card border border-border p-5 rounded-2xl shadow-xl flex items-center gap-4 max-w-xs">
+              <div className="absolute -bottom-6 -left-6 bg-card border border-border p-5 rounded-2xl shadow-xl flex items-center gap-4 max-w-xs z-10">
                 <div className="bg-green-500/10 p-3 rounded-full text-green-500">
                   <CheckCircle className="h-6 w-6" />
                 </div>
@@ -143,13 +97,28 @@ function Landing() {
                   <p className="text-xs text-muted-foreground">Tutores engajados e tratamentos aprovados.</p>
                 </div>
               </div>
+              
+              <div className="absolute top-6 right-6 z-20 rounded-2xl bg-white/90 p-4 backdrop-blur-md border border-white/20 shadow-xl hidden sm:block">
+                <div className="flex items-center gap-3">
+                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-coral text-white shadow-lg">
+                    <Play className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <div className="font-display text-sm font-bold text-gray-900">Live agora</div>
+                    <div className="text-xs text-gray-500">234 assistindo</div>
+                  </div>
+                  <span className="rounded-full bg-coral/10 border border-coral/30 px-2 py-1 text-[10px] font-bold text-coral uppercase tracking-wider animate-pulse ml-2">
+                    AO VIVO
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* SOLUTION / DIFFERENTIATORS */}
-      <section className="py-24 bg-card">
+      <section id="metodo" className="py-24 bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
             A tríade do Médico Veterinário de Alto Valor
@@ -195,7 +164,7 @@ function Landing() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1 relative">
               <div className="absolute inset-0 bg-coral/20 rounded-3xl blur-2xl transform rotate-3" />
-              <img src={drRodrigoImg} alt="Dr. Rodrigo Nicola" className="relative rounded-3xl shadow-xl w-full max-w-md mx-auto" />
+              <img src={mentoriaFlixImg} alt="Mentoria Flix Método P.E.T." className="relative rounded-3xl shadow-xl w-full max-w-2xl mx-auto object-cover border border-border" />
             </div>
             <div className="order-1 lg:order-2">
               <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-bold text-blue-800 mb-6 uppercase tracking-wider">

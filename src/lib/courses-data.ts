@@ -28,6 +28,7 @@ export interface Course {
   teacher: Teacher;
   level: "Iniciante" | "Intermediário" | "Avançado";
   featured?: boolean;
+  purchased?: boolean;
 }
 
 export const teachers: Teacher[] = [
@@ -51,6 +52,7 @@ export const courses: Course[] = [
     teacher: teachers[0],
     level: "Avançado",
     featured: true,
+    purchased: true,
   },
   {
     id: "neurologia-essencial",
@@ -66,6 +68,7 @@ export const courses: Course[] = [
     progress: 0,
     teacher: teachers[1],
     level: "Avançado",
+    purchased: false,
   },
 ];
 
