@@ -33,7 +33,6 @@ export interface Course {
 export const teachers: Teacher[] = [
   { id: "t1", name: "Dr. Rodrigo Nicola", title: "Médico Veterinário de Respeito", specialty: "Ortopedia e Neurocirurgia", avatar: t1 },
   { id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia", specialty: "Neurologista e Neurocirurgião", avatar: t2 },
-  { id: "t3", name: "Dra. Camila Souza", title: "Especialista em Cardiologia", specialty: "Cardiologista Veterinária", avatar: t3 },
 ];
 
 export const courses: Course[] = [
