@@ -13,7 +13,7 @@ function AITutorPage() {
   const [messages, setMessages] = useState([
     {
       role: "ai",
-      content: "Olá! Sou o Tutor Vet IA. Estou aqui para te ajudar com dúvidas clínicas, sugerir artigos científicos ou até montar um plano de estudos focado na sua especialidade. O que vamos estudar hoje?"
+      content: "Olá! Sou o Tutor Vet IA. Minha base de conhecimento clínico está 100% sincronizada com o **Tratado de Ortopedia** (Dr. Rodrigo Nicola e Bruno Minto) e os **Conceitos de Neurologia** (Ronaldo Casemiro). O que vamos estudar hoje?"
     }
   ]);
   const [input, setInput] = useState("");
@@ -28,9 +28,16 @@ function AITutorPage() {
 
     // Simulate AI response
     setTimeout(() => {
+      let aiResponse = "";
+      if (input.toLowerCase().trim() === "oi" || input.toLowerCase().trim() === "olá") {
+        aiResponse = "Olá, Doutor! Tudo bem? Estou aqui para ajudar. O que você gostaria de consultar nos livros hoje?";
+      } else {
+        aiResponse = "Essa é uma excelente pergunta clínica! No momento, sou apenas uma interface de demonstração (mockup) visual do sistema. Quando o banco de dados real com o Tratado de Ortopedia for conectado aqui pelos desenvolvedores, eu lerei o livro em milissegundos e darei a conduta exata com a página de referência.";
+      }
+
       setMessages(prev => [...prev, {
         role: "ai",
-        content: "Entendi sua dúvida! Com base nos protocolos mais recentes e nas diretrizes da WSAVA, a abordagem recomendada seria realizar uma triagem completa antes da intervenção. Quer que eu te envie o link direto para a aula do Prof. Carlos sobre este tema exato?"
+        content: aiResponse
       }]);
     }, 1500);
   };

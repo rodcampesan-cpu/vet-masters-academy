@@ -38,8 +38,7 @@ function Landing() {
               <span className="text-coral">Eleve sua carreira.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-white/75">
-              A plataforma premium de ensino veterinário com cursos de especialistas,
-              casos clínicos interativos, biblioteca completa e o seu próprio Tutor Vet IA.
+              Eleve sua carreira e domine os conceitos fundamentais do atendimento clínico com excelência.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
