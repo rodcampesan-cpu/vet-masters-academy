@@ -55,7 +55,14 @@ function Landing() {
               </Button>
             </div>
             
-            <div className="mt-10 flex items-center gap-4 text-sm text-white/60 font-medium">
+            <div className="mt-6 flex items-center gap-3 rounded-xl bg-coral/10 border border-coral/30 p-3 backdrop-blur-sm max-w-lg">
+              <Gift className="h-5 w-5 text-coral flex-shrink-0 animate-pulse" />
+              <p className="text-sm font-medium text-white/90">
+                <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Negócio de Sucesso com Mentoria Flix".
+              </p>
+            </div>
+            
+            <div className="mt-8 flex items-center gap-4 text-sm text-white/60 font-medium">
               <div className="flex -space-x-2">
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=1" alt=""/>
                 <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#0A0A0A] object-cover" src="https://i.pravatar.cc/100?img=2" alt=""/>
@@ -208,10 +215,10 @@ function Landing() {
                   <div className="flex items-start gap-4">
                     <Store className="h-8 w-8 text-coral shrink-0 mt-1" />
                     <div>
-                      <h3 className="text-xl font-bold text-white">Mentoria Rodrigo Nicola Delgado</h3>
-                      <p className="text-coral text-sm font-bold mt-1 tracking-wider uppercase">Bônus Exclusivo e Restrito</p>
+                      <h3 className="text-xl font-bold text-white">Como montar seu Negócio de Sucesso</h3>
+                      <p className="text-coral text-sm font-bold mt-1 tracking-wider uppercase">Bônus Exclusivo: Mentoria Flix</p>
                       <p className="mt-3 text-white/70">
-                        Um treinamento completo com o mapa exato de <strong>"Como montar seu Pet Shop"</strong> do zero ao lucro. Aprenda gestão, estruturação, contratação e vendas com quem já construiu impérios na medicina veterinária.
+                        Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gestão, estruturação, contratação e vendas com quem já construiu impérios na medicina veterinária.
                       </p>
                     </div>
                   </div>
@@ -241,7 +248,7 @@ function Landing() {
                     "Acesso completo à plataforma",
                     "Biblioteca e Casos Interativos",
                     "Acesso ilimitado ao Tutor Vet IA",
-                    "Mentoria Pet Shop (Se estiver entre os 15)"
+                    "Mentoria Flix: Negócio de Sucesso (Para os 15 primeiros)"
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
                       <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
