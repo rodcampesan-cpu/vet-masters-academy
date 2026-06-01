@@ -176,17 +176,35 @@ function CourseDetail() {
 
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-2xl border border-border bg-card p-5 shadow-card">
-            <div className="text-xs font-medium text-muted-foreground">Seu progresso</div>
-            <div className="mt-2 flex items-baseline gap-2">
-              <span className="font-display text-3xl font-bold">{c.progress}%</span>
-              <span className="text-xs text-muted-foreground">completo</span>
-            </div>
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-secondary">
-              <div className="h-full bg-coral" style={{ width: `${c.progress}%` }} />
-            </div>
-            <Button className="mt-5 w-full bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
-              <Play className="mr-2 h-4 w-4" /> {c.progress > 0 ? "Continuar" : "Começar agora"}
-            </Button>
+            {c.purchased !== false ? (
+              <>
+                <div className="text-xs font-medium text-muted-foreground">Seu progresso</div>
+                <div className="mt-2 flex items-baseline gap-2">
+                  <span className="font-display text-3xl font-bold">{c.progress}%</span>
+                  <span className="text-xs text-muted-foreground">completo</span>
+                </div>
+                <div className="mt-3 h-2 overflow-hidden rounded-full bg-secondary">
+                  <div className="h-full bg-coral" style={{ width: `${c.progress}%` }} />
+                </div>
+                <Button className="mt-5 w-full bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
+                  <Play className="mr-2 h-4 w-4" /> {c.progress > 0 ? "Continuar" : "Começar agora"}
+                </Button>
+              </>
+            ) : (
+              <>
+                <div className="text-xs font-bold text-coral uppercase tracking-wider mb-2 animate-pulse flex items-center gap-1">
+                  <Trophy className="h-3 w-3" /> Benefício Aluno: 25% OFF
+                </div>
+                <div className="text-xs text-muted-foreground line-through">De R$ 997,00</div>
+                <div className="font-display text-3xl font-black text-foreground mb-1">R$ 747<span className="text-lg text-muted-foreground">,75</span></div>
+                <p className="text-xs text-muted-foreground">Pagamento único. 1 Ano de Acesso.</p>
+                <Link to="/checkout/$courseId" params={{ courseId: c.id }}>
+                  <Button className="mt-5 w-full bg-green-500 text-white hover:bg-green-600 shadow-xl shadow-green-500/20 font-bold">
+                    Desbloquear Curso Agora
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-5 shadow-card">

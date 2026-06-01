@@ -179,11 +179,18 @@ function CheckoutPage() {
                 <div className="flex justify-between items-end mb-6">
                   <div>
                     <p className="text-sm text-slate-500 line-through">De R$ 2.997,00</p>
-                    <p className="text-xs font-semibold text-coral mt-1">Oferta Especial com Bônus</p>
+                    <p className="text-xs font-semibold text-coral mt-1">
+                      {course.purchased === false ? "Benefício Aluno: 25% OFF" : "Oferta Especial com Bônus"}
+                    </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-display font-black text-3xl text-slate-900">R$ 997<span className="text-lg text-slate-500">,00</span></p>
-                    <p className="text-xs font-bold text-slate-500">ou 12x de R$ 97,50</p>
+                    <p className="font-display font-black text-3xl text-slate-900">
+                      R$ {course.purchased === false ? "747" : "997"}
+                      <span className="text-lg text-slate-500">,75</span>
+                    </p>
+                    <p className="text-xs font-bold text-slate-500">
+                      ou 12x de R$ {course.purchased === false ? "74" : "97"},50
+                    </p>
                   </div>
                 </div>
 
