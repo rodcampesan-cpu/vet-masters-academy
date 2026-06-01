@@ -75,22 +75,6 @@ export const courses: Course[] = [
     purchased: false,
   },
   {
-    id: "mentoria-flix",
-    title: "Mentoria Flix: Método P.E.T.",
-    specialty: "Gestão",
-    description: "Transforme seu negócio pet. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.",
-    cover: mentoriaFlixImg,
-    hours: 20,
-    modules: 8,
-    lessons: 30,
-    students: 350,
-    progress: 0,
-    teacher: teachers[0],
-    level: "Avançado",
-    purchased: false,
-    externalLink: "https://mentoriaflix.com.br", // Link externo hipotético para a plataforma
-  },
-  {
     id: "hematologia-clinica",
     title: "Hematologia Descomplicada",
     specialty: "Hematologia",
@@ -119,6 +103,22 @@ export const courses: Course[] = [
     teacher: teachers[3],
     level: "Avançado",
     purchased: false,
+  },
+  {
+    id: "mentoria-flix",
+    title: "Mentoria Flix: Método P.E.T.",
+    specialty: "Gestão",
+    description: "Transforme seu negócio pet. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.",
+    cover: mentoriaFlixImg,
+    hours: 20,
+    modules: 8,
+    lessons: 30,
+    students: 350,
+    progress: 0,
+    teacher: teachers[0],
+    level: "Avançado",
+    purchased: false,
+    externalLink: "https://mentoriaflix.com.br", // Link externo hipotético para a plataforma
   },
 ];
 
