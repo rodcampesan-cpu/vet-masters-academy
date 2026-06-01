@@ -85,13 +85,13 @@ export const courses: Course[] = [
     progress: 0,
     teacher: teachers[0],
     level: "Avançado",
-    purchased: true,
+    purchased: false,
     externalLink: "https://mentoriaflix.com.br", // Link externo hipotético para a plataforma
   },
 ];
 
 export const specialties = [
-  "Ortopedia", "Neurologia"
+  "Ortopedia", "Neurologia", "Gestão"
 ];
 
 export const ortopediaModules = [
