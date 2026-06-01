@@ -190,6 +190,22 @@ function CourseDetail() {
                   <Play className="mr-2 h-4 w-4" /> {c.progress > 0 ? "Continuar" : "Começar agora"}
                 </Button>
               </>
+            ) : c.id === 'mentoria-flix' ? (
+              <>
+                <div className="text-xs font-bold text-coral uppercase tracking-wider mb-2 animate-pulse flex items-center gap-1">
+                  <Trophy className="h-3 w-3" /> Bônus Exclusivo
+                </div>
+                <div className="text-xs text-muted-foreground line-through">De R$ 799,00</div>
+                <div className="font-display text-3xl font-black text-green-500 mb-2">GRÁTIS</div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Este curso não é vendido separadamente. Ele é <strong>desbloqueado automaticamente por 6 meses</strong> na compra de qualquer um dos cursos: Ortopedia, Neurologia, Hematologia ou Emergência Médica.
+                </p>
+                <Link to="/app/courses">
+                  <Button className="mt-5 w-full bg-coral text-white hover:bg-coral/90 shadow-xl shadow-coral/20 font-bold">
+                    Ver Cursos Elegíveis
+                  </Button>
+                </Link>
+              </>
             ) : (
               <>
                 <div className="text-xs font-bold text-coral uppercase tracking-wider mb-2 animate-pulse flex items-center gap-1">
