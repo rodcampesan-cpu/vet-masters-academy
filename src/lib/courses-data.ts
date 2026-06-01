@@ -5,6 +5,7 @@ import neuro from "@/assets/course-neuro.jpg";
 import t1 from "@/assets/dr-rodrigo.png";
 import t2 from "@/assets/teacher-2.jpg";
 import t3 from "@/assets/teacher-3.jpg";
+import mentoriaFlixImg from "@/assets/mentoria-flix.png";
 
 export interface Teacher {
   id: string;
@@ -29,6 +30,7 @@ export interface Course {
   level: "Iniciante" | "Intermediário" | "Avançado";
   featured?: boolean;
   purchased?: boolean;
+  externalLink?: string;
 }
 
 export const teachers: Teacher[] = [
@@ -69,6 +71,22 @@ export const courses: Course[] = [
     teacher: teachers[1],
     level: "Avançado",
     purchased: false,
+  },
+  {
+    id: "mentoria-flix",
+    title: "Mentoria Flix: Método P.E.T.",
+    specialty: "Gestão",
+    description: "Transforme seu negócio pet. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.",
+    cover: mentoriaFlixImg,
+    hours: 20,
+    modules: 8,
+    lessons: 30,
+    students: 350,
+    progress: 0,
+    teacher: teachers[0],
+    level: "Avançado",
+    purchased: true,
+    externalLink: "https://mentoriaflix.com.br", // Link externo hipotético para a plataforma
   },
 ];
 

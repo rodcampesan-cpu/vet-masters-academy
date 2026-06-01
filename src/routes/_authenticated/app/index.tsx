@@ -70,26 +70,49 @@ function Dashboard() {
       <section>
         <SectionHeader title="Meus cursos" to="/app/courses" />
         <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {myCourses.map((c) => (
-            <Link
-              key={c.id}
-              to="/app/courses/$courseId"
-              params={{ courseId: c.id }}
-              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-card transition hover:-translate-y-1 hover:shadow-elevated"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={c.cover} alt={c.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-                <div className="absolute inset-x-0 bottom-0 h-1.5 bg-white/20">
-                  <div className="h-full bg-coral" style={{ width: `${c.progress}%` }} />
+          {myCourses.map((c) => {
+            const isExternal = !!c.externalLink;
+            const cardContent = (
+              <>
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img src={c.cover} alt={c.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-x-0 bottom-0 h-1.5 bg-white/20">
+                    <div className="h-full bg-coral" style={{ width: `${c.progress}%` }} />
+                  </div>
                 </div>
-              </div>
-              <div className="p-4">
-                <p className="text-xs font-medium text-coral">{c.specialty}</p>
-                <h3 className="mt-1 font-display text-sm font-semibold leading-snug line-clamp-2">{c.title}</h3>
-                <p className="mt-2 text-xs text-muted-foreground">{c.teacher.name}</p>
-              </div>
-            </Link>
-          ))}
+                <div className="p-4">
+                  <p className="text-xs font-medium text-coral">{c.specialty}</p>
+                  <h3 className="mt-1 font-display text-sm font-semibold leading-snug line-clamp-2">{c.title}</h3>
+                  <p className="mt-2 text-xs text-muted-foreground">{c.teacher.name}</p>
+                </div>
+              </>
+            );
+
+            if (isExternal) {
+              return (
+                <a
+                  key={c.id}
+                  href={c.externalLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group overflow-hidden rounded-2xl border border-border bg-card shadow-card transition hover:-translate-y-1 hover:shadow-elevated"
+                >
+                  {cardContent}
+                </a>
+              );
+            }
+
+            return (
+              <Link
+                key={c.id}
+                to="/app/courses/$courseId"
+                params={{ courseId: c.id }}
+                className="group overflow-hidden rounded-2xl border border-border bg-card shadow-card transition hover:-translate-y-1 hover:shadow-elevated"
+              >
+                {cardContent}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
