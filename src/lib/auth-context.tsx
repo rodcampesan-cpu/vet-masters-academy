@@ -13,26 +13,32 @@ interface AuthCtx {
 const AuthContext = createContext<AuthCtx | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  // Start without a user to force the login screen
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Autenticação mockada para não exigir Supabase/Lovable Cloud agora.
+    // Busca a sessão inicial
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    // Escuta mudanças (login, logout)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const signOut = async () => {
-    setSession(null);
+    await supabase.auth.signOut();
   };
 
-  const loginAs = (role: "student" | "teacher" | "admin", customEmail?: string) => {
-    const mockUsers = {
-      student: { id: "student-1", email: customEmail || "aluno@vetclass.com", user_metadata: { full_name: "Aluno", role: "student" } },
-      teacher: { id: "teacher-1", email: customEmail || "prof@vetclass.com", user_metadata: { full_name: customEmail?.toLowerCase().trim() === "namdias02@gmail.com" ? "Dr. Renan Dias" : "Prof. Especialista", role: "teacher" } },
-      admin: { id: "admin-1", email: customEmail || "admin@vetclass.com", user_metadata: { full_name: "Administrador", role: "admin" } },
-    };
-    
-    setSession({ user: mockUsers[role] } as any);
+  const loginAs = () => {
+    // Não usamos mais isso, o Supabase gerencia o login!
+    console.warn("A função loginAs não é mais utilizada. Use o formulário de login.");
   };
 
   return (

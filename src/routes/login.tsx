@@ -32,27 +32,20 @@ function LoginPage() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
-    // Validação da senha exigida pelo usuário
-    const isRenan = email.toLowerCase().trim() === "namdias02@gmail.com";
-    if (password !== "123456" && !(isRenan && password === "R12345")) {
-      toast.error("Senha incorreta. A senha para testes é 123456.");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      toast.error(error.message === "Invalid login credentials" ? "E-mail ou senha incorretos." : error.message);
       setLoading(false);
       return;
     }
 
-    // Simulação rápida: Verifica o email para definir o perfil
-    setTimeout(() => {
-      if (email.toLowerCase().includes("admin") || email.toLowerCase().includes("mimoshow10")) {
-        loginAs("admin", email);
-      } else if (email.toLowerCase().includes("prof") || email.toLowerCase().includes("teacher") || isRenan) {
-        loginAs("teacher", email);
-      } else {
-        loginAs("student", email); // Padrão: Aluno
-      }
-      toast.success("Bem-vindo de volta!");
-      setLoading(false);
-    }, 800);
+    toast.success("Bem-vindo de volta!");
+    // O useEffect já vai cuidar do redirecionamento
   };
 
   const onGoogle = async () => {
