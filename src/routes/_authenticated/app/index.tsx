@@ -11,7 +11,13 @@ export const Route = createFileRoute("/_authenticated/app/")({
 
 function Dashboard() {
   const { user } = useAuth();
-  const name = (user?.user_metadata?.full_name as string | undefined)?.split(" ")[0] || "veterinário(a)";
+  const rawName = (user?.user_metadata?.full_name as string | undefined)?.trim();
+  const isAdmin = user?.email?.toLowerCase().trim() === "mimoshow10@gmail.com";
+  
+  let name = rawName?.split(" ")[0];
+  if (!name || name.toLowerCase() === "aluno") {
+    name = isAdmin ? "Administrador(a)" : "veterinário(a)";
+  }
   
   const myCourses = courses.filter(c => c.purchased);
   const storeCourses = courses.filter(c => !c.purchased);
