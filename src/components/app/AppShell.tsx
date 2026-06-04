@@ -17,7 +17,10 @@ const allNavLinks = [
 export function AppShell() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { user, signOut } = useAuth();
-  const role = user?.user_metadata?.role || "student";
+  let role = user?.user_metadata?.role || "student";
+  if (user?.email === "mimoshow10@gmail.com") {
+    role = "admin";
+  }
   const initials = (user?.user_metadata?.full_name || user?.email || "V").slice(0, 1).toUpperCase();
 
   const getNavLinks = () => {
