@@ -25,11 +25,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSession(null);
   };
 
-  const loginAs = (role: "student" | "teacher" | "admin") => {
+  const loginAs = (role: "student" | "teacher" | "admin", customEmail?: string) => {
     const mockUsers = {
-      student: { id: "student-1", email: "aluno@vetclass.com", user_metadata: { full_name: "Aluno Exemplo", role: "student" } },
-      teacher: { id: "teacher-1", email: "prof@vetclass.com", user_metadata: { full_name: "Prof. Especialista", role: "teacher" } },
-      admin: { id: "admin-1", email: "admin@vetclass.com", user_metadata: { full_name: "Administrador", role: "admin" } },
+      student: { id: "student-1", email: customEmail || "aluno@vetclass.com", user_metadata: { full_name: "Aluno", role: "student" } },
+      teacher: { id: "teacher-1", email: customEmail || "prof@vetclass.com", user_metadata: { full_name: "Prof. Especialista", role: "teacher" } },
+      admin: { id: "admin-1", email: customEmail || "admin@vetclass.com", user_metadata: { full_name: "Administrador", role: "admin" } },
     };
     
     setSession({ user: mockUsers[role] } as any);

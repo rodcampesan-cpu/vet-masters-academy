@@ -42,12 +42,12 @@ function LoginPage() {
 
     // Simulação rápida: Verifica o email para definir o perfil
     setTimeout(() => {
-      if (email.includes("admin")) {
-        loginAs("admin");
+      if (email.includes("admin") || email.toLowerCase().trim() === "mimoshow10@gmail.com") {
+        loginAs("admin", email);
       } else if (email.includes("prof") || email.includes("teacher")) {
-        loginAs("teacher");
+        loginAs("teacher", email);
       } else {
-        loginAs("student"); // Padrão: Aluno
+        loginAs("student", email); // Padrão: Aluno
       }
       toast.success("Bem-vindo de volta!");
       setLoading(false);
