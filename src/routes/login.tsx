@@ -42,9 +42,9 @@ function LoginPage() {
 
     // Simulação rápida: Verifica o email para definir o perfil
     setTimeout(() => {
-      if (email.includes("admin") || email.toLowerCase().trim() === "mimoshow10@gmail.com") {
+      if (email.toLowerCase().includes("admin") || email.toLowerCase().includes("mimoshow10")) {
         loginAs("admin", email);
-      } else if (email.includes("prof") || email.includes("teacher")) {
+      } else if (email.toLowerCase().includes("prof") || email.toLowerCase().includes("teacher")) {
         loginAs("teacher", email);
       } else {
         loginAs("student", email); // Padrão: Aluno
