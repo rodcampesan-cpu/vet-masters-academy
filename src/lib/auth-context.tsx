@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loginAs = (role: "student" | "teacher" | "admin", customEmail?: string) => {
     const mockUsers = {
       student: { id: "student-1", email: customEmail || "aluno@vetclass.com", user_metadata: { full_name: "Aluno", role: "student" } },
-      teacher: { id: "teacher-1", email: customEmail || "prof@vetclass.com", user_metadata: { full_name: "Prof. Especialista", role: "teacher" } },
+      teacher: { id: "teacher-1", email: customEmail || "prof@vetclass.com", user_metadata: { full_name: customEmail?.toLowerCase().trim() === "namdias02@gmail.com" ? "Dr. Renan Dias" : "Prof. Especialista", role: "teacher" } },
       admin: { id: "admin-1", email: customEmail || "admin@vetclass.com", user_metadata: { full_name: "Administrador", role: "admin" } },
     };
     

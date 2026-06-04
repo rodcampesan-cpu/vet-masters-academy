@@ -34,7 +34,8 @@ function LoginPage() {
     setLoading(true);
     
     // Validação da senha exigida pelo usuário
-    if (password !== "123456") {
+    const isRenan = email.toLowerCase().trim() === "namdias02@gmail.com";
+    if (password !== "123456" && !(isRenan && password === "R12345")) {
       toast.error("Senha incorreta. A senha para testes é 123456.");
       setLoading(false);
       return;
@@ -44,7 +45,7 @@ function LoginPage() {
     setTimeout(() => {
       if (email.toLowerCase().includes("admin") || email.toLowerCase().includes("mimoshow10")) {
         loginAs("admin", email);
-      } else if (email.toLowerCase().includes("prof") || email.toLowerCase().includes("teacher")) {
+      } else if (email.toLowerCase().includes("prof") || email.toLowerCase().includes("teacher") || isRenan) {
         loginAs("teacher", email);
       } else {
         loginAs("student", email); // Padrão: Aluno
