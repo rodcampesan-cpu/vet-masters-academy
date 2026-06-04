@@ -105,6 +105,9 @@ export function AppShell() {
               <Bell className="h-5 w-5" />
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-coral" />
             </Button>
+            <div className="hidden lg:flex items-center gap-2 rounded-full bg-secondary/50 px-3 py-1 mr-2 text-xs font-mono text-muted-foreground">
+              {user?.email || "Sem email"}
+            </div>
             <div className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground font-display text-sm font-semibold">
               {initials}
             </div>
