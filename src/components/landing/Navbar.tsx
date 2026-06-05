@@ -37,10 +37,9 @@ export function Navbar() {
           </span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
-          <a href="#cursos" className="text-sm font-medium text-muted-foreground hover:text-foreground transition">Cursos</a>
-          <a href="#especialidades" className="text-sm font-medium text-muted-foreground hover:text-foreground transition">Especialidades</a>
-          <a href="#professores" className="text-sm font-medium text-muted-foreground hover:text-foreground transition">Professores</a>
-          <a href="#beneficios" className="text-sm font-medium text-muted-foreground hover:text-foreground transition">Benefícios</a>
+          <Link to="/cursos" className="text-sm font-medium text-coral hover:text-coral/80 transition">Ver Cursos</Link>
+          <a href="#metodo" className="text-sm font-medium text-muted-foreground hover:text-foreground transition">Metodologia</a>
+          <a href="#oferta" className="text-sm font-medium text-muted-foreground hover:text-foreground transition">Benefícios</a>
         </nav>
         <div className="flex items-center gap-2">
           {deferredPrompt && (

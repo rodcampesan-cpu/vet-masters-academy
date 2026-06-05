@@ -11,11 +11,17 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({ meta: [{ title: "Criar conta — VetClass Pro" }] }),
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      redirect: search.redirect as string | undefined,
+    };
+  },
   component: SignupPage,
 });
 
 function SignupPage() {
   const navigate = useNavigate();
+  const search = Route.useSearch();
   const { user } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,17 +29,25 @@ function SignupPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) navigate({ to: "/app" });
-  }, [user, navigate]);
+    if (user) {
+      if (search.redirect) {
+        navigate({ to: search.redirect });
+      } else {
+        navigate({ to: "/app" });
+      }
+    }
+  }, [user, navigate, search.redirect]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    const redirectTo = search.redirect ? window.location.origin + search.redirect : window.location.origin + "/app";
+    
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: window.location.origin + "/app",
+        emailRedirectTo: redirectTo,
         data: { full_name: name },
       },
     });

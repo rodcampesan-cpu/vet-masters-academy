@@ -61,9 +61,9 @@ function Landing() {
                   </a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-14 border-border bg-card text-foreground hover:bg-secondary px-8 text-lg rounded-xl transition-all">
-                  <a href="#metodo">
-                    Ver a metodologia
-                  </a>
+                  <Link to="/cursos">
+                    Ver Catálogo de Cursos
+                  </Link>
                 </Button>
               </div>
               

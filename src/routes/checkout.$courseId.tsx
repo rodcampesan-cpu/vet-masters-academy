@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
+import { useAuth } from "@/lib/auth-context";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -21,7 +23,15 @@ export const Route = createFileRoute("/checkout/$courseId")({
 function CheckoutPage() {
   const { course } = Route.useLoaderData();
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      toast.error("Por favor, crie sua conta para prosseguir com a compra.");
+      navigate({ to: "/signup", search: { redirect: `/checkout/${course.id}` } });
+    }
+  }, [user, authLoading, navigate, course.id]);
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
