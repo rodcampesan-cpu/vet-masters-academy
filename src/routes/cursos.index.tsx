@@ -4,7 +4,7 @@ import { Search, Stethoscope, ArrowRight } from "lucide-react";
 import { courses, specialties } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/cursos")({
+export const Route = createFileRoute("/cursos/")({
   head: () => ({ meta: [{ title: "Catálogo de Cursos — VetClass Pro" }] }),
   component: PublicCoursesPage,
 });
@@ -68,8 +68,8 @@ function PublicCoursesPage() {
           {filtered.map((c) => (
             <Link
               key={c.id}
-              to="/signup"
-              search={{ redirect: `/checkout/${c.id}` }}
+              to="/cursos/$courseId"
+              params={{ courseId: c.id }}
               className="group overflow-hidden rounded-3xl border border-border bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col h-full"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
@@ -93,7 +93,7 @@ function PublicCoursesPage() {
               <div className="p-5 flex flex-col flex-grow">
                 <h3 className="font-display text-lg font-bold leading-tight mb-3 line-clamp-2">{c.title}</h3>
                 
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-6">
                   <img src={c.teacher.avatar} alt="" className="h-8 w-8 rounded-full object-cover border border-slate-100" />
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Professor</span>
@@ -102,17 +102,8 @@ function PublicCoursesPage() {
                 </div>
                 
                 <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    {c.id !== 'mentoria-flix' ? (
-                      <>
-                        <span className="text-[10px] text-slate-400 line-through">R$ 997,00</span>
-                        <span className="font-display font-black text-lg text-slate-900">R$ 747,75</span>
-                      </>
-                    ) : (
-                      <span className="font-display font-black text-lg text-green-600">GRÁTIS</span>
-                    )}
-                  </div>
-                  <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-coral/10 text-coral group-hover:bg-coral group-hover:text-white transition-colors">
+                  <span className="text-sm font-bold text-coral group-hover:text-coral/80 transition-colors">Ver Detalhes do Curso</span>
+                  <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-coral/10 text-coral group-hover:bg-coral group-hover:text-white transition-colors pointer-events-none">
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </div>

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Users, Activity, ShieldAlert, DollarSign, Search, GraduationCap, BookOpen, MoreVertical, CheckCircle2, XCircle } from "lucide-react";
+import { Users, Activity, ShieldAlert, DollarSign, Search, GraduationCap, BookOpen, MoreVertical, CheckCircle2, XCircle, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 import drRodrigoImg from "@/assets/dr-rodrigo.png";
 
@@ -110,16 +111,18 @@ function AdminPanel() {
                   <thead className="bg-secondary/50 text-muted-foreground text-xs uppercase">
                     <tr>
                       <th className="px-4 py-3 font-medium">Aluno</th>
+                      <th className="px-4 py-3 font-medium">Contato (WhatsApp)</th>
+                      <th className="px-4 py-3 font-medium">Curso Comprado</th>
+                      <th className="px-4 py-3 font-medium text-center">Datas</th>
                       <th className="px-4 py-3 font-medium">Status</th>
-                      <th className="px-4 py-3 font-medium">Plano</th>
                       <th className="px-4 py-3 font-medium text-right">Ações</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
-                    <UserRow name="Marina Silva" email="marina.vet@email.com" status="Ativo" plan="Pro Anual" img="https://i.pravatar.cc/150?u=1" />
-                    <UserRow name="Carlos Eduardo" email="carlos.edu@email.com" status="Pendente" plan="Mensal" img="https://i.pravatar.cc/150?u=2" />
-                    <UserRow name="Luciana Santos" email="luciana.s@email.com" status="Bloqueado" plan="Expirado" img="https://i.pravatar.cc/150?u=3" />
-                    <UserRow name="João Pedro" email="jp.vet@email.com" status="Ativo" plan="Mensal" img="https://i.pravatar.cc/150?u=4" />
+                    <UserRow name="Marina Silva" email="marina.vet@email.com" phone="11999990001" status="Ativo" course="Ortopedia Clínica" purchaseDate="01/05/2026" expiryDate="01/05/2027" img="https://i.pravatar.cc/150?u=1" />
+                    <UserRow name="Carlos Eduardo" email="carlos.edu@email.com" phone="21988880002" status="Pendente" course="Ortopedia Clínica" purchaseDate="05/06/2026" expiryDate="05/06/2027" img="https://i.pravatar.cc/150?u=2" />
+                    <UserRow name="Luciana Santos" email="luciana.s@email.com" phone="31977770003" status="Bloqueado" course="Neurologia Essencial" purchaseDate="10/01/2025" expiryDate="10/01/2026" img="https://i.pravatar.cc/150?u=3" />
+                    <UserRow name="João Pedro" email="jp.vet@email.com" phone="41966660004" status="Ativo" course="Hematologia Descomplicada" purchaseDate="15/05/2026" expiryDate="15/05/2027" img="https://i.pravatar.cc/150?u=4" />
                   </tbody>
                 </table>
               </div>
@@ -259,7 +262,8 @@ function MetricCard({ title, value, icon: Icon, trend }: any) {
   );
 }
 
-function UserRow({ name, email, status, plan, img }: any) {
+function UserRow({ name, email, phone, status, course, purchaseDate, expiryDate, img }: any) {
+  const formatPhone = (p: string) => `(${p.slice(0,2)}) ${p.slice(2,7)}-${p.slice(7)}`;
   return (
     <tr className="hover:bg-secondary/20 transition-colors">
       <td className="px-4 py-3">
@@ -275,6 +279,21 @@ function UserRow({ name, email, status, plan, img }: any) {
         </div>
       </td>
       <td className="px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span className="text-sm">{formatPhone(phone)}</span>
+          <a href={`https://wa.me/55${phone}`} target="_blank" rel="noreferrer" className="text-green-500 hover:bg-green-50 p-1.5 rounded-full transition-colors" title="Chamar no WhatsApp">
+            <MessageCircle className="h-4 w-4" />
+          </a>
+        </div>
+      </td>
+      <td className="px-4 py-3 text-sm text-foreground font-medium">{course}</td>
+      <td className="px-4 py-3 text-center">
+        <div className="text-xs">
+          <p className="text-muted-foreground">Compra: <span className="text-foreground">{purchaseDate}</span></p>
+          <p className="text-muted-foreground mt-0.5">Vence: <span className={status === 'Bloqueado' ? 'text-red-500' : 'text-foreground'}>{expiryDate}</span></p>
+        </div>
+      </td>
+      <td className="px-4 py-3">
         <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
           status === 'Ativo' ? 'bg-green-500/10 text-green-500' : 
           status === 'Pendente' ? 'bg-yellow-500/10 text-yellow-500' : 
@@ -283,16 +302,15 @@ function UserRow({ name, email, status, plan, img }: any) {
           {status}
         </span>
       </td>
-      <td className="px-4 py-3 text-muted-foreground">{plan}</td>
       <td className="px-4 py-3 text-right">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="h-8 w-8"><MoreVertical className="h-4 w-4" /></Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[160px]">
-            <DropdownMenuItem>Editar Plano</DropdownMenuItem>
-            <DropdownMenuItem>Resetar Senha</DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500">Bloquear Acesso</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => toast.info(`Abrindo edição de plano para ${name}...`)}>Editar Plano</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => toast.success(`E-mail de redefinição de senha enviado para ${email}.`)}>Resetar Senha</DropdownMenuItem>
+            <DropdownMenuItem className="text-red-500" onClick={() => toast.error(`Acesso do aluno ${name} foi bloqueado.`)}>Bloquear Acesso</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </td>

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText } from "lucide-react";
+import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -130,18 +130,75 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
           </div>
 
           <div className="p-6">
-            <TabsContent value="anamnese" className="space-y-4 mt-0">
-              <h3 className="font-display text-lg font-semibold">Anamnese e Queixa Principal</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                O tutor relata que Bidu estava correndo atrás de uma bola no parque quando subitamente soltou um ganido, recolheu a perna traseira esquerda e não apoiou mais o peso no chão. 
-                Nas últimas 48h houve uma leve melhora, ele passou a "tocar" a ponta dos dedos no chão ao caminhar, mas ao parar, mantém o membro levantado. 
-                Sem histórico prévio de problemas articulares. Vacinas e vermífugos em dia.
-              </p>
-              <div className="bg-secondary/30 rounded-xl p-4 border border-border mt-6">
+            <TabsContent value="anamnese" className="space-y-6 mt-0">
+              {/* Folha de Caderno Simulado */}
+              <div className="relative bg-[#fdfdfd] p-6 sm:p-8 pl-12 sm:pl-16 rounded-lg shadow-sm border border-border overflow-hidden mt-2">
+                {/* Linha vermelha lateral */}
+                <div className="absolute left-6 sm:left-10 top-0 bottom-0 w-[2px] bg-red-400/30"></div>
+                
+                {/* Texto com pautas simuladas */}
+                <div 
+                  className="relative z-10 leading-[2rem] text-slate-700 font-medium sm:text-lg" 
+                  style={{ 
+                    backgroundImage: 'linear-gradient(transparent, transparent 31px, #e5e7eb 31px, #e5e7eb 32px)', 
+                    backgroundSize: '100% 32px' 
+                  }}
+                >
+                  <span className="font-bold text-slate-900 block mb-1 font-display text-xl bg-[#fdfdfd] inline-block pr-4">Anamnese e Queixa Principal</span><br />
+                  O tutor relata que Bidu estava correndo atrás de uma bola no parque quando subitamente soltou um ganido, recolheu a perna traseira esquerda e não apoiou mais o peso no chão. <br />
+                  Nas últimas 48h houve uma leve melhora, ele passou a "tocar" a ponta dos dedos no chão ao caminhar, mas ao parar, mantém o membro levantado. <br />
+                  Sem histórico prévio de problemas articulares. Vacinas e vermífugos em dia.
+                </div>
+              </div>
+
+              {/* Chat Interativo de Anamnese */}
+              <div className="bg-card border border-border rounded-xl shadow-sm flex flex-col overflow-hidden">
+                <div className="bg-secondary/50 px-4 py-3 border-b border-border">
+                  <h4 className="font-semibold text-sm flex items-center">
+                    <FileText className="h-4 w-4 mr-2 text-coral" />
+                    Explorar o Caso (Conversa com o Tutor)
+                  </h4>
+                </div>
+                
+                <div className="p-4 flex-1 space-y-4 max-h-64 overflow-y-auto bg-muted/10 flex flex-col">
+                  <div className="flex gap-3 max-w-[85%]">
+                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Stethoscope className="h-4 w-4 text-primary" />
+                    </div>
+                    <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-4 py-2 text-sm shadow-sm">
+                      Olá! Pode me dar mais detalhes sobre a alimentação dele e se ele já tomou algum medicamento nos últimos dias?
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-3 max-w-[85%] self-end ml-auto flex-row-reverse">
+                    <div className="h-8 w-8 rounded-full bg-coral/10 flex items-center justify-center flex-shrink-0">
+                      <span className="text-xs font-bold text-coral">T</span>
+                    </div>
+                    <div className="bg-coral text-white rounded-2xl rounded-tr-sm px-4 py-2 text-sm shadow-sm">
+                      Doutor, ele come ração super premium. Ontem eu dei um comprimido de dipirona que tinha em casa porque ele parecia estar com dor.
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-background border-t border-border flex items-center gap-2">
+                  <input 
+                    type="text" 
+                    placeholder="Faça uma pergunta para investigar..." 
+                    className="flex-1 h-10 bg-secondary/50 border border-transparent rounded-full px-4 text-sm focus:outline-none focus:ring-2 focus:ring-coral/20 focus:border-coral/50 transition-all"
+                  />
+                  <Button size="icon" className="h-10 w-10 rounded-full bg-coral hover:bg-coral/90 text-white flex-shrink-0 transition-transform hover:scale-105 active:scale-95">
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="bg-secondary/30 rounded-xl p-4 border border-border mt-2">
                 <h4 className="font-medium text-sm text-foreground flex items-center mb-2"><AlertCircle className="h-4 w-4 text-coral mr-2" /> Dica do Tutor Vet IA</h4>
                 <p className="text-sm text-muted-foreground">Animais jovens de raça grande com claudicação aguda sem trauma externo evidente frequentemente apresentam problemas de ordem ligamentar. Considere testes específicos de estabilidade no exame físico.</p>
               </div>
-              <Button onClick={() => setActiveTab("exames")} className="mt-4 bg-coral text-coral-foreground hover:bg-coral/90">Avançar para Exame Físico <ChevronRight className="ml-2 h-4 w-4" /></Button>
+              <Button onClick={() => setActiveTab("exames")} className="w-full sm:w-auto mt-4 bg-coral text-coral-foreground hover:bg-coral/90">
+                Avançar para Exame Físico <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
             </TabsContent>
 
             <TabsContent value="exames" className="space-y-6 mt-0">

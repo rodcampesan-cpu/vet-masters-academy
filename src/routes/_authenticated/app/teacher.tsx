@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Users, PlaySquare, TrendingUp, DollarSign, Plus, Edit2, Video } from "lucide-react";
+import { Users, PlaySquare, TrendingUp, DollarSign, Plus, Edit2, Video, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -45,6 +46,29 @@ function TeacherPanel() {
             <CourseEditorCard title="Ortopedia Clínica de Excelência" students={850} progress={95} onEdit={() => setEditingCourse(true)} />
             <CourseEditorCard title="Fundamentos de Cirurgia Articular" students={398} progress={100} onEdit={() => setEditingCourse(true)} />
             <CourseEditorCard title="Técnicas de Fisioterapia (Novo)" students={0} progress={20} isDraft onEdit={() => setEditingCourse(true)} />
+          </div>
+
+          <div className="pt-8">
+            <h2 className="font-display text-lg font-semibold mb-4">Meus Alunos</h2>
+            <div className="rounded-xl border border-border bg-card shadow-soft overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-secondary/50 text-muted-foreground text-xs uppercase">
+                    <tr>
+                      <th className="px-4 py-3 font-medium">Aluno</th>
+                      <th className="px-4 py-3 font-medium">Contato (WhatsApp)</th>
+                      <th className="px-4 py-3 font-medium">Curso Comprado</th>
+                      <th className="px-4 py-3 font-medium text-center">Datas</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    <TeacherStudentRow name="Marina Silva" email="marina.vet@email.com" phone="11999990001" course="Ortopedia Clínica" purchaseDate="01/05/2026" expiryDate="01/05/2027" img="https://i.pravatar.cc/150?u=1" />
+                    <TeacherStudentRow name="Carlos Eduardo" email="carlos.edu@email.com" phone="21988880002" course="Ortopedia Clínica" purchaseDate="05/06/2026" expiryDate="05/06/2027" img="https://i.pravatar.cc/150?u=2" />
+                    <TeacherStudentRow name="João Pedro" email="jp.vet@email.com" phone="41966660004" course="Fundamentos de Cirurgia" purchaseDate="15/05/2026" expiryDate="15/05/2027" img="https://i.pravatar.cc/150?u=4" />
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -168,5 +192,40 @@ function CourseEditorCard({ title, students, progress, isDraft, onEdit }: any) {
         <Edit2 className="h-4 w-4 mr-2" /> Editar Currículo
       </Button>
     </div>
+  );
+}
+
+function TeacherStudentRow({ name, email, phone, course, purchaseDate, expiryDate, img }: any) {
+  const formatPhone = (p: string) => `(${p.slice(0,2)}) ${p.slice(2,7)}-${p.slice(7)}`;
+  return (
+    <tr className="hover:bg-secondary/20 transition-colors">
+      <td className="px-4 py-3">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={img} />
+            <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="font-medium text-foreground">{name}</p>
+            <p className="text-xs text-muted-foreground">{email}</p>
+          </div>
+        </div>
+      </td>
+      <td className="px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span className="text-sm">{formatPhone(phone)}</span>
+          <a href={`https://wa.me/55${phone}`} target="_blank" rel="noreferrer" className="text-green-500 hover:bg-green-50 p-1.5 rounded-full transition-colors" title="Chamar no WhatsApp">
+            <MessageCircle className="h-4 w-4" />
+          </a>
+        </div>
+      </td>
+      <td className="px-4 py-3 text-sm text-foreground font-medium">{course}</td>
+      <td className="px-4 py-3 text-center">
+        <div className="text-xs">
+          <p className="text-muted-foreground">Compra: <span className="text-foreground">{purchaseDate}</span></p>
+          <p className="text-muted-foreground mt-0.5">Vence: <span className="text-foreground">{expiryDate}</span></p>
+        </div>
+      </td>
+    </tr>
   );
 }

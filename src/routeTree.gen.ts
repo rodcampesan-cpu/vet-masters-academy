@@ -11,9 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as CursosRouteImport } from './routes/cursos'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CursosIndexRouteImport } from './routes/cursos.index'
+import { Route as CursosCourseIdRouteImport } from './routes/cursos_.$courseId'
 import { Route as CheckoutCourseIdRouteImport } from './routes/checkout.$courseId'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
@@ -38,11 +39,6 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CursosRoute = CursosRouteImport.update({
-  id: '/cursos',
-  path: '/cursos',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -50,6 +46,16 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CursosIndexRoute = CursosIndexRouteImport.update({
+  id: '/cursos/',
+  path: '/cursos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CursosCourseIdRoute = CursosCourseIdRouteImport.update({
+  id: '/cursos_/$courseId',
+  path: '/cursos/$courseId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckoutCourseIdRoute = CheckoutCourseIdRouteImport.update({
@@ -126,11 +132,12 @@ const AuthenticatedAppCoursesCourseIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cursos': typeof CursosRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
   '/checkout/$courseId': typeof CheckoutCourseIdRoute
+  '/cursos/$courseId': typeof CursosCourseIdRoute
+  '/cursos/': typeof CursosIndexRoute
   '/app/achievements': typeof AuthenticatedAppAchievementsRoute
   '/app/admin': typeof AuthenticatedAppAdminRoute
   '/app/ai-tutor': typeof AuthenticatedAppAiTutorRoute
@@ -145,10 +152,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cursos': typeof CursosRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/checkout/$courseId': typeof CheckoutCourseIdRoute
+  '/cursos/$courseId': typeof CursosCourseIdRoute
+  '/cursos': typeof CursosIndexRoute
   '/app/achievements': typeof AuthenticatedAppAchievementsRoute
   '/app/admin': typeof AuthenticatedAppAdminRoute
   '/app/ai-tutor': typeof AuthenticatedAppAiTutorRoute
@@ -165,11 +173,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/cursos': typeof CursosRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
   '/checkout/$courseId': typeof CheckoutCourseIdRoute
+  '/cursos_/$courseId': typeof CursosCourseIdRoute
+  '/cursos/': typeof CursosIndexRoute
   '/_authenticated/app/achievements': typeof AuthenticatedAppAchievementsRoute
   '/_authenticated/app/admin': typeof AuthenticatedAppAdminRoute
   '/_authenticated/app/ai-tutor': typeof AuthenticatedAppAiTutorRoute
@@ -186,11 +195,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/cursos'
     | '/login'
     | '/signup'
     | '/app'
     | '/checkout/$courseId'
+    | '/cursos/$courseId'
+    | '/cursos/'
     | '/app/achievements'
     | '/app/admin'
     | '/app/ai-tutor'
@@ -205,10 +215,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/cursos'
     | '/login'
     | '/signup'
     | '/checkout/$courseId'
+    | '/cursos/$courseId'
+    | '/cursos'
     | '/app/achievements'
     | '/app/admin'
     | '/app/ai-tutor'
@@ -224,11 +235,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
-    | '/cursos'
     | '/login'
     | '/signup'
     | '/_authenticated/app'
     | '/checkout/$courseId'
+    | '/cursos_/$courseId'
+    | '/cursos/'
     | '/_authenticated/app/achievements'
     | '/_authenticated/app/admin'
     | '/_authenticated/app/ai-tutor'
@@ -245,10 +257,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  CursosRoute: typeof CursosRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
   CheckoutCourseIdRoute: typeof CheckoutCourseIdRoute
+  CursosCourseIdRoute: typeof CursosCourseIdRoute
+  CursosIndexRoute: typeof CursosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -267,13 +280,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cursos': {
-      id: '/cursos'
-      path: '/cursos'
-      fullPath: '/cursos'
-      preLoaderRoute: typeof CursosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -286,6 +292,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cursos/': {
+      id: '/cursos/'
+      path: '/cursos'
+      fullPath: '/cursos/'
+      preLoaderRoute: typeof CursosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cursos_/$courseId': {
+      id: '/cursos_/$courseId'
+      path: '/cursos/$courseId'
+      fullPath: '/cursos/$courseId'
+      preLoaderRoute: typeof CursosCourseIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/checkout/$courseId': {
@@ -428,10 +448,11 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
-  CursosRoute: CursosRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
   CheckoutCourseIdRoute: CheckoutCourseIdRoute,
+  CursosCourseIdRoute: CursosCourseIdRoute,
+  CursosIndexRoute: CursosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
