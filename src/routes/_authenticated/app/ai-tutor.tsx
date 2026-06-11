@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Sparkles, Send, Bot, User, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,28 +18,67 @@ function AITutorPage() {
   ]);
   const [input, setInput] = useState("");
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const [isLoading, setIsLoading] = useState(false);
+
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isLoading]);
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
     
-    // Add user message
-    const newMessages = [...messages, { role: "user", content: input }];
+    const userMessage = { role: "user", content: input };
+    const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput("");
+    setIsLoading(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      let aiResponse = "";
-      if (input.toLowerCase().trim() === "oi" || input.toLowerCase().trim() === "olá") {
-        aiResponse = "Olá, Doutor! Tudo bem? Estou aqui para ajudar. O que você gostaria de consultar nos livros hoje?";
-      } else {
-        aiResponse = "Essa é uma excelente pergunta clínica! No momento, sou apenas uma interface de demonstração (mockup) visual do sistema. Quando o banco de dados real com o Tratado de Ortopedia for conectado aqui pelos desenvolvedores, eu lerei o livro em milissegundos e darei a conduta exata com a página de referência.";
+    try {
+      // Ler a instrução do professor do localStorage
+      const professorContext = localStorage.getItem("aiTeacherContext");
+
+      const apiMessages = newMessages.map(m => ({ role: m.role === 'ai' ? 'assistant' : 'user', content: m.content }));
+      
+      const payload: any = { messages: apiMessages };
+      if (professorContext) {
+        payload.systemInstruction = professorContext;
+      }
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro na API');
       }
 
       setMessages(prev => [...prev, {
         role: "ai",
-        content: aiResponse
+        content: data.content
       }]);
-    }, 1500);
+    } catch (error) {
+      console.error(error);
+      setMessages(prev => [...prev, {
+        role: "ai",
+        content: `Desculpe, ocorreu um erro de conexão com meu cérebro: ${error.message}. Por favor, verifique a chave de acesso ou tente novamente.`
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -68,6 +107,7 @@ function AITutorPage() {
             </div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Input Area */}
@@ -80,10 +120,11 @@ function AITutorPage() {
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Pergunte sobre um caso, peça um resumo de aula..." 
               className="pr-12 h-12 rounded-xl bg-secondary/50 border-transparent focus:border-coral focus:bg-background"
+              disabled={isLoading}
             />
           </div>
-          <Button onClick={handleSend} disabled={!input.trim()} className="h-12 px-6 rounded-xl bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
-            <Send className="h-4 w-4 mr-2" /> Enviar
+          <Button onClick={handleSend} disabled={!input.trim() || isLoading} className="h-12 px-6 rounded-xl bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
+            {isLoading ? "Digitando..." : <><Send className="h-4 w-4 mr-2" /> Enviar</>}
           </Button>
         </div>
         <div className="mt-3 flex justify-center gap-2">

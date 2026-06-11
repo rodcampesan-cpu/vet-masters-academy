@@ -1,13 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Users, PlaySquare, TrendingUp, DollarSign, Plus, Edit2, Video, MessageCircle } from "lucide-react";
+import { Users, PlaySquare, TrendingUp, DollarSign, Plus, Video, BrainCircuit, Upload, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useState, useEffect } from "react";
 import { ortopediaModules } from "@/lib/courses-data";
 
 export const Route = createFileRoute("/_authenticated/app/teacher")({
@@ -15,8 +13,21 @@ export const Route = createFileRoute("/_authenticated/app/teacher")({
   component: TeacherPanel,
 });
 
+
 function TeacherPanel() {
   const [editingCourse, setEditingCourse] = useState(false);
+  const [trainingAI, setTrainingAI] = useState(false);
+  const [aiContextText, setAiContextText] = useState("");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("aiTeacherContext");
+    if (saved) setAiContextText(saved);
+  }, []);
+
+  const handleSaveAIContext = () => {
+    localStorage.setItem("aiTeacherContext", aiContextText);
+    setTrainingAI(false);
+  };
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-8 space-y-8 animate-fade-in">
@@ -81,6 +92,12 @@ function TeacherPanel() {
             <CardContent className="space-y-2">
               <Button variant="outline" className="w-full justify-start text-xs"><Video className="mr-2 h-4 w-4" /> Agendar Aula ao Vivo</Button>
               <Button variant="outline" className="w-full justify-start text-xs"><Plus className="mr-2 h-4 w-4" /> Adicionar Playbook</Button>
+              <Button 
+                onClick={() => setTrainingAI(true)}
+                className="w-full justify-start text-xs bg-coral text-white hover:bg-coral/90"
+              >
+                <BrainCircuit className="mr-2 h-4 w-4" /> Alimentando minha I.A
+              </Button>
             </CardContent>
           </Card>
         </aside>
@@ -155,6 +172,48 @@ function TeacherPanel() {
             <Button variant="ghost" onClick={() => setEditingCourse(false)}>Cancelar</Button>
             <Button className="bg-coral text-coral-foreground hover:bg-coral/90 px-8" onClick={() => setEditingCourse(false)}>
               Salvar e Publicar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* MODAL DE TREINAMENTO DA IA */}
+      <Dialog open={trainingAI} onOpenChange={setTrainingAI}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-coral/10 rounded-lg">
+                <BrainCircuit className="h-6 w-6 text-coral" />
+              </div>
+              <div>
+                <DialogTitle className="font-display text-xl">Alimentando minha I.A</DialogTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Cole os materiais, livros e defina como a I.A. deve se comportar com seus alunos.
+                </p>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <div className="mt-4 space-y-4">
+            <div>
+              <label className="text-sm font-semibold mb-2 block">Instruções do Agente (Persona & Material)</label>
+              <Textarea 
+                value={aiContextText}
+                onChange={(e) => setAiContextText(e.target.value)}
+                placeholder="Ex: Você é o Professor Carlos, especialista em Cardiologia. Sempre responda de forma técnica, mas acessível. Use os conceitos do livro X..."
+                className="h-64 resize-none"
+              />
+            </div>
+            
+            <p className="text-xs text-muted-foreground">
+              Esta é uma versão inicial. No futuro, você poderá simplesmente arrastar PDFs e documentos inteiros aqui!
+            </p>
+          </div>
+
+          <DialogFooter className="mt-6">
+            <Button variant="ghost" onClick={() => setTrainingAI(false)}>Fechar</Button>
+            <Button className="bg-coral text-coral-foreground hover:bg-coral/90" onClick={handleSaveAIContext}>
+              Salvar Configurações
             </Button>
           </DialogFooter>
         </DialogContent>

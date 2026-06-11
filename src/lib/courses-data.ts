@@ -91,7 +91,7 @@ export const courses: Course[] = [
   },
   {
     id: "emergencia-medica",
-    title: "Emergência Médica e Terapia Intensiva",
+    title: "Descomplicando a Clínica Médica e Emergências da Rotina",
     specialty: "Emergência",
     description: "Abordagem do paciente crítico, protocolos de reanimação, estabilização hemodinâmica e monitoramento intensivo.",
     cover: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=600&auto=format&fit=crop",

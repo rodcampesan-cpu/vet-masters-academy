@@ -154,6 +154,8 @@ function AdminPanel() {
                   <tbody className="divide-y divide-border">
                     <TeacherRow name="Dr. Rodrigo Nicola" specialty="Ortopedia e Neurocirurgia" courses={3} rating="5.0" img={drRodrigoImg} />
                     <TeacherRow name="Dr. Renan Dias" specialty="Neurologista e Neurocirurgião" courses={1} rating="5.0" img="https://i.pravatar.cc/150?u=11" />
+                    <TeacherRow name="Dra. Carolina" specialty="Hematologista" courses={1} rating="4.9" img="https://i.pravatar.cc/150?img=5" />
+                    <TeacherRow name="Dra. Nathalia Cristina" specialty="Intensivista" courses={1} rating="5.0" img="https://i.pravatar.cc/150?img=9" />
                   </tbody>
                 </table>
               </div>

@@ -4,7 +4,6 @@ import { ArrowLeft, BookOpen, CheckCircle2, Clock, FileText, MessagesSquare, Pla
 import { courses, ortopediaModules } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { SecureViewer } from "@/components/app/SecureViewer";
 
 export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
   head: ({ params }) => {
@@ -23,26 +22,6 @@ function CourseDetail() {
   const { course: c } = Route.useLoaderData();
   const [activeTab, setActiveTab] = useState("Conteúdo");
   const [notes, setNotes] = useState("");
-  const [viewerOpen, setViewerOpen] = useState(false);
-  const [viewerImages, setViewerImages] = useState<string[]>([]);
-  const [viewerTitle, setViewerTitle] = useState("");
-
-  const openViewer = (moduleNum: number) => {
-    let images: string[] = [];
-    if (moduleNum === 1) {
-      images = Array.from({ length: 12 }, (_, i) => `/materials/ortopedia/mod1/IMG_${8845 + i}.JPG`);
-      setViewerTitle("Material de Apoio: Módulo 1");
-    } else if (moduleNum === 2) {
-      // Mod 2 goes from 8857 to 8882, but 8874 is missing in list? Actually wait, let's just generate the list.
-      // It's safer to just provide the exact known array or generate it.
-      // IMG_8857 to IMG_8882 excluding 8874 (25 images total).
-      const ids = Array.from({ length: 26 }, (_, i) => 8857 + i).filter(id => id !== 8874);
-      images = ids.map(id => `/materials/ortopedia/mod2/IMG_${id}.JPG`);
-      setViewerTitle("Material de Apoio: Módulo 2");
-    }
-    setViewerImages(images);
-    setViewerOpen(true);
-  };
 
   let modules: any[] = [];
 
@@ -145,48 +124,8 @@ function CourseDetail() {
 
             {activeTab === "Material" && (
               <div className="rounded-2xl border border-border bg-card p-6 shadow-soft space-y-6">
-                
-                {/* MATERIAIS DE APOIO SEGUROS (FOSSUM) */}
-                {c.id === "ortopedia-avancada" && (
-                  <div className="bg-coral/5 border border-coral/20 rounded-xl p-5 mb-6">
-                    <h3 className="font-display font-semibold text-coral mb-2 flex items-center gap-2">
-                      <ShieldCheck className="h-5 w-5" /> Acervo Exclusivo: Tratado de Ortopedia
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Leitura digital restrita na plataforma. Não é possível fazer o download destes materiais.
-                    </p>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 rounded-lg border border-coral/20 bg-background/50">
-                        <div className="flex items-center gap-3">
-                          <BookOpen className="h-5 w-5 text-coral" />
-                          <div>
-                            <p className="text-sm font-medium">Módulo 1: Introdução à Ortopedia</p>
-                            <p className="text-xs text-muted-foreground">12 Páginas (Leitura Digital)</p>
-                          </div>
-                        </div>
-                        <Button variant="outline" size="sm" onClick={() => openViewer(1)} className="text-coral border-coral/30 hover:bg-coral hover:text-white">
-                          Abrir Leitor
-                        </Button>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 rounded-lg border border-coral/20 bg-background/50">
-                        <div className="flex items-center gap-3">
-                          <BookOpen className="h-5 w-5 text-coral" />
-                          <div>
-                            <p className="text-sm font-medium">Módulo 2: O Exame Ortopédico</p>
-                            <p className="text-xs text-muted-foreground">25 Páginas (Leitura Digital)</p>
-                          </div>
-                        </div>
-                        <Button variant="outline" size="sm" onClick={() => openViewer(2)} className="text-coral border-coral/30 hover:bg-coral hover:text-white">
-                          Abrir Leitor
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
                 <div>
-                  <h3 className="font-display font-semibold mb-4">Materiais Complementares Comuns</h3>
+                  <h3 className="font-display font-semibold mb-4">Materiais Complementares</h3>
                   <div className="space-y-3">
                     {[
                       { title: "Slides da Aula 1", size: "2.4 MB" },
@@ -300,20 +239,13 @@ function CourseDetail() {
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs">
-            <QuickLink icon={FileText} label="Material" />
-            <QuickLink icon={MessagesSquare} label="Comunidade" />
-            <QuickLink icon={Trophy} label="Conquistas" />
-            <QuickLink icon={CheckCircle2} label="Certificado" />
+            <QuickLink icon={FileText} label="Material" onClick={() => setActiveTab("Material")} />
+            <QuickLink icon={MessagesSquare} label="Comunidade" onClick={() => setActiveTab("Comunidade")} />
+            <QuickLink icon={Trophy} label="Conquistas" onClick={() => setActiveTab("Conquistas")} />
+            <QuickLink icon={CheckCircle2} label="Certificado" onClick={() => setActiveTab("Certificado")} />
           </div>
         </aside>
       </div>
-
-      <SecureViewer 
-        open={viewerOpen} 
-        onOpenChange={setViewerOpen} 
-        title={viewerTitle} 
-        images={viewerImages} 
-      />
     </div>
   );
 }
@@ -328,9 +260,12 @@ function Stat({ icon: Icon, label, value }: { icon: React.ComponentType<{ classN
   );
 }
 
-function QuickLink({ icon: Icon, label }: { icon: React.ComponentType<{ className?: string }>; label: string }) {
+function QuickLink({ icon: Icon, label, onClick }: { icon: React.ComponentType<{ className?: string }>; label: string; onClick?: () => void }) {
   return (
-    <button className="flex items-center gap-2 rounded-xl border border-border bg-card p-3 font-medium text-foreground/80 transition hover:border-coral hover:text-foreground">
+    <button 
+      onClick={onClick}
+      className="flex items-center gap-2 rounded-xl border border-border bg-card p-3 font-medium text-foreground/80 transition hover:border-coral hover:text-foreground"
+    >
       <Icon className="h-4 w-4 text-coral" />
       {label}
     </button>

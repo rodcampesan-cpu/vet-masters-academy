@@ -218,9 +218,11 @@ function Dashboard() {
             <p className="mt-1 text-sm text-white/70 max-w-sm">
               Resumos, plano de estudos, flashcards e respostas clínicas — tudo personalizado para você.
             </p>
-            <Button className="mt-5 bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
-              Conversar com a IA <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
+            <Link to="/app/ai-tutor">
+              <Button className="mt-5 bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
+                Conversar com a IA <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
