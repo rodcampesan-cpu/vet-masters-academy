@@ -23,9 +23,17 @@ function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      if (user.user_metadata?.role === "admin") navigate({ to: "/app/admin" });
-      else if (user.user_metadata?.role === "teacher") navigate({ to: "/app/teacher" });
-      else navigate({ to: "/app" });
+      const email = user.email?.toLowerCase()?.trim() || "";
+      const isAdmin = user.user_metadata?.role === "admin" || email === "mimoshow10@gmail.com";
+      const isTeacher = user.user_metadata?.role === "teacher" || email === "rodrigo.vetlat@hotmail.com" || email === "namdias02@gmail.com" || email === "carolina_vet@yahoo.com.br";
+      
+      if (isAdmin) {
+        navigate({ to: "/app/admin" });
+      } else if (isTeacher) {
+        navigate({ to: "/app/teacher" });
+      } else {
+        navigate({ to: "/app" });
+      }
     }
   }, [user, navigate]);
 

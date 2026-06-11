@@ -17,16 +17,22 @@ const allNavLinks = [
 export function AppShell() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { user, signOut } = useAuth();
+  
   let role = user?.user_metadata?.role || "student";
-  if (user?.email?.toLowerCase().trim() === "mimoshow10@gmail.com") {
+  const email = user?.email?.toLowerCase()?.trim() || "";
+  
+  if (email === "mimoshow10@gmail.com") {
     role = "admin";
+  } else if (email === "rodrigo.vetlat@hotmail.com" || email === "namdias02@gmail.com" || email === "carolina_vet@yahoo.com.br") {
+    role = "teacher";
   }
-  const initials = (user?.user_metadata?.full_name || user?.email || "V").slice(0, 1).toUpperCase();
+  
+  const initials = (user?.user_metadata?.full_name || email || "V").slice(0, 1).toUpperCase();
 
   const getNavLinks = () => {
     if (role === "admin") return allNavLinks;
     if (role === "teacher") {
-      return allNavLinks.filter(n => ["/app/teacher", "/app/courses", "/app/clinical-cases"].includes(n.to));
+      return allNavLinks.filter(n => n.to !== "/app/admin");
     }
     // student
     return allNavLinks.filter(n => !["/app/teacher", "/app/admin"].includes(n.to));

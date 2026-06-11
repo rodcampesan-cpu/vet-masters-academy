@@ -6,32 +6,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const MOCK_CASES = [
-  {
-    id: 1,
-    title: "Cão com claudicação severa em membro pélvico esquerdo",
-    specialty: "Ortopedia",
-    difficulty: "Avançado",
-    patient: "Bidu, Golden Retriever, 4 anos",
-    description: "Tutor relata que o animal começou a mancar subitamente após correr no parque. Apresenta dor à manipulação do joelho.",
-  },
-  {
-    id: 2,
-    title: "Felino com alopecia bilateral simétrica",
-    specialty: "Dermatologia",
-    difficulty: "Intermediário",
-    patient: "Mingau, SRD, 8 anos",
-    description: "Gato apresentando perda de pelo progressiva no tronco, sem prurido aparente. Comportamento e apetite normais.",
-  },
-  {
-    id: 3,
-    title: "Síncope recorrente em paciente cardiopata",
-    specialty: "Cardiologia",
-    difficulty: "Avançado",
-    patient: "Thor, Boxer, 9 anos",
-    description: "Paciente com histórico de sopro sistólico grau IV/VI apresenta desmaios rápidos durante passeios curtos.",
-  }
-];
+import { FULL_CASES, MOCK_CASES } from "@/lib/cases-data";
+import { courses } from "@/lib/courses-data";
+import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/_authenticated/app/clinical-cases")({
   head: () => ({ meta: [{ title: "Casos Clínicos — VetClass Pro" }] }),
@@ -40,7 +17,16 @@ export const Route = createFileRoute("/_authenticated/app/clinical-cases")({
 
 function ClinicalCasesPage() {
   const [selectedCase, setSelectedCase] = useState<number | null>(null);
-  const [step, setStep] = useState(0); // 0: Lista, 1: Anamnese, 2: Exames, 3: Diagnóstico
+  const { user } = useAuth();
+
+  const isAdmin = user?.user_metadata?.role === "admin" || user?.email?.toLowerCase().trim() === "mimoshow10@gmail.com";
+  
+  const availableCases = isAdmin 
+    ? MOCK_CASES 
+    : MOCK_CASES.filter(c => {
+        const course = courses.find(course => course.id === c.courseId);
+        return course?.purchased === true;
+      });
 
   if (selectedCase !== null) {
     return <ActiveCaseView caseId={selectedCase} onBack={() => setSelectedCase(null)} />;
@@ -68,8 +54,15 @@ function ClinicalCasesPage() {
         </div>
       </div>
 
+      {availableCases.length === 0 && (
+        <div className="text-center py-12 text-muted-foreground">
+          <p>Nenhum caso clínico disponível no momento.</p>
+          <p className="text-xs mt-1">Os casos são liberados de acordo com os cursos que você adquiriu.</p>
+        </div>
+      )}
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {MOCK_CASES.map(c => (
+        {availableCases.map(c => (
           <Card key={c.id} className="flex flex-col hover:border-coral/50 transition-colors cursor-pointer" onClick={() => setSelectedCase(c.id)}>
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start mb-2">
@@ -100,7 +93,9 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
   const [diagnostic, setDiagnostic] = useState("");
   const [showResult, setShowResult] = useState(false);
 
-  const isCorrect = diagnostic === "Ruptura de Ligamento Cruzado Cranial";
+  // @ts-ignore
+  const caseData = FULL_CASES[caseId] || FULL_CASES[1];
+  const isCorrect = diagnostic === caseData.correctAnswer;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-8">
@@ -111,12 +106,12 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
       <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
         <div className="bg-secondary/50 p-6 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <Badge className="bg-coral text-white mb-2 hover:bg-coral">Ortopedia</Badge>
-            <h2 className="font-display text-2xl font-bold">Cão com claudicação severa no joelho</h2>
-            <p className="text-sm text-muted-foreground font-medium mt-1">Paciente: Bidu, Golden Retriever, 4 anos, Macho inteiro</p>
+            <Badge className="bg-coral text-white mb-2 hover:bg-coral">{caseData.specialty}</Badge>
+            <h2 className="font-display text-2xl font-bold">{caseData.title}</h2>
+            <p className="text-sm text-muted-foreground font-medium mt-1">Paciente: {caseData.patient}</p>
           </div>
           <div className="flex items-center gap-2 text-sm font-semibold bg-background px-4 py-2 rounded-full border border-border">
-            <Activity className="h-4 w-4 text-coral" /> Caso Avançado
+            <Activity className="h-4 w-4 text-coral" /> Caso {caseData.difficulty}
           </div>
         </div>
 
@@ -133,21 +128,13 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
             <TabsContent value="anamnese" className="space-y-6 mt-0">
               {/* Folha de Caderno Simulado */}
               <div className="relative bg-[#fdfdfd] p-6 sm:p-8 pl-12 sm:pl-16 rounded-lg shadow-sm border border-border overflow-hidden mt-2">
-                {/* Linha vermelha lateral */}
                 <div className="absolute left-6 sm:left-10 top-0 bottom-0 w-[2px] bg-red-400/30"></div>
-                
-                {/* Texto com pautas simuladas */}
                 <div 
-                  className="relative z-10 leading-[2rem] text-slate-700 font-medium sm:text-lg" 
-                  style={{ 
-                    backgroundImage: 'linear-gradient(transparent, transparent 31px, #e5e7eb 31px, #e5e7eb 32px)', 
-                    backgroundSize: '100% 32px' 
-                  }}
+                  className="relative z-10 leading-[2rem] text-slate-700 font-medium sm:text-lg whitespace-pre-wrap" 
+                  style={{ backgroundImage: 'linear-gradient(transparent, transparent 31px, #e5e7eb 31px, #e5e7eb 32px)', backgroundSize: '100% 32px' }}
                 >
                   <span className="font-bold text-slate-900 block mb-1 font-display text-xl bg-[#fdfdfd] inline-block pr-4">Anamnese e Queixa Principal</span><br />
-                  O tutor relata que Bidu estava correndo atrás de uma bola no parque quando subitamente soltou um ganido, recolheu a perna traseira esquerda e não apoiou mais o peso no chão. <br />
-                  Nas últimas 48h houve uma leve melhora, ele passou a "tocar" a ponta dos dedos no chão ao caminhar, mas ao parar, mantém o membro levantado. <br />
-                  Sem histórico prévio de problemas articulares. Vacinas e vermífugos em dia.
+                  {caseData.anamnesisText}
                 </div>
               </div>
 
@@ -161,31 +148,20 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
                 </div>
                 
                 <div className="p-4 flex-1 space-y-4 max-h-64 overflow-y-auto bg-muted/10 flex flex-col">
-                  <div className="flex gap-3 max-w-[85%]">
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Stethoscope className="h-4 w-4 text-primary" />
+                  {caseData.chatHistory.map((msg: any, i: number) => (
+                    <div key={i} className={`flex gap-3 max-w-[85%] ${!msg.isVet ? 'self-end ml-auto flex-row-reverse' : ''}`}>
+                      <div className={`h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.isVet ? 'bg-primary/10' : 'bg-coral/10'}`}>
+                        {msg.isVet ? <Stethoscope className="h-4 w-4 text-primary" /> : <span className="text-xs font-bold text-coral">T</span>}
+                      </div>
+                      <div className={`rounded-2xl px-4 py-2 text-sm shadow-sm ${msg.isVet ? 'bg-background border border-border rounded-tl-sm' : 'bg-coral text-white rounded-tr-sm'}`}>
+                        {msg.text}
+                      </div>
                     </div>
-                    <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-4 py-2 text-sm shadow-sm">
-                      Olá! Pode me dar mais detalhes sobre a alimentação dele e se ele já tomou algum medicamento nos últimos dias?
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-3 max-w-[85%] self-end ml-auto flex-row-reverse">
-                    <div className="h-8 w-8 rounded-full bg-coral/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-xs font-bold text-coral">T</span>
-                    </div>
-                    <div className="bg-coral text-white rounded-2xl rounded-tr-sm px-4 py-2 text-sm shadow-sm">
-                      Doutor, ele come ração super premium. Ontem eu dei um comprimido de dipirona que tinha em casa porque ele parecia estar com dor.
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 <div className="p-3 bg-background border-t border-border flex items-center gap-2">
-                  <input 
-                    type="text" 
-                    placeholder="Faça uma pergunta para investigar..." 
-                    className="flex-1 h-10 bg-secondary/50 border border-transparent rounded-full px-4 text-sm focus:outline-none focus:ring-2 focus:ring-coral/20 focus:border-coral/50 transition-all"
-                  />
+                  <input type="text" placeholder="Faça uma pergunta para investigar..." className="flex-1 h-10 bg-secondary/50 border border-transparent rounded-full px-4 text-sm focus:outline-none focus:ring-2 focus:ring-coral/20 focus:border-coral/50 transition-all" />
                   <Button size="icon" className="h-10 w-10 rounded-full bg-coral hover:bg-coral/90 text-white flex-shrink-0 transition-transform hover:scale-105 active:scale-95">
                     <Send className="h-4 w-4" />
                   </Button>
@@ -194,7 +170,7 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
 
               <div className="bg-secondary/30 rounded-xl p-4 border border-border mt-2">
                 <h4 className="font-medium text-sm text-foreground flex items-center mb-2"><AlertCircle className="h-4 w-4 text-coral mr-2" /> Dica do Tutor Vet IA</h4>
-                <p className="text-sm text-muted-foreground">Animais jovens de raça grande com claudicação aguda sem trauma externo evidente frequentemente apresentam problemas de ordem ligamentar. Considere testes específicos de estabilidade no exame físico.</p>
+                <p className="text-sm text-muted-foreground">{caseData.aiHint}</p>
               </div>
               <Button onClick={() => setActiveTab("exames")} className="w-full sm:w-auto mt-4 bg-coral text-coral-foreground hover:bg-coral/90">
                 Avançar para Exame Físico <ChevronRight className="ml-2 h-4 w-4" />
@@ -205,27 +181,24 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
               <div>
                 <h3 className="font-display text-lg font-semibold mb-2">Exame Físico Geral e Específico</h3>
                 <ul className="list-disc pl-5 space-y-2 text-muted-foreground text-sm">
-                  <li><strong>Escore Corporal:</strong> 6/9 (Leve sobrepeso).</li>
-                  <li><strong>Sinais Vitais:</strong> FC 110bpm, FR 30mpm, TR 38.5°C, Mucosas normocoradas.</li>
-                  <li><strong>Avaliação Ortopédica:</strong> Claudicação grau 3/4 em membro pélvico esquerdo.</li>
-                  <li><strong>Palpação:</strong> Efusão articular evidente no joelho esquerdo e espessamento medial da cápsula.</li>
-                  <li><strong>Testes Específicos:</strong> Teste de compressão tibial (Gaveta) POSITIVO. Teste de Ortolani negativo bilateralmente.</li>
+                  {caseData.examList.map((item: string, i: number) => {
+                    const [bold, rest] = item.split(': ');
+                    return <li key={i}><strong>{bold}:</strong> {rest}</li>;
+                  })}
                 </ul>
               </div>
               
               <div>
-                <h3 className="font-display text-lg font-semibold mb-3">Imagens Radiográficas</h3>
+                <h3 className="font-display text-lg font-semibold mb-3">Exames Complementares</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="aspect-video bg-secondary rounded-lg flex items-center justify-center border border-dashed border-border text-muted-foreground">
-                    <ImageIcon className="h-8 w-8 mb-2 opacity-50" />
-                    <span className="text-xs block text-center">Raio-X (Mediolateral)<br/>(Simulação)</span>
-                  </div>
-                  <div className="aspect-video bg-secondary rounded-lg flex items-center justify-center border border-dashed border-border text-muted-foreground">
-                    <ImageIcon className="h-8 w-8 mb-2 opacity-50" />
-                    <span className="text-xs block text-center">Raio-X (Craniocaudal)<br/>(Simulação)</span>
-                  </div>
+                  {caseData.images.map((img: string, i: number) => (
+                    <div key={i} className="aspect-video bg-secondary rounded-lg flex items-center justify-center border border-dashed border-border text-muted-foreground">
+                      <ImageIcon className="h-8 w-8 mb-2 opacity-50" />
+                      <span className="text-xs block text-center">{img}<br/>(Simulação)</span>
+                    </div>
+                  ))}
                 </div>
-                <p className="text-xs text-muted-foreground mt-2 italic">Laudo: Deslocamento cranial da crista da tíbia em relação aos côndilos femorais. Aumento de radiopacidade em região infrapatelar (sinal da almofada de gordura).</p>
+                <p className="text-xs text-muted-foreground mt-4 italic font-medium">{caseData.examConclusion}</p>
               </div>
               
               <Button onClick={() => setActiveTab("diagnostico")} className="bg-coral text-coral-foreground hover:bg-coral/90">Ir para Diagnóstico <ChevronRight className="ml-2 h-4 w-4" /></Button>
@@ -237,7 +210,7 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
               
               {!showResult ? (
                 <div className="space-y-3">
-                  {["Luxação Patelar Medial", "Ruptura de Ligamento Cruzado Cranial", "Displasia Coxofemoral", "Fratura de Platô Tibial"].map((op) => (
+                  {caseData.options.map((op: string) => (
                     <div 
                       key={op} 
                       onClick={() => setDiagnostic(op)}
@@ -263,9 +236,7 @@ function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void
                         {isCorrect ? 'Diagnóstico Correto!' : 'Diagnóstico Incorreto.'}
                       </h4>
                       <p className="text-foreground/90 text-sm leading-relaxed">
-                        {isCorrect 
-                          ? "O teste de gaveta positivo combinado com o sinal radiográfico da almofada de gordura e o histórico agudo são clássicos para Ruptura do Ligamento Cruzado Cranial (RLCC)."
-                          : "A presença de teste de compressão tibial (gaveta) positivo e o histórico do animal apontam para outra patologia muito comum no joelho. Revise os testes específicos."}
+                        {isCorrect ? caseData.feedbackCorrect : caseData.feedbackIncorrect}
                       </p>
                       
                       {isCorrect && (

@@ -51,7 +51,7 @@ export function Navbar() {
             <Link to="/login">Entrar</Link>
           </Button>
           <Button asChild size="sm" className="bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral">
-            <Link to="/signup">Começar grátis</Link>
+            <Link to="/signup">Criar Conta</Link>
           </Button>
         </div>
       </div>
