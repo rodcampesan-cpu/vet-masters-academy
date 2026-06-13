@@ -24,6 +24,7 @@ function TeacherPanel() {
   const [aiContextText, setAiContextText] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [clinicalCases, setClinicalCases] = useState<any[]>([]);
+  const [editingCase, setEditingCase] = useState<any>(null);
 
   const handleGenerateCase = async () => {
     if (!caseDescription.trim()) return;
@@ -53,6 +54,16 @@ function TeacherPanel() {
     } finally {
       setIsGeneratingCase(false);
     }
+  };
+
+  const handleSaveEditedCase = () => {
+    if (!editingCase) return;
+    const existingCases = JSON.parse(localStorage.getItem("custom_clinical_cases") || "[]");
+    const updatedCases = existingCases.map((c: any) => c.id === editingCase.id ? editingCase : c);
+    localStorage.setItem("custom_clinical_cases", JSON.stringify(updatedCases));
+    setClinicalCases(updatedCases);
+    setEditingCase(null);
+    alert("Alterações salvas com sucesso!");
   };
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +107,13 @@ function TeacherPanel() {
     if (saved) setAiContextText(saved);
 
     const savedCases = JSON.parse(localStorage.getItem("custom_clinical_cases") || "[]");
-    setClinicalCases(savedCases);
+    
+    // Mesclar os casos base do sistema (MOCK_CASES) que ainda não foram editados/salvos
+    import("@/lib/cases-data").then(({ MOCK_CASES }) => {
+      const savedIds = new Set(savedCases.map((c: any) => c.id));
+      const mergedMocks = MOCK_CASES.filter((mc: any) => !savedIds.has(mc.id));
+      setClinicalCases([...savedCases, ...mergedMocks]);
+    });
   }, []);
 
   const handleSaveAIContext = () => {
@@ -170,7 +187,12 @@ function TeacherPanel() {
                            Gerado por I.A.
                          </span>
                        </div>
-                       <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-coral">
+                       <Button 
+                         variant="ghost" 
+                         size="icon" 
+                         className="h-6 w-6 text-muted-foreground hover:text-coral"
+                         onClick={() => setEditingCase(c)}
+                       >
                          <Edit2 className="h-3 w-3" />
                        </Button>
                     </div>
@@ -266,6 +288,72 @@ function TeacherPanel() {
               onClick={handleGenerateCase}
             >
               {isGeneratingCase ? "Aguarde, a mágica está acontecendo..." : "Gerar Caso com I.A."}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* MODAL DE EDIÇÃO DE CASO CLÍNICO */}
+      <Dialog open={!!editingCase} onOpenChange={(o) => !o && setEditingCase(null)}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-coral/10 rounded-lg">
+                <Edit2 className="h-6 w-6 text-coral" />
+              </div>
+              <div>
+                <DialogTitle className="font-display text-xl">Editar Caso Clínico</DialogTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Revise ou altere as informações e o protocolo de tratamento (Playbook) gerado pela I.A.
+                </p>
+              </div>
+            </div>
+          </DialogHeader>
+
+          {editingCase && (
+            <div className="mt-4 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-xs font-semibold mb-1 block">Título do Caso</label>
+                  <Input 
+                    value={editingCase.title || ""}
+                    onChange={(e) => setEditingCase({...editingCase, title: e.target.value})}
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold mb-1 block">Especialidade</label>
+                  <Input 
+                    value={editingCase.specialty || ""}
+                    onChange={(e) => setEditingCase({...editingCase, specialty: e.target.value})}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="text-xs font-semibold mb-1 block">Protocolo de Tratamento (Playbook)</label>
+                <Textarea 
+                  value={editingCase.playbookProtocol || ""}
+                  onChange={(e) => setEditingCase({...editingCase, playbookProtocol: e.target.value})}
+                  className="h-32 resize-y"
+                  placeholder="Descreva aqui o protocolo exato que será liberado para o aluno após ele acertar o diagnóstico..."
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold mb-1 block">Feedback para Diagnóstico Correto</label>
+                <Textarea 
+                  value={editingCase.feedbackCorrect || ""}
+                  onChange={(e) => setEditingCase({...editingCase, feedbackCorrect: e.target.value})}
+                  className="h-20 resize-none"
+                />
+              </div>
+            </div>
+          )}
+
+          <DialogFooter className="mt-6">
+            <Button variant="ghost" onClick={() => setEditingCase(null)}>Cancelar</Button>
+            <Button className="bg-coral text-white hover:bg-coral/90" onClick={handleSaveEditedCase}>
+              Salvar Alterações
             </Button>
           </DialogFooter>
         </DialogContent>

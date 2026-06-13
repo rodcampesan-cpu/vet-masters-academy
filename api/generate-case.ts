@@ -35,6 +35,10 @@ A sua resposta DEVE ser um objeto JSON válido, sem markdown, contendo estritame
     "Foco principal do exame",
     "Resultado de testes específicos"
   ],
+  "images": [
+    "Nome do Exame de Imagem ou Sangue 1 (ex: Raio-X de Tórax)",
+    "Nome do Exame de Imagem ou Sangue 2"
+  ],
   "examConclusion": "Laudo conclusivo dos exames de imagem ou sangue simulados.",
   "options": [
     "Opção de diagnóstico incorreta 1",
@@ -44,7 +48,8 @@ A sua resposta DEVE ser um objeto JSON válido, sem markdown, contendo estritame
   ],
   "correctAnswer": "A mesma string idêntica da opção correta",
   "feedbackCorrect": "Mensagem de parabéns com uma rápida explicação fisiopatológica de por que estava certo.",
-  "feedbackIncorrect": "Mensagem educacional guiando o aluno a perceber onde ele errou na avaliação dos exames."
+  "feedbackIncorrect": "Mensagem educacional guiando o aluno a perceber onde ele errou na avaliação dos exames.",
+  "playbookProtocol": "Protocolo de tratamento completo detalhando a abordagem terapêutica, prescrição de medicamentos (com doses sugeridas) e manejo a longo prazo (passo a passo)."
 }`;
 
   try {

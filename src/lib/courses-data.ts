@@ -15,6 +15,11 @@ export interface Teacher {
   avatar: string;
 }
 
+export interface GlossaryTerm {
+  term: string;
+  definition: string;
+}
+
 export interface Course {
   id: string;
   title: string;
@@ -31,6 +36,7 @@ export interface Course {
   featured?: boolean;
   purchased?: boolean;
   externalLink?: string;
+  glossary?: GlossaryTerm[];
 }
 
 export const teachers: Teacher[] = [
@@ -57,6 +63,27 @@ export const courses: Course[] = [
     level: "Avançado",
     featured: true,
     purchased: true,
+    glossary: [
+      { term: "Claudicação", definition: "Falta de firmeza ou assimetria no andar, popularmente conhecido como 'mancar'. Pode ser de apoio (dor ao pisar) ou de elevação (dor ao mover o membro)." },
+      { term: "Crepitação", definition: "Ruído ou sensação de atrito (roçar) de ossos ou cartilagens desgastadas durante o movimento articular ou à palpação de fraturas." },
+      { term: "Sinal de Ortolani", definition: "Teste ortopédico específico utilizado para detectar a frouxidão da articulação coxofemoral em cães jovens (indicativo de Displasia Coxofemoral)." },
+      { term: "Teste de Gaveta Cranial", definition: "Manobra semiológica que avalia a instabilidade do joelho. Positivo quando a tíbia se desloca cranialmente em relação ao fêmur, indicando ruptura do Ligamento Cruzado Cranial." },
+      { term: "Teste de Compressão Tibial", definition: "Teste indireto para avaliar a integridade do Ligamento Cruzado Cranial simulando a carga de peso no membro pélvico." },
+      { term: "TPLO (Osteotomia de Nivelamento do Platô Tibial)", definition: "Técnica cirúrgica que altera a biomecânica do joelho nivelando o platô tibial, anulando a necessidade do ligamento cruzado cranial." },
+      { term: "TTA (Avançamento da Tuberosidade Tibial)", definition: "Técnica cirúrgica que neutraliza as forças de cisalhamento do joelho avançando a inserção do ligamento patelar." },
+      { term: "Displasia Coxofemoral", definition: "Doença de desenvolvimento e hereditária caracterizada pela má formação e incongruência da articulação do quadril, levando à osteoartrose secundária." },
+      { term: "Luxação Patelar", definition: "Deslocamento da patela de seu local anatômico normal (sulco troclear), podendo ser medial (mais comum em raças pequenas) ou lateral." },
+      { term: "Artrodese", definition: "Procedimento cirúrgico que promove a fusão óssea permanente de uma articulação, eliminando o movimento e a dor." },
+      { term: "Osteossíntese", definition: "Cirurgia de redução e fixação de fraturas ósseas utilizando implantes como placas, parafusos, pinos e hastes." },
+      { term: "Osteocondrite Dissecante (OCD)", definition: "Falha na ossificação endocondral que resulta no espessamento e posterior desprendimento de um retalho de cartilagem articular (flap), comum no ombro de cães jovens." },
+      { term: "Não-união", definition: "Complicação onde ocorre a falha definitiva na consolidação (cicatrização) de uma fratura óssea." },
+      { term: "Calo Ósseo", definition: "Formação de tecido ósseo e cartilaginoso imaturo que estabiliza e cicatriza uma fratura ao longo das semanas." },
+      { term: "Sinal da Almofada de Gordura", definition: "Achado radiográfico onde há compressão da gordura infrapatelar indicando efusão articular severa (líquido na articulação do joelho)." },
+      { term: "Goniometria", definition: "Mensuração dos ângulos de flexão e extensão das articulações, muito utilizada para avaliar a amplitude de movimento (ADM) na fisioterapia ortopédica." },
+      { term: "Contratura Muscular", definition: "Encurtamento anormal e permanente de um músculo ou tendão, comum na contratura do músculo infraespinhoso ou quadríceps." },
+      { term: "Necrose Asséptica da Cabeça do Fêmur (Doença de Legg-Calvé-Perthes)", definition: "Condição onde há interrupção do suprimento sanguíneo para a cabeça femoral, causando necrose e dor severa. Afeta tipicamente cães jovens de raças toy/pequenas." },
+      { term: "Panosteíte", definition: "Inflamação da cavidade medular dos ossos longos que causa dor intermitente e claudicação migratória em cães jovens de raças grandes em fase de crescimento." }
+    ],
   },
   {
     id: "neurologia-essencial",
@@ -73,6 +100,14 @@ export const courses: Course[] = [
     teacher: teachers[1],
     level: "Avançado",
     purchased: false,
+    glossary: [
+      { term: "Ataxia", definition: "Incoordenação motora; movimento não coordenado sem fraqueza associada." },
+      { term: "Paresia", definition: "Diminuição ou fraqueza da função motora voluntária." },
+      { term: "Plegia (Paralisia)", definition: "Perda total da função motora voluntária." },
+      { term: "Nistagmo", definition: "Movimento involuntário e oscilatório dos olhos, comum em afecções vestibulares." },
+      { term: "Reflexo Patelar", definition: "Reflexo espinhal miotático que avalia a integridade do nervo femoral e segmentos medulares L4-L6." },
+      { term: "Plantígrado", definition: "Postura anormal onde o animal apoia toda a superfície distal do membro pélvico no chão." }
+    ],
   },
   {
     id: "hematologia-clinica",

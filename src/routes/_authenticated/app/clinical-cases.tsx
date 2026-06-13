@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon } from "lucide-react";
+import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,22 +18,22 @@ export const Route = createFileRoute("/_authenticated/app/clinical-cases")({
 function ClinicalCasesPage() {
   const [selectedCase, setSelectedCase] = useState<number | null>(null);
   const [customCases, setCustomCases] = useState<any[]>([]);
+  const [availableCases, setAvailableCases] = useState<any[]>([]);
   const { user } = useAuth();
 
   useEffect(() => {
-    const saved = localStorage.getItem("custom_clinical_cases");
-    if (saved) {
-      setCustomCases(JSON.parse(saved));
-    }
+    const local = JSON.parse(localStorage.getItem("custom_clinical_cases") || "[]");
+    const localIds = new Set(local.map((c: any) => c.id));
+    const mergedMocks = MOCK_CASES.filter((mc: any) => !localIds.has(mc.id));
+    setCustomCases(local);
+    setAvailableCases([...local, ...mergedMocks]);
   }, []);
 
   const isAdmin = user?.user_metadata?.role === "admin" || user?.email?.toLowerCase().trim() === "mimoshow10@gmail.com";
   
-  const allCases = [...customCases, ...MOCK_CASES];
-  
-  const availableCases = isAdmin 
-    ? allCases 
-    : allCases.filter(c => {
+  const visibleCases = isAdmin 
+    ? availableCases 
+    : availableCases.filter(c => {
         // Assume custom cases without courseId are visible to all, or restrict them
         if (!c.courseId) return true;
         const course = courses.find(course => course.id === c.courseId);
@@ -41,8 +41,8 @@ function ClinicalCasesPage() {
       });
 
   if (selectedCase !== null) {
-    const activeData = availableCases.find((c: any) => c.id === selectedCase);
-    return <ActiveCaseView caseData={activeData || availableCases[0]} onBack={() => setSelectedCase(null)} />;
+    const activeData = visibleCases.find((c: any) => c.id === selectedCase);
+    return <ActiveCaseView caseData={activeData || visibleCases[0]} onBack={() => setSelectedCase(null)} />;
   }
 
   return (
@@ -67,15 +67,16 @@ function ClinicalCasesPage() {
         </div>
       </div>
 
-      {availableCases.length === 0 && (
-        <div className="text-center py-12 text-muted-foreground">
-          <p>Nenhum caso clínico disponível no momento.</p>
-          <p className="text-xs mt-1">Os casos são liberados de acordo com os cursos que você adquiriu.</p>
+      {visibleCases.length === 0 && (
+        <div className="text-center py-20 px-4 bg-card rounded-2xl border border-border mt-8">
+          <AlertCircle className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+          <h2 className="font-display text-xl font-bold mb-2">Nenhum caso disponível</h2>
+          <p className="text-muted-foreground">Você precisa adquirir cursos para acessar os casos clínicos ou criar os seus próprios.</p>
         </div>
       )}
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {availableCases.map(c => (
+        {visibleCases.map(c => (
           <Card key={c.id} className="flex flex-col hover:border-coral/50 transition-colors cursor-pointer relative" onClick={() => setSelectedCase(c.id)}>
             {c.id > 1000 && <Badge className="absolute -top-3 -right-3 bg-primary text-primary-foreground">Novo</Badge>}
             <CardHeader className="pb-3">
@@ -106,6 +107,7 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
   const [activeTab, setActiveTab] = useState("anamnese");
   const [diagnostic, setDiagnostic] = useState("");
   const [showResult, setShowResult] = useState(false);
+  const [showPlaybookModal, setShowPlaybookModal] = useState(false);
 
   const isCorrect = diagnostic === caseData.correctAnswer;
 
@@ -160,7 +162,7 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
                 </div>
                 
                 <div className="p-4 flex-1 space-y-4 max-h-64 overflow-y-auto bg-muted/10 flex flex-col">
-                  {caseData.chatHistory.map((msg: any, i: number) => (
+                  {(caseData.chatHistory || []).map((msg: any, i: number) => (
                     <div key={i} className={`flex gap-3 max-w-[85%] ${!msg.isVet ? 'self-end ml-auto flex-row-reverse' : ''}`}>
                       <div className={`h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.isVet ? 'bg-primary/10' : 'bg-coral/10'}`}>
                         {msg.isVet ? <Stethoscope className="h-4 w-4 text-primary" /> : <span className="text-xs font-bold text-coral">T</span>}
@@ -193,7 +195,7 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
               <div>
                 <h3 className="font-display text-lg font-semibold mb-2">Exame Físico Geral e Específico</h3>
                 <ul className="list-disc pl-5 space-y-2 text-muted-foreground text-sm">
-                  {caseData.examList.map((item: string, i: number) => {
+                  {(caseData.examList || []).map((item: string, i: number) => {
                     const [bold, rest] = item.split(': ');
                     return <li key={i}><strong>{bold}:</strong> {rest}</li>;
                   })}
@@ -203,7 +205,7 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
               <div>
                 <h3 className="font-display text-lg font-semibold mb-3">Exames Complementares</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  {caseData.images.map((img: string, i: number) => (
+                  {(caseData.images || []).map((img: string, i: number) => (
                     <div key={i} className="aspect-video bg-secondary rounded-lg flex items-center justify-center border border-dashed border-border text-muted-foreground">
                       <ImageIcon className="h-8 w-8 mb-2 opacity-50" />
                       <span className="text-xs block text-center">{img}<br/>(Simulação)</span>
@@ -222,7 +224,7 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
               
               {!showResult ? (
                 <div className="space-y-3">
-                  {caseData.options.map((op: string) => (
+                  {(caseData.options || []).map((op: string) => (
                     <div 
                       key={op} 
                       onClick={() => setDiagnostic(op)}
@@ -254,7 +256,25 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
                       {isCorrect && (
                         <div className="mt-6 pt-6 border-t border-green-500/20">
                           <h5 className="font-bold text-green-500 text-sm mb-2">+50 Pontos ganhos!</h5>
-                          <Button className="bg-green-500 text-white hover:bg-green-600">Ver Protocolo de Tratamento (Playbook)</Button>
+                          
+                          {!showPlaybookModal ? (
+                            <Button 
+                              onClick={() => setShowPlaybookModal(true)}
+                              className="bg-green-500 text-white hover:bg-green-600"
+                            >
+                              Ver Protocolo de Tratamento (Playbook)
+                            </Button>
+                          ) : (
+                            <div className="mt-4 p-5 bg-background rounded-xl border border-border shadow-sm animate-in fade-in slide-in-from-top-2">
+                              <h5 className="font-display font-semibold text-lg mb-3 flex items-center gap-2">
+                                <BookOpen className="h-5 w-5 text-coral" />
+                                Protocolo de Tratamento
+                              </h5>
+                              <div className="text-sm text-foreground/80 leading-relaxed whitespace-pre-line space-y-2">
+                                {caseData.playbookProtocol || "Protocolo oficial em elaboração pela equipe VetClass Pro. Para este caso, o tratamento foca na estabilização inicial e acompanhamento."}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
                       

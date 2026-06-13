@@ -26,7 +26,8 @@ export const FULL_CASES = {
     options: ["Luxação Patelar Medial", "Ruptura de Ligamento Cruzado Cranial", "Displasia Coxofemoral", "Fratura de Platô Tibial"],
     correctAnswer: "Ruptura de Ligamento Cruzado Cranial",
     feedbackCorrect: "O teste de gaveta positivo combinado com o sinal radiográfico da almofada de gordura e o histórico agudo são clássicos para Ruptura do Ligamento Cruzado Cranial (RLCC).",
-    feedbackIncorrect: "A presença de teste de compressão tibial (gaveta) positivo e o histórico do animal apontam para outra patologia muito comum no joelho. Revise os testes específicos."
+    feedbackIncorrect: "A presença de teste de compressão tibial (gaveta) positivo e o histórico do animal apontam para outra patologia muito comum no joelho. Revise os testes específicos.",
+    playbookProtocol: "1. Tratamento Cirúrgico (Padrão Ouro): TPLO (Osteotomia de Nivelamento do Platô Tibial) ou TTA.\\n2. Tratamento Conservador (apenas se cirurgia não for possível): Repouso absoluto por 4 a 6 semanas.\\n3. Manejo da Dor: Meloxicam (0,1 mg/kg SID) por 5-7 dias, associado a Dipirona (25 mg/kg BID/TID) ou Tramadol (2-4 mg/kg BID).\\n4. Condroproteção: Suplementação com Glicosamina e Condroitina.\\n5. Reabilitação: Fisioterapia e controle rigoroso de peso (emagrecimento essencial para Bidu)."
   },
   4: {
     id: 4,
@@ -55,31 +56,12 @@ export const FULL_CASES = {
     options: ["Insuficiência Renal Crônica", "Diabetes Mellitus Complicada por Neuropatia", "Hipertireoidismo", "Hipocalemia severa"],
     correctAnswer: "Diabetes Mellitus Complicada por Neuropatia",
     feedbackCorrect: "Exato! O andar plantígrado é uma manifestação clássica da neuropatia diabética em gatos. Junto com a hiperglicemia severa e glicosúria, o diagnóstico de Diabetes Mellitus é confirmado.",
-    feedbackIncorrect: "Apesar de gatos idosos terem essas outras patologias, a glicemia de 380 mg/dL com frutosamina elevada e o andar plantígrado são patognomônicos de outra síndrome. Revise o laudo de sangue."
+    feedbackIncorrect: "Apesar de gatos idosos terem essas outras patologias, a glicemia de 380 mg/dL com frutosamina elevada e o andar plantígrado são patognomônicos de outra síndrome. Revise o laudo de sangue.",
+    playbookProtocol: "1. Insulinoterapia: Iniciar com Insulina Glargina (Lantus) na dose de 0,25 a 0,5 U/kg BID.\\n2. Dieta: Trocar para ração úmida rica em proteínas e pobre em carboidratos (ex: Dietas Diabetic/Feline). Alimentar estritamente antes da aplicação da insulina.\\n3. Monitoramento: Curva glicêmica após 7-14 dias do início do protocolo. Avaliar frutosamina mensalmente.\\n4. Neuropatia: A neuropatia diabética (andar plantígrado) costuma reverter gradualmente com o bom controle glicêmico. Pode-se suplementar com Metilcobalamina (Vitamina B12) 500mcg SID para auxiliar na recuperação nervosa."
   }
 };
 
 export const MOCK_CASES = [
   FULL_CASES[1],
-  FULL_CASES[4],
-  {
-    id: 2,
-    courseId: "hematologia-clinica",
-    teacherId: "t3",
-    title: "Felino com alopecia bilateral simétrica",
-    specialty: "Dermatologia",
-    difficulty: "Intermediário",
-    patient: "Mingau, SRD, 8 anos",
-    description: "Gato apresentando perda de pelo progressiva no tronco, sem prurido aparente. Comportamento e apetite normais.",
-  },
-  {
-    id: 3,
-    courseId: "emergencia-medica",
-    teacherId: "t4",
-    title: "Síncope recorrente em paciente cardiopata",
-    specialty: "Cardiologia",
-    difficulty: "Avançado",
-    patient: "Thor, Boxer, 9 anos",
-    description: "Paciente com histórico de sopro sistólico grau IV/VI apresenta desmaios rápidos durante passeios curtos.",
-  }
+  FULL_CASES[4]
 ];
