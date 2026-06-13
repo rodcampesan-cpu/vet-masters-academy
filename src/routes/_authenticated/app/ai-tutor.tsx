@@ -13,7 +13,7 @@ function AITutorPage() {
   const [messages, setMessages] = useState([
     {
       role: "ai",
-      content: "Olá! Sou o Tutor Vet IA. Minha base de conhecimento clínico está 100% sincronizada com o **Tratado de Ortopedia** (Dr. Rodrigo Nicola e Bruno Minto) e os **Conceitos de Neurologia** (Ronaldo Casemiro). O que vamos estudar hoje?"
+      content: "Olá! Sou o Tutor Vet IA. Estou aqui para tirar todas as suas dúvidas clínicas com a experiência do ortopedista e neurocirurgião Dr. Rodrigo Nicola Delgado. Qual é o caso ou dúvida que vamos discutir hoje?"
     }
   ]);
   const [input, setInput] = useState("");
@@ -100,7 +100,7 @@ function AITutorPage() {
             <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${msg.role === 'user' ? 'bg-secondary' : 'bg-coral text-white'}`}>
               {msg.role === 'user' ? <User className="h-5 w-5 text-muted-foreground" /> : <Bot className="h-5 w-5" />}
             </div>
-            <div className={`max-w-[80%] rounded-2xl p-4 text-sm leading-relaxed ${
+            <div className={`max-w-[80%] rounded-2xl p-4 text-sm leading-relaxed whitespace-pre-wrap ${
               msg.role === 'user' ? 'bg-secondary text-foreground rounded-tr-sm' : 'bg-coral/10 border border-coral/20 text-foreground rounded-tl-sm'
             }`}>
               {msg.content}

@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Users, PlaySquare, TrendingUp, DollarSign, Plus, Video, BrainCircuit, Upload, FileText } from "lucide-react";
+import { Users, PlaySquare, TrendingUp, DollarSign, Plus, Video, BrainCircuit, Upload, FileText, Edit2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
 import { ortopediaModules } from "@/lib/courses-data";
 
@@ -17,11 +18,85 @@ export const Route = createFileRoute("/_authenticated/app/teacher")({
 function TeacherPanel() {
   const [editingCourse, setEditingCourse] = useState(false);
   const [trainingAI, setTrainingAI] = useState(false);
+  const [buildingCase, setBuildingCase] = useState(false);
+  const [caseDescription, setCaseDescription] = useState("");
+  const [isGeneratingCase, setIsGeneratingCase] = useState(false);
   const [aiContextText, setAiContextText] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [clinicalCases, setClinicalCases] = useState<any[]>([]);
+
+  const handleGenerateCase = async () => {
+    if (!caseDescription.trim()) return;
+    setIsGeneratingCase(true);
+    try {
+      const response = await fetch("/api/generate-case", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ description: caseDescription }),
+      });
+      const data = await response.json();
+      if (data.error) throw new Error(data.error);
+      
+      // Save to localStorage
+      const existingCases = JSON.parse(localStorage.getItem("custom_clinical_cases") || "[]");
+      const newCase = { ...data, id: Date.now(), createdAt: new Date().toLocaleDateString() };
+      const updatedCases = [newCase, ...existingCases];
+      localStorage.setItem("custom_clinical_cases", JSON.stringify(updatedCases));
+      setClinicalCases(updatedCases);
+      
+      alert("Caso criado com sucesso! Ele já aparece na sua lista.");
+      setBuildingCase(false);
+      setCaseDescription("");
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao gerar o caso. Tente novamente.");
+    } finally {
+      setIsGeneratingCase(false);
+    }
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    
+    try {
+      if (file.type === "application/pdf") {
+        const pdfjsLib = await import("pdfjs-dist");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+        
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+        let fullText = "";
+        
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const textContent = await page.getTextContent();
+          const pageText = textContent.items.map((item: any) => item.str).join(" ");
+          fullText += pageText + "\\n";
+        }
+        
+        setAiContextText((prev) => prev + "\\n\\n--- [Conteúdo do arquivo: " + file.name + "] ---\\n" + fullText);
+      } else {
+        const text = await file.text();
+        setAiContextText((prev) => prev + "\\n\\n--- [Conteúdo do arquivo: " + file.name + "] ---\\n" + text);
+      }
+    } catch (error) {
+      console.error("Erro ao ler arquivo", error);
+      alert("Não foi possível extrair o texto deste arquivo.");
+    } finally {
+      setIsUploading(false);
+      event.target.value = '';
+    }
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem("aiTeacherContext");
     if (saved) setAiContextText(saved);
+
+    const savedCases = JSON.parse(localStorage.getItem("custom_clinical_cases") || "[]");
+    setClinicalCases(savedCases);
   }, []);
 
   const handleSaveAIContext = () => {
@@ -36,7 +111,10 @@ function TeacherPanel() {
           <h1 className="font-display text-2xl font-bold">Painel do Professor</h1>
           <p className="text-sm text-muted-foreground">Gerencie seus cursos, aulas e alunos.</p>
         </div>
-        <Button className="bg-coral text-coral-foreground hover:bg-coral/90">
+        <Button 
+          className="bg-coral text-coral-foreground hover:bg-coral/90"
+          onClick={() => setEditingCourse(true)}
+        >
           <Plus className="mr-2 h-4 w-4" /> Criar Novo Curso
         </Button>
       </div>
@@ -57,6 +135,49 @@ function TeacherPanel() {
             <CourseEditorCard title="Ortopedia Clínica de Excelência" students={850} progress={95} onEdit={() => setEditingCourse(true)} />
             <CourseEditorCard title="Fundamentos de Cirurgia Articular" students={398} progress={100} onEdit={() => setEditingCourse(true)} />
             <CourseEditorCard title="Técnicas de Fisioterapia (Novo)" students={0} progress={20} isDraft onEdit={() => setEditingCourse(true)} />
+          </div>
+
+          <div className="pt-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-display text-lg font-semibold">Casos Clínicos Criados</h2>
+              <Button variant="outline" size="sm" onClick={() => setBuildingCase(true)} className="text-coral border-coral/30 hover:bg-coral hover:text-white">
+                <Plus className="mr-2 h-4 w-4" /> Novo Caso
+              </Button>
+            </div>
+            
+            {clinicalCases.length === 0 ? (
+              <div className="text-center p-8 border border-dashed border-border rounded-xl bg-card">
+                <FileText className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                <p className="text-sm text-muted-foreground">Você ainda não possui casos clínicos criados.</p>
+                <Button variant="link" onClick={() => setBuildingCase(true)} className="text-coral mt-1">
+                  Usar a I.A. para criar o primeiro
+                </Button>
+              </div>
+            ) : (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {clinicalCases.map((c: any) => (
+                  <div key={c.id} className="p-4 rounded-xl border border-border bg-card shadow-soft relative group hover:border-coral/50 transition">
+                    <h3 className="font-semibold text-sm">{c.title || "Caso Clínico Sem Título"}</h3>
+                    <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                      {c.patient_history || c.description || "Descrição não disponível"}
+                    </p>
+                    <div className="mt-4 flex gap-2 items-center justify-between">
+                       <div className="flex gap-2">
+                         <span className="text-[10px] uppercase font-bold bg-secondary px-2 py-1 rounded text-muted-foreground">
+                           {c.difficulty || "Média"}
+                         </span>
+                         <span className="text-[10px] uppercase font-bold bg-primary/10 text-primary px-2 py-1 rounded">
+                           Gerado por I.A.
+                         </span>
+                       </div>
+                       <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-coral">
+                         <Edit2 className="h-3 w-3" />
+                       </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="pt-8">
@@ -91,7 +212,12 @@ function TeacherPanel() {
             </CardHeader>
             <CardContent className="space-y-2">
               <Button variant="outline" className="w-full justify-start text-xs"><Video className="mr-2 h-4 w-4" /> Agendar Aula ao Vivo</Button>
-              <Button variant="outline" className="w-full justify-start text-xs"><Plus className="mr-2 h-4 w-4" /> Adicionar Playbook</Button>
+              <Button 
+                onClick={() => setBuildingCase(true)}
+                variant="outline" className="w-full justify-start text-xs"
+              >
+                <Plus className="mr-2 h-4 w-4" /> Criar Caso Clínico (I.A.)
+              </Button>
               <Button 
                 onClick={() => setTrainingAI(true)}
                 className="w-full justify-start text-xs bg-coral text-white hover:bg-coral/90"
@@ -102,6 +228,48 @@ function TeacherPanel() {
           </Card>
         </aside>
       </div>
+
+      {/* MODAL DO CONSTRUTOR DE CASOS CLÍNICOS */}
+      <Dialog open={buildingCase} onOpenChange={setBuildingCase}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <FileText className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <DialogTitle className="font-display text-xl">Construtor Mágico de Casos</DialogTitle>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Descreva o paciente e o problema. A Inteligência Artificial criará um desafio completo (com exames e diagnóstico) para seus alunos!
+                </p>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <div className="mt-4 space-y-4">
+            <div>
+              <label className="text-sm font-semibold mb-2 block">O que você quer testar?</label>
+              <Textarea 
+                value={caseDescription}
+                onChange={(e) => setCaseDescription(e.target.value)}
+                placeholder="Ex: Crie um caso de um Poodle idoso com tosse seca e sopro cardíaco. O diagnóstico correto deve ser Doença Valvar Mitral."
+                className="h-32 resize-none"
+              />
+            </div>
+          </div>
+
+          <DialogFooter className="mt-6">
+            <Button variant="ghost" onClick={() => setBuildingCase(false)}>Cancelar</Button>
+            <Button 
+              disabled={isGeneratingCase || !caseDescription}
+              className="bg-primary text-primary-foreground hover:bg-primary/90" 
+              onClick={handleGenerateCase}
+            >
+              {isGeneratingCase ? "Aguarde, a mágica está acontecendo..." : "Gerar Caso com I.A."}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* MODAL DO CONSTRUTOR DE CURSOS */}
       <Dialog open={editingCourse} onOpenChange={setEditingCourse}>
@@ -195,8 +363,27 @@ function TeacherPanel() {
           </DialogHeader>
 
           <div className="mt-4 space-y-4">
+            <div className="border-2 border-dashed border-border rounded-xl p-6 text-center hover:bg-secondary/20 transition-colors">
+              <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+              <p className="text-sm font-semibold">Anexar Material de Estudo</p>
+              <p className="text-xs text-muted-foreground mb-4">Suporta PDFs, TXT, CSV (O texto será extraído automaticamente)</p>
+              
+              <div className="relative inline-block">
+                <Button variant="outline" size="sm" disabled={isUploading}>
+                  {isUploading ? "Extraindo texto..." : "Selecionar Arquivo"}
+                </Button>
+                <input 
+                  type="file" 
+                  accept=".pdf,.txt,.csv,.md"
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  onChange={handleFileUpload}
+                  disabled={isUploading}
+                />
+              </div>
+            </div>
+
             <div>
-              <label className="text-sm font-semibold mb-2 block">Instruções do Agente (Persona & Material)</label>
+              <label className="text-sm font-semibold mb-2 block">Instruções do Agente & Texto Extraído</label>
               <Textarea 
                 value={aiContextText}
                 onChange={(e) => setAiContextText(e.target.value)}

@@ -34,20 +34,33 @@ Seu objetivo é ajudar seus alunos respondendo às suas dúvidas com base em seu
 Mantenha um tom profissional, acolhedor e didático. Se for questionado sobre emergências ou casos clínicos complexos, guie o aluno no raciocínio diagnóstico e opções de tratamento.
 Responda sempre em Português do Brasil.`;
 
-  const finalPrompt = systemInstruction || defaultPrompt;
+  let finalPrompt = systemInstruction || defaultPrompt;
+
+  // Forçar a formatação limpa (sem markdown) no final do prompt
+  finalPrompt += `\n\nIMPORTANTE (Regra de Formatação): 
+- NÃO use NENHUM símbolo especial de formatação (como asteriscos ** ou hashtags #).
+- Apresente o texto de forma limpa, direta e bem espaçada.
+- Use pontos finais de forma clara e separe os assuntos por tópicos pulando linhas, para que a leitura fique agradável em um chat simples.`;
 
   try {
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-flash-lite-latest",
       systemInstruction: finalPrompt,
     });
 
     // Formatar as mensagens do formato OpenAI para o formato do Gemini
+    let history = messages.slice(0, -1).map((msg) => ({
+      role: msg.role === "assistant" ? "model" : "user",
+      parts: [{ text: msg.content }],
+    }));
+
+    // Gemini API exige que o history comece com "user"
+    while (history.length > 0 && history[0].role === "model") {
+      history.shift();
+    }
+
     const chat = model.startChat({
-      history: messages.slice(0, -1).map((msg) => ({
-        role: msg.role === "assistant" ? "model" : "user",
-        parts: [{ text: msg.content }],
-      })),
+      history,
     });
 
     const lastMessage = messages[messages.length - 1].content;

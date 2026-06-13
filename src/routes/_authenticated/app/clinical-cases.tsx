@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,19 +17,32 @@ export const Route = createFileRoute("/_authenticated/app/clinical-cases")({
 
 function ClinicalCasesPage() {
   const [selectedCase, setSelectedCase] = useState<number | null>(null);
+  const [customCases, setCustomCases] = useState<any[]>([]);
   const { user } = useAuth();
+
+  useEffect(() => {
+    const saved = localStorage.getItem("custom_clinical_cases");
+    if (saved) {
+      setCustomCases(JSON.parse(saved));
+    }
+  }, []);
 
   const isAdmin = user?.user_metadata?.role === "admin" || user?.email?.toLowerCase().trim() === "mimoshow10@gmail.com";
   
+  const allCases = [...customCases, ...MOCK_CASES];
+  
   const availableCases = isAdmin 
-    ? MOCK_CASES 
-    : MOCK_CASES.filter(c => {
+    ? allCases 
+    : allCases.filter(c => {
+        // Assume custom cases without courseId are visible to all, or restrict them
+        if (!c.courseId) return true;
         const course = courses.find(course => course.id === c.courseId);
         return course?.purchased === true;
       });
 
   if (selectedCase !== null) {
-    return <ActiveCaseView caseId={selectedCase} onBack={() => setSelectedCase(null)} />;
+    const activeData = availableCases.find((c: any) => c.id === selectedCase);
+    return <ActiveCaseView caseData={activeData || availableCases[0]} onBack={() => setSelectedCase(null)} />;
   }
 
   return (
@@ -63,7 +76,8 @@ function ClinicalCasesPage() {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {availableCases.map(c => (
-          <Card key={c.id} className="flex flex-col hover:border-coral/50 transition-colors cursor-pointer" onClick={() => setSelectedCase(c.id)}>
+          <Card key={c.id} className="flex flex-col hover:border-coral/50 transition-colors cursor-pointer relative" onClick={() => setSelectedCase(c.id)}>
+            {c.id > 1000 && <Badge className="absolute -top-3 -right-3 bg-primary text-primary-foreground">Novo</Badge>}
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start mb-2">
                 <Badge variant="outline" className="bg-coral/10 text-coral border-coral/20">{c.specialty}</Badge>
@@ -88,13 +102,11 @@ function ClinicalCasesPage() {
 }
 
 // Sub-componente para a visualização do caso interativo
-function ActiveCaseView({ caseId, onBack }: { caseId: number, onBack: () => void }) {
+function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => void }) {
   const [activeTab, setActiveTab] = useState("anamnese");
   const [diagnostic, setDiagnostic] = useState("");
   const [showResult, setShowResult] = useState(false);
 
-  // @ts-ignore
-  const caseData = FULL_CASES[caseId] || FULL_CASES[1];
   const isCorrect = diagnostic === caseData.correctAnswer;
 
   return (
