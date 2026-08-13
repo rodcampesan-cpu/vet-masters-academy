@@ -11,6 +11,17 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 import drRodrigoImg from "@/assets/dr-rodrigo.png";
+import { courses } from "@/lib/courses-data";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+const chartData = [
+  { name: 'Jan', total: 42000 },
+  { name: 'Fev', total: 51000 },
+  { name: 'Mar', total: 48000 },
+  { name: 'Abr', total: 61000 },
+  { name: 'Mai', total: 72000 },
+  { name: 'Jun', total: 85400 },
+];
 
 export const Route = createFileRoute("/_authenticated/app/admin")({
   head: () => ({ meta: [{ title: "Administração — VetClass Pro" }] }),
@@ -62,8 +73,26 @@ function AdminPanel() {
               <CardHeader>
                 <CardTitle>Crescimento de Matrículas (Últimos 6 meses)</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2 flex justify-center items-center h-[300px] text-muted-foreground bg-secondary/10 rounded-lg mx-6 mb-6 border border-dashed border-border">
-                [Gráfico de Barras Financeiro será renderizado aqui]
+              <CardContent className="pl-0 pt-4 h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                    <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis 
+                      stroke="#888888" 
+                      fontSize={12} 
+                      tickLine={false} 
+                      axisLine={false} 
+                      tickFormatter={(value) => `R$${value/1000}k`} 
+                    />
+                    <Tooltip 
+                      cursor={{ fill: 'transparent' }} 
+                      contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                      formatter={(value: number) => [`R$ ${value.toLocaleString('pt-BR')}`, 'Faturamento']}
+                    />
+                    <Bar dataKey="total" fill="#FF6B6B" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                  </BarChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
             
@@ -186,9 +215,15 @@ function AdminPanel() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
-                    <CourseRow title="Ortopedia Clínica de Excelência" teacher="Dr. Rodrigo Nicola" status="Publicado" onOpen={() => setSelectedCourse({ title: "Ortopedia Clínica de Excelência", teacher: "Dr. Rodrigo Nicola", students: 850 })} />
-                    <CourseRow title="Fundamentos de Cirurgia Articular" teacher="Dr. Rodrigo Nicola" status="Publicado" onOpen={() => setSelectedCourse({ title: "Fundamentos de Cirurgia Articular", teacher: "Dr. Rodrigo Nicola", students: 398 })} />
-                    <CourseRow title="Neurologia Clínica 101" teacher="Dr. Renan Dias" status="Revisão" onOpen={() => setSelectedCourse({ title: "Neurologia Clínica 101", teacher: "Dr. Renan Dias", students: 0 })} />
+                    {courses.map((c) => (
+                      <CourseRow 
+                        key={c.id}
+                        title={c.title} 
+                        teacher={c.teacher.name} 
+                        status={c.purchased ? "Publicado" : "Revisão"} 
+                        onOpen={() => setSelectedCourse({ title: c.title, teacher: c.teacher.name, students: c.students })} 
+                      />
+                    ))}
                   </tbody>
                 </table>
               </div>

@@ -1,8 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Download, MessageSquare, Play, Send, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, Download, MessageSquare, Play, Send, FileText, ChevronLeft, ChevronRight, Maximize, Minimize, CheckCircle2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import confetti from "canvas-confetti";
 
 export const Route = createFileRoute("/_authenticated/app/lessons/$lessonId")({
   head: () => ({ meta: [{ title: "Sala de Aula — VetClass Pro" }] }),
@@ -13,13 +16,81 @@ function LessonClassroom() {
   const { lessonId } = Route.useParams();
   const decodedTitle = lessonId.replace(/-/g, " ");
   const capitalizedTitle = decodedTitle.charAt(0).toUpperCase() + decodedTitle.slice(1);
+  const [theaterMode, setTheaterMode] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [lessonMaterial, setLessonMaterial] = useState<{ name: string; url: string; size?: number } | null>(null);
+
+  // Tentar carregar o material da aula do localStorage
+  useEffect(() => {
+    try {
+      // Procurar nos materiais salvos pelo professor
+      const materialRefs = JSON.parse(localStorage.getItem('course_material_refs') || '{}');
+      
+      // Buscar por correspondência no título da aula
+      for (const key of Object.keys(materialRefs)) {
+        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+        if (normalizedKey.includes(lessonId) || lessonId.includes(normalizedKey.split('_').pop() || '')) {
+          setLessonMaterial(materialRefs[key]);
+          break;
+        }
+      }
+
+      // Também buscar nos lesson_materials
+      const lessonMaterials = JSON.parse(localStorage.getItem('lesson_materials') || '{}');
+      for (const key of Object.keys(lessonMaterials)) {
+        const mat = lessonMaterials[key];
+        if (mat && mat.name) {
+          // Se ainda não encontrou material, usar este
+          if (!lessonMaterial) {
+            setLessonMaterial({ name: mat.name, url: mat.data, size: mat.size });
+          }
+        }
+      }
+    } catch (e) {
+      console.error("Error loading lesson materials:", e);
+    }
+  }, [lessonId]);
+
+  const handleCompleteLesson = () => {
+    setIsCompleted(true);
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#FF6B6B', '#4ade80', '#fbbf24']
+    });
+    toast.success("Aula Concluída!", {
+      description: "Você ganhou +50 XP. Continue assim!",
+      icon: "🎉"
+    });
+  };
+
+  const handleDownloadPdf = () => {
+    if (lessonMaterial?.url) {
+      const link = document.createElement('a');
+      link.href = lessonMaterial.url;
+      link.download = lessonMaterial.name || 'material.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("Download iniciado!");
+    }
+  };
+
+  const formatFileSize = (bytes?: number) => {
+    if (!bytes) return "";
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-12 animate-fade-in">
+    <div className={`min-h-screen pb-12 animate-fade-in transition-colors duration-500 ${theaterMode ? 'bg-slate-950 text-white' : 'bg-[#F8F9FA]'}`}>
       {/* Header Escuro (estilo cinemático) */}
       <header className="bg-slate-900 text-white px-4 sm:px-8 py-4 flex items-center justify-between sticky top-0 z-10 shadow-md">
         <div className="flex items-center gap-4">
-          <Link to="/app/courses/ortopedia-avancada" className="p-2 hover:bg-white/10 rounded-full transition">
+          <Link to="/app/courses/$courseId" params={{ courseId: "ortopedia-avancada" }} className="p-2 hover:bg-white/10 rounded-full transition">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>
@@ -28,6 +99,17 @@ function LessonClassroom() {
           </div>
         </div>
         <div className="hidden sm:flex items-center gap-2">
+          <Button 
+            variant={isCompleted ? "default" : "outline"}
+            className={isCompleted ? "bg-green-500 hover:bg-green-600 text-white border-none" : "border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800"}
+            onClick={isCompleted ? undefined : handleCompleteLesson}
+          >
+            <CheckCircle2 className={`h-4 w-4 mr-2 ${isCompleted ? 'text-white' : 'text-slate-400'}`} />
+            {isCompleted ? "Concluída" : "Marcar como Concluída"}
+          </Button>
+          
+          <div className="h-6 w-px bg-slate-700 mx-1"></div>
+
           <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white hover:bg-white/10">
             <ChevronLeft className="h-4 w-4 mr-1" /> Anterior
           </Button>
@@ -37,11 +119,11 @@ function LessonClassroom() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-8">
+      <div className={`mx-auto ${theaterMode ? 'max-w-[1600px]' : 'max-w-7xl'} px-4 py-8 sm:px-8 transition-all duration-500`}>
         <div className="grid gap-8 lg:grid-cols-12">
           
           {/* COLUNA ESQUERDA: Vídeo e Comentários */}
-          <div className="lg:col-span-8 space-y-8">
+          <div className={`${theaterMode ? 'lg:col-span-12' : 'lg:col-span-8'} space-y-8 transition-all duration-500`}>
             {/* Player de Vídeo */}
             <div className="overflow-hidden rounded-2xl bg-black shadow-elevated aspect-video relative group">
               <img 
@@ -58,10 +140,18 @@ function LessonClassroom() {
               <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/20">
                 <div className="h-full bg-coral w-[45%]" />
               </div>
+              
+              {/* Botão Theater Mode Toggle */}
+              <button 
+                onClick={() => setTheaterMode(!theaterMode)}
+                className="absolute top-4 right-4 bg-black/40 hover:bg-black/80 text-white p-2 rounded-lg backdrop-blur-md transition-all z-20 group-hover:opacity-100 opacity-0"
+              >
+                {theaterMode ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
+              </button>
             </div>
 
             {/* Comentários / Dúvidas */}
-            <div className="bg-card rounded-2xl p-6 shadow-soft border border-border">
+            <div className={`rounded-2xl p-6 shadow-soft border ${theaterMode ? 'bg-slate-900 border-slate-800' : 'bg-card border-border'}`}>
               <h2 className="font-display text-xl font-bold mb-6 flex items-center gap-2">
                 <MessageSquare className="h-5 w-5 text-coral" />
                 Dúvidas e Comentários (12)
@@ -111,7 +201,8 @@ function LessonClassroom() {
           </div>
 
           {/* COLUNA DIREITA: Post-it e Download */}
-          <div className="lg:col-span-4 space-y-6">
+          {!theaterMode && (
+            <div className="lg:col-span-4 space-y-6 animate-in slide-in-from-right-10 fade-in duration-500">
             
             {/* O POST-IT DO PROFESSOR */}
             <div className="relative group">
@@ -146,23 +237,61 @@ function LessonClassroom() {
               </div>
             </div>
 
-            {/* BOTÃO DE MATERIAL */}
-            <div className="bg-card rounded-2xl p-5 shadow-card border border-border mt-8 flex flex-col gap-4">
+            {/* MATERIAL DA AULA - PDF do Professor */}
+            <div className={`rounded-2xl p-5 shadow-card border mt-8 flex flex-col gap-4 ${
+              lessonMaterial 
+                ? 'bg-card border-border' 
+                : 'bg-card border-border'
+            }`}>
               <div className="flex items-start gap-3">
-                <div className="bg-secondary p-3 rounded-xl">
-                  <FileText className="h-6 w-6 text-coral" />
+                <div className={`p-3 rounded-xl shrink-0 ${lessonMaterial ? 'bg-coral/10' : 'bg-secondary'}`}>
+                  <FileText className={`h-6 w-6 ${lessonMaterial ? 'text-coral' : 'text-coral'}`} />
                 </div>
-                <div>
+                <div className="flex-1 min-w-0">
                   <h4 className="font-semibold text-sm">Material de Apoio</h4>
-                  <p className="text-xs text-muted-foreground mt-0.5">Slides da aula em alta resolução (PDF)</p>
+                  {lessonMaterial ? (
+                    <div className="mt-1">
+                      <p className="text-xs text-foreground/80 font-medium truncate">{lessonMaterial.name}</p>
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <CheckCircle2 className="h-3 w-3 text-green-500" />
+                        <span className="text-[10px] text-green-600">
+                          PDF disponível {lessonMaterial.size ? `• ${formatFileSize(lessonMaterial.size)}` : ''}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground mt-0.5">Slides da aula em alta resolução (PDF)</p>
+                  )}
                 </div>
               </div>
-              <Button className="w-full bg-slate-900 text-white hover:bg-slate-800 shadow-lg">
-                <Download className="h-4 w-4 mr-2" /> Baixar Slides (3.4 MB)
-              </Button>
+              
+              {lessonMaterial ? (
+                <div className="flex gap-2">
+                  <Button 
+                    className="flex-1 bg-coral text-white hover:bg-coral/90 shadow-lg"
+                    onClick={handleDownloadPdf}
+                  >
+                    <Download className="h-4 w-4 mr-2" /> Baixar PDF
+                  </Button>
+                  {lessonMaterial.url.startsWith('http') && (
+                    <Button 
+                      variant="outline"
+                      size="icon"
+                      className="shrink-0"
+                      onClick={() => window.open(lessonMaterial.url, '_blank')}
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
+              ) : (
+                <Button className="w-full bg-slate-900 text-white hover:bg-slate-800 shadow-lg">
+                  <Download className="h-4 w-4 mr-2" /> Baixar Slides (3.4 MB)
+                </Button>
+              )}
             </div>
-
-          </div>
+            </div>
+          )}
 
         </div>
       </div>

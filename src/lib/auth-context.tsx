@@ -17,28 +17,54 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Busca a sessão inicial
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
+    // Verifica mock local primeiro
+    const mockRole = localStorage.getItem("mock_auth_role");
+    if (mockRole) {
+      setSession(createMockSession(mockRole as any));
       setLoading(false);
-    });
+    } else {
+      // Busca a sessão inicial
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session);
+        setLoading(false);
+      });
+    }
 
     // Escuta mudanças (login, logout)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setLoading(false);
+      if (!localStorage.getItem("mock_auth_role")) {
+        setSession(session);
+        setLoading(false);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
+  const createMockSession = (role: "student" | "teacher" | "admin"): any => ({
+    access_token: "fake-token",
+    refresh_token: "fake-refresh",
+    expires_in: 99999,
+    token_type: "bearer",
+    user: {
+      id: "mock-id-123",
+      app_metadata: {},
+      user_metadata: { role, full_name: "Visitante VIP" },
+      aud: "authenticated",
+      created_at: new Date().toISOString(),
+      email: role === "admin" ? "admin@teste.com" : role === "teacher" ? "prof@teste.com" : "aluno@teste.com"
+    }
+  });
+
   const signOut = async () => {
+    localStorage.removeItem("mock_auth_role");
+    setSession(null);
     await supabase.auth.signOut();
   };
 
-  const loginAs = () => {
-    // Não usamos mais isso, o Supabase gerencia o login!
-    console.warn("A função loginAs não é mais utilizada. Use o formulário de login.");
+  const loginAs = (role: "student" | "teacher" | "admin") => {
+    localStorage.setItem("mock_auth_role", role);
+    setSession(createMockSession(role));
   };
 
   return (

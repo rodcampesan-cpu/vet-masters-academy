@@ -14,7 +14,219 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      courses: {
+        Row: {
+          id: string
+          title: string
+          specialty: string
+          description: string | null
+          cover_url: string | null
+          level: string | null
+          teacher_name: string
+          teacher_id: string | null
+          featured: boolean | null
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          title: string
+          specialty: string
+          description?: string | null
+          cover_url?: string | null
+          level?: string | null
+          teacher_name: string
+          teacher_id?: string | null
+          featured?: boolean | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          title?: string
+          specialty?: string
+          description?: string | null
+          cover_url?: string | null
+          level?: string | null
+          teacher_name?: string
+          teacher_id?: string | null
+          featured?: boolean | null
+          created_at?: string | null
+        }
+        Relationships: []
+      }
+      modules: {
+        Row: {
+          id: string
+          course_id: string | null
+          title: string
+          order: number
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          course_id?: string | null
+          title: string
+          order: number
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          course_id?: string | null
+          title?: string
+          order?: number
+          created_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "modules_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      lessons: {
+        Row: {
+          id: string
+          module_id: string | null
+          title: string
+          video_url: string | null
+          duration_minutes: number | null
+          order: number
+          material_url: string | null
+          material_name: string | null
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          module_id?: string | null
+          title: string
+          video_url?: string | null
+          duration_minutes?: number | null
+          order: number
+          material_url?: string | null
+          material_name?: string | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          module_id?: string | null
+          title?: string
+          video_url?: string | null
+          duration_minutes?: number | null
+          order?: number
+          material_url?: string | null
+          material_name?: string | null
+          created_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "modules"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      student_progress: {
+        Row: {
+          id: string
+          user_id: string | null
+          lesson_id: string | null
+          completed: boolean | null
+          completed_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          lesson_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          lesson_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_progress_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      clinical_cases: {
+        Row: {
+          id: string
+          title: string | null
+          specialty: string | null
+          difficulty: string | null
+          patient: Json | null
+          description: string | null
+          anamnesis_text: string | null
+          chat_history: Json | null
+          ai_hint: string | null
+          exam_list: Json | null
+          images: Json | null
+          exam_conclusion: string | null
+          options: Json | null
+          correct_answer: string | null
+          feedback_correct: string | null
+          feedback_incorrect: string | null
+          playbook_protocol: string | null
+          author_email: string | null
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          title?: string | null
+          specialty?: string | null
+          difficulty?: string | null
+          patient?: Json | null
+          description?: string | null
+          anamnesis_text?: string | null
+          chat_history?: Json | null
+          ai_hint?: string | null
+          exam_list?: Json | null
+          images?: Json | null
+          exam_conclusion?: string | null
+          options?: Json | null
+          correct_answer?: string | null
+          feedback_correct?: string | null
+          feedback_incorrect?: string | null
+          playbook_protocol?: string | null
+          author_email?: string | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          title?: string | null
+          specialty?: string | null
+          difficulty?: string | null
+          patient?: Json | null
+          description?: string | null
+          anamnesis_text?: string | null
+          chat_history?: Json | null
+          ai_hint?: string | null
+          exam_list?: Json | null
+          images?: Json | null
+          exam_conclusion?: string | null
+          options?: Json | null
+          correct_answer?: string | null
+          feedback_correct?: string | null
+          feedback_incorrect?: string | null
+          playbook_protocol?: string | null
+          author_email?: string | null
+          created_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

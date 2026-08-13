@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon, BookOpen } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon, BookOpen, Instagram, Share2, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,39 +10,112 @@ import { FULL_CASES, MOCK_CASES } from "@/lib/cases-data";
 import { courses } from "@/lib/courses-data";
 import { useAuth } from "@/lib/auth-context";
 
+class LocalErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: any}> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error };
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-8 bg-red-50 text-red-900 border border-red-200 rounded-xl my-8">
+          <h2 className="font-bold text-xl mb-4">Erro Crítico no Componente!</h2>
+          <pre className="text-sm overflow-auto whitespace-pre-wrap">{this.state.error?.toString()}</pre>
+          <pre className="text-xs mt-4 text-red-700/50">{this.state.error?.stack}</pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export const Route = createFileRoute("/_authenticated/app/clinical-cases")({
   head: () => ({ meta: [{ title: "Casos Clínicos — VetClass Pro" }] }),
-  component: ClinicalCasesPage,
+  component: () => <LocalErrorBoundary><ClinicalCasesPage /></LocalErrorBoundary>,
 });
 
 function ClinicalCasesPage() {
-  const [selectedCase, setSelectedCase] = useState<number | null>(null);
-  const [customCases, setCustomCases] = useState<any[]>([]);
-  const [availableCases, setAvailableCases] = useState<any[]>([]);
   const { user } = useAuth();
-
+  const [selectedCase, setSelectedCase] = useState<number | null>(null);
+  const [availableCases, setAvailableCases] = useState<any[]>([]);
+  
   useEffect(() => {
-    const local = JSON.parse(localStorage.getItem("custom_clinical_cases") || "[]");
-    const localIds = new Set(local.map((c: any) => c.id));
-    const mergedMocks = MOCK_CASES.filter((mc: any) => !localIds.has(mc.id));
-    setCustomCases(local);
-    setAvailableCases([...local, ...mergedMocks]);
-  }, []);
+    const fetchCases = async () => {
+      let supabaseCases: any[] = [];
+      try {
+        const { data, error } = await supabase
+          .from('clinical_cases')
+          .select('*')
+          .order('created_at', { ascending: false });
+          
+        if (!error && data) {
+          supabaseCases = data.map((dbCase: any) => ({
+            id: dbCase.id,
+            title: dbCase.title,
+            specialty: dbCase.specialty,
+            difficulty: dbCase.difficulty,
+            patient: dbCase.patient,
+            description: dbCase.description,
+            anamnesisText: dbCase.anamnesis_text,
+            chatHistory: dbCase.chat_history,
+            aiHint: dbCase.ai_hint,
+            examList: dbCase.exam_list,
+            images: dbCase.images,
+            examConclusion: dbCase.exam_conclusion,
+            options: dbCase.options,
+            correctAnswer: dbCase.correct_answer,
+            feedbackCorrect: dbCase.feedback_correct,
+            feedbackIncorrect: dbCase.feedback_incorrect,
+            playbookProtocol: dbCase.playbook_protocol,
+            authorEmail: dbCase.author_email,
+            createdAt: dbCase.created_at
+          }));
+        }
+      } catch (e) {
+        console.error("Error fetching from supabase:", e);
+      }
+      
+      const localIds = new Set(supabaseCases.map((c: any) => c.id));
+      const currentEmail = user?.email || "";
+      
+      // Carregar os casos locais (antes da integração com Supabase)
+      const savedCasesRaw = JSON.parse(localStorage.getItem("custom_clinical_cases") || "[]");
+      const savedCases = savedCasesRaw.filter((c: any) => !localIds.has(c.id));
+      savedCases.forEach((c: any) => localIds.add(c.id));
+      
+      // Mostrar todos os casos do supabase + local + mocks (se admin)
+      const mergedMocks = MOCK_CASES.filter((mc: any) => !localIds.has(mc.id));
+      setAvailableCases([...supabaseCases, ...savedCases, ...mergedMocks]);
+    };
+    
+    fetchCases();
+  }, [user?.email]);
 
   const isAdmin = user?.user_metadata?.role === "admin" || user?.email?.toLowerCase().trim() === "mimoshow10@gmail.com";
-  
+  const currentEmail = user?.email?.toLowerCase() || "";
+  const isTeacher = user?.user_metadata?.role === "teacher" || currentEmail.includes("rodrigovetlat") || currentEmail.includes("namdias02") || currentEmail.includes("carolina_vet") || currentEmail.replace(/\./g, '').includes("nathyarmarinhos");
+
   const visibleCases = isAdmin 
     ? availableCases 
     : availableCases.filter(c => {
-        // Assume custom cases without courseId are visible to all, or restrict them
-        if (!c.courseId) return true;
-        const course = courses.find(course => course.id === c.courseId);
-        return course?.purchased === true;
+        // Se for professor, mostra SÓ os casos que ele criou ou os Mocks se for Rodrigo
+        if (isTeacher) {
+          const isRodrigo = currentEmail.includes("rodrigo") || currentEmail.includes("mimoshow");
+          const isMyCustomCase = c.authorEmail === currentEmail || (!c.authorEmail && isRodrigo);
+          const isMyMock = isRodrigo && MOCK_CASES.some(mc => mc.id === c.id);
+          return isMyCustomCase || isMyMock;
+        }
+
+        // Para alunos normais (Temporário: liberando acesso a todos os casos antes das vendas iniciarem)
+        return true;
       });
 
   if (selectedCase !== null) {
     const activeData = visibleCases.find((c: any) => c.id === selectedCase);
-    return <ActiveCaseView caseData={activeData || visibleCases[0]} onBack={() => setSelectedCase(null)} />;
+    return <ActiveCaseView caseData={activeData || visibleCases[0]} onBack={() => setSelectedCase(null)} isTeacher={isTeacher} />;
   }
 
   return (
@@ -103,7 +176,7 @@ function ClinicalCasesPage() {
 }
 
 // Sub-componente para a visualização do caso interativo
-function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => void }) {
+function ActiveCaseView({ caseData, onBack, isTeacher = false }: { caseData: any, onBack: () => void, isTeacher?: boolean }) {
   const [activeTab, setActiveTab] = useState("anamnese");
   const [diagnostic, setDiagnostic] = useState("");
   const [showResult, setShowResult] = useState(false);
@@ -234,6 +307,7 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
                     </div>
                   ))}
                   <Button 
+                    type="button"
                     disabled={!diagnostic} 
                     onClick={() => setShowResult(true)}
                     className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
@@ -249,18 +323,39 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
                       <h4 className={`font-bold text-lg mb-2 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
                         {isCorrect ? 'Diagnóstico Correto!' : 'Diagnóstico Incorreto.'}
                       </h4>
-                      <p className="text-foreground/90 text-sm leading-relaxed">
-                        {isCorrect ? caseData.feedbackCorrect : caseData.feedbackIncorrect}
+                      <p className="text-foreground/90 text-sm leading-relaxed whitespace-pre-line">
+                        {isCorrect 
+                          ? (typeof caseData.feedbackCorrect === 'string' ? caseData.feedbackCorrect : JSON.stringify(caseData.feedbackCorrect))
+                          : (typeof caseData.feedbackIncorrect === 'string' ? caseData.feedbackIncorrect : JSON.stringify(caseData.feedbackIncorrect))
+                        }
                       </p>
                       
                       {isCorrect && (
                         <div className="mt-6 pt-6 border-t border-green-500/20">
-                          <h5 className="font-bold text-green-500 text-sm mb-2">+50 Pontos ganhos!</h5>
+                          {!isTeacher && (
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                              <h5 className="font-bold text-green-500 text-sm flex items-center gap-2">
+                                <Trophy className="h-4 w-4" /> +50 Pontos ganhos!
+                              </h5>
+                              
+                              {/* BOTAO INSTAGRAM GAMIFICACAO */}
+                              <Button 
+                                variant="outline"
+                                className="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 text-white border-0 hover:opacity-90 shadow-lg shadow-pink-500/20"
+                                onClick={() => {
+                                  alert("Na prática, isso geraria uma imagem lindíssima com a pontuação do aluno para ele postar nos Stories marcando a VetClass Pro!");
+                                }}
+                              >
+                                <Instagram className="mr-2 h-4 w-4" />
+                                Compartilhar Vitória
+                              </Button>
+                            </div>
+                          )}
                           
                           {!showPlaybookModal ? (
                             <Button 
                               onClick={() => setShowPlaybookModal(true)}
-                              className="bg-green-500 text-white hover:bg-green-600"
+                              className="bg-green-500 text-white hover:bg-green-600 w-full sm:w-auto"
                             >
                               Ver Protocolo de Tratamento (Playbook)
                             </Button>
@@ -271,7 +366,9 @@ function ActiveCaseView({ caseData, onBack }: { caseData: any, onBack: () => voi
                                 Protocolo de Tratamento
                               </h5>
                               <div className="text-sm text-foreground/80 leading-relaxed whitespace-pre-line space-y-2">
-                                {caseData.playbookProtocol || "Protocolo oficial em elaboração pela equipe VetClass Pro. Para este caso, o tratamento foca na estabilização inicial e acompanhamento."}
+                                {typeof caseData.playbookProtocol === 'string' 
+                                  ? caseData.playbookProtocol 
+                                  : (caseData.playbookProtocol ? JSON.stringify(caseData.playbookProtocol) : "Protocolo oficial em elaboração pela equipe VetClass Pro. Para este caso, o tratamento foca na estabilização inicial e acompanhamento.")}
                               </div>
                             </div>
                           )}

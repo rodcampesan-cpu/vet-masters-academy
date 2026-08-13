@@ -5,6 +5,7 @@ import { Navbar } from "@/components/landing/Navbar";
 import heroImg from "@/assets/hero-vet.jpg";
 import mentoriaFlixImg from "@/assets/mentoria-flix.png";
 import { courses, specialties, teachers } from "@/lib/courses-data";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -86,30 +87,31 @@ function Landing() {
             
             <div className="relative animate-fade-up" style={{ animationDelay: '200ms' }}>
               <div className="absolute -inset-4 bg-gradient-to-r from-coral/20 to-primary/20 rounded-3xl blur-2xl opacity-50"></div>
-              <img src={heroImg} alt="Veterinário atendendo" className="relative rounded-2xl shadow-2xl border border-border" />
               
-              <div className="absolute -bottom-6 -left-6 bg-card border border-border p-5 rounded-2xl shadow-xl flex items-center gap-4 max-w-xs z-10">
+              {/* VIDEO SALES LETTER MOCK */}
+              <div className="relative rounded-2xl shadow-2xl border border-border overflow-hidden bg-black aspect-video group cursor-pointer flex items-center justify-center">
+                <img src={heroImg} alt="Veterinário atendendo" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
+                
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="h-20 w-20 bg-coral/90 text-white rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,107,107,0.6)] group-hover:scale-110 transition-transform duration-300">
+                    <Play className="h-8 w-8 ml-1" />
+                  </div>
+                  <p className="mt-4 font-bold text-white tracking-wide uppercase text-sm">Clique para assistir</p>
+                </div>
+
+                <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded animate-pulse">
+                  GRAVAÇÃO LIBERADA
+                </div>
+              </div>
+              
+              <div className="absolute -bottom-6 -left-6 bg-card border border-border p-5 rounded-2xl shadow-xl flex items-center gap-4 max-w-xs z-10 hidden sm:flex">
                 <div className="bg-green-500/10 p-3 rounded-full text-green-500">
                   <CheckCircle className="h-6 w-6" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-foreground">Comunicação Assertiva</p>
                   <p className="text-xs text-muted-foreground">Tutores engajados e tratamentos aprovados.</p>
-                </div>
-              </div>
-              
-              <div className="absolute top-6 right-6 z-20 rounded-2xl bg-white/90 p-4 backdrop-blur-md border border-white/20 shadow-xl hidden sm:block">
-                <div className="flex items-center gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-coral text-white shadow-lg">
-                    <Play className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <div className="font-display text-sm font-bold text-gray-900">Live agora</div>
-                    <div className="text-xs text-gray-500">234 assistindo</div>
-                  </div>
-                  <span className="rounded-full bg-coral/10 border border-coral/30 px-2 py-1 text-[10px] font-bold text-coral uppercase tracking-wider animate-pulse ml-2">
-                    AO VIVO
-                  </span>
                 </div>
               </div>
             </div>
@@ -205,6 +207,74 @@ function Landing() {
         </div>
       </section>
 
+      {/* TEACHERS SECTION */}
+      <section className="py-24 bg-card border-t border-b border-border">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-display text-3xl font-bold sm:text-4xl">
+            Aprenda com quem vive a prática diária
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto mb-16">
+            Nossos professores não são apenas acadêmicos. São profissionais renomados que lideram os maiores centros de referência do país.
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {teachers.map((teacher, i) => (
+              <div key={i} className="flex flex-col items-center p-6 bg-background rounded-3xl border border-border shadow-soft hover:-translate-y-2 transition-transform duration-300">
+                <img src={teacher.avatar} alt={teacher.name} style={{ objectPosition: teacher.avatarPosition || "center" }} className="h-32 w-32 rounded-full object-cover border-4 border-coral/20 mb-6" />
+                <h3 className="font-display text-xl font-bold mb-1">{teacher.name}</h3>
+                <p className="text-sm font-semibold text-coral mb-2">{teacher.specialty}</p>
+                <p className="text-xs text-muted-foreground text-center leading-relaxed">
+                  {teacher.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS SECTION */}
+      <section className="py-24 bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-display text-3xl font-bold sm:text-4xl mb-16">
+            O que dizem nossos <span className="text-coral">12.450+</span> alunos
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8 text-left">
+            {[
+              {
+                text: "A plataforma mudou meu plantão. Antes eu travava na hora de dar o diagnóstico pro tutor, com medo de errar. Hoje o Tutor IA me dá o suporte na hora, é impressionante.",
+                name: "Dra. Marina Silva",
+                role: "Plantonista Intensivista"
+              },
+              {
+                text: "Os casos interativos são um absurdo de bons! Eu me sinto dentro da clínica tomando as decisões. Aprendi mais em 2 meses de VetClass do que em 2 anos de especialização teórica.",
+                name: "Dr. Carlos Eduardo",
+                role: "Clínico Geral"
+              },
+              {
+                text: "Eu nunca consegui cobrar o valor justo na minha consulta porque não sabia agregar valor. Depois do curso de Ortopedia, fecho cirurgias com o dobro do valor que cobrava antes.",
+                name: "Dra. Fernanda Costa",
+                role: "Cirurgiã Ortopedista"
+              }
+            ].map((testimonial, i) => (
+              <div key={i} className="bg-card p-8 rounded-3xl border border-border shadow-sm relative">
+                <div className="text-coral text-4xl font-serif absolute top-4 left-6 opacity-20">"</div>
+                <p className="text-foreground/80 relative z-10 italic mb-6 leading-relaxed">"{testimonial.text}"</p>
+                <div className="flex items-center gap-4 border-t border-border/50 pt-4">
+                  <div className="h-10 w-10 bg-secondary rounded-full flex items-center justify-center text-primary font-bold">
+                    {testimonial.name.charAt(4)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold">{testimonial.name}</p>
+                    <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* BONUS VIP OFFER */}
       <section id="oferta" className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-[#0A0A0A]" /> {/* Very dark background */}
@@ -290,6 +360,45 @@ function Landing() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
+      <section className="py-20 bg-background">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl font-bold sm:text-4xl text-foreground">
+              Perguntas Frequentes
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">Tudo o que você precisa saber antes de entrar.</p>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-left font-bold text-lg">O acesso é vitalício?</AccordionTrigger>
+              <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+                Neste formato VIP de lançamento, o acesso é de 1 Ano Completo. Esse é o tempo ideal e comprovado para você assistir, revisar as práticas clínicas e tirar suas dúvidas na Comunidade.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger className="text-left font-bold text-lg">Tem garantia?</AccordionTrigger>
+              <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+                Sim! Você tem 7 dias de Garantia Incondicional. Se você acessar as aulas e achar que a metodologia VetClass Pro não vai transformar a sua rotina, basta um e-mail para reembolsarmos 100% do seu investimento.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger className="text-left font-bold text-lg">Ainda sou estudante, posso fazer?</AccordionTrigger>
+              <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+                Com certeza. É a melhor fase para começar. Diferente da faculdade que ensina a teoria, aqui você vai aprender a "Medicina da Vida Real". Quando se formar, já estará muito à frente dos recém-formados inseguros.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-4">
+              <AccordionTrigger className="text-left font-bold text-lg">Os certificados são válidos?</AccordionTrigger>
+              <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+                Sim! Todos os nossos cursos geram certificados válidos em todo o território nacional como capacitação profissional, ideais para currículo e horas complementares na faculdade.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 

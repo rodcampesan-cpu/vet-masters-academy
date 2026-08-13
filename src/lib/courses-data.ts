@@ -13,6 +13,9 @@ export interface Teacher {
   title: string;
   specialty: string;
   avatar: string;
+  avatarPosition?: string;
+  bio?: string;
+  bioTopics?: { label: string; value: string }[];
 }
 
 export interface GlossaryTerm {
@@ -40,10 +43,43 @@ export interface Course {
 }
 
 export const teachers: Teacher[] = [
-  { id: "t1", name: "Dr. Rodrigo Nicola", title: "Médico Veterinário de Respeito", specialty: "Ortopedia e Neurocirurgia", avatar: t1 },
-  { id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia", specialty: "Neurologista e Neurocirurgião", avatar: t2 },
-  { id: "t3", name: "Dra. Carolina", title: "Especialista em Hematologia", specialty: "Hematologista", avatar: "https://i.pravatar.cc/150?img=5" },
-  { id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Emergência", specialty: "Intensivista", avatar: "https://i.pravatar.cc/150?img=9" },
+  {
+    id: "t1", name: "Dr. Rodrigo Nicola", title: "Médico Veterinário",
+    specialty: "Ortopedia e Neurocirurgia", avatar: t1, avatarPosition: "center 30%",
+    bioTopics: [
+      { label: "Formação", value: "Universidade Anhanguera de São Paulo" },
+      { label: "Residência", value: "Ortopedia — Associação Anclivepa SP" },
+      { label: "Pós-Graduação", value: "Ortopedia e Neurocirurgia — Anclivepa SP" },
+      { label: "Especialização", value: "Master Avançado em Ortopedia — Anclivepa SP" },
+      { label: "Associação", value: "Membro da O.A. Internacional" },
+      { label: "Atuação", value: "Chefe de Ortopedia e Neurologia — Dr. Pets Santo André" },
+      { label: "Experiência", value: "Empresário há mais de 25 anos no mercado Pet" },
+    ],
+  },
+  {
+    id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia",
+    specialty: "Neurologista e Neurocirurgião", avatar: t2, avatarPosition: "center 15%",
+    bioTopics: [
+      { label: "Especialidade", value: "Neurologia e Neurocirurgia Veterinária" },
+      { label: "Atuação", value: "Atendimento clínico especializado em neurologia" },
+    ],
+  },
+  {
+    id: "t3", name: "Dra. Carolina", title: "Especialista em Hematologia",
+    specialty: "Hematologista", avatar: "https://i.pravatar.cc/150?img=5",
+    bioTopics: [
+      { label: "Especialidade", value: "Hematologia Veterinária" },
+      { label: "Atuação", value: "Diagnóstico e tratamento de doenças sanguíneas" },
+    ],
+  },
+  {
+    id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Emergência",
+    specialty: "Intensivista", avatar: "https://i.pravatar.cc/150?img=9",
+    bioTopics: [
+      { label: "Especialidade", value: "Medicina de Emergência e Terapia Intensiva" },
+      { label: "Atuação", value: "Atendimento de pacientes críticos em UTI veterinária" },
+    ],
+  },
 ];
 
 export const courses: Course[] = [
@@ -57,8 +93,8 @@ export const courses: Course[] = [
     hours: 48,
     modules: 12,
     lessons: 86,
-    students: 1240,
-    progress: 32,
+    students: 0,
+    progress: 0,
     teacher: teachers[0],
     level: "Avançado",
     featured: true,
@@ -86,60 +122,6 @@ export const courses: Course[] = [
     ],
   },
   {
-    id: "neurologia-essencial",
-    title: "Neurologia Essencial",
-    specialty: "Neurologia",
-    description:
-      "Exame neurológico passo a passo, localização de lesão e interpretação de exames complementares de neuroimagem.",
-    cover: neuro,
-    hours: 40,
-    modules: 10,
-    lessons: 71,
-    students: 760,
-    progress: 0,
-    teacher: teachers[1],
-    level: "Avançado",
-    purchased: false,
-    glossary: [
-      { term: "Ataxia", definition: "Incoordenação motora; movimento não coordenado sem fraqueza associada." },
-      { term: "Paresia", definition: "Diminuição ou fraqueza da função motora voluntária." },
-      { term: "Plegia (Paralisia)", definition: "Perda total da função motora voluntária." },
-      { term: "Nistagmo", definition: "Movimento involuntário e oscilatório dos olhos, comum em afecções vestibulares." },
-      { term: "Reflexo Patelar", definition: "Reflexo espinhal miotático que avalia a integridade do nervo femoral e segmentos medulares L4-L6." },
-      { term: "Plantígrado", definition: "Postura anormal onde o animal apoia toda a superfície distal do membro pélvico no chão." }
-    ],
-  },
-  {
-    id: "hematologia-clinica",
-    title: "Hematologia Descomplicada",
-    specialty: "Hematologia",
-    description: "Interpretação avançada de exames laboratoriais, anemias, leucogramas e distúrbios da coagulação no dia a dia da clínica.",
-    cover: "https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=600&auto=format&fit=crop",
-    hours: 30,
-    modules: 6,
-    lessons: 45,
-    students: 420,
-    progress: 0,
-    teacher: teachers[2],
-    level: "Intermediário",
-    purchased: false,
-  },
-  {
-    id: "emergencia-medica",
-    title: "Descomplicando a Clínica Médica e Emergências da Rotina",
-    specialty: "Emergência",
-    description: "Abordagem do paciente crítico, protocolos de reanimação, estabilização hemodinâmica e monitoramento intensivo.",
-    cover: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=600&auto=format&fit=crop",
-    hours: 50,
-    modules: 15,
-    lessons: 90,
-    students: 890,
-    progress: 0,
-    teacher: teachers[3],
-    level: "Avançado",
-    purchased: false,
-  },
-  {
     id: "mentoria-flix",
     title: "Mentoria Flix: Método P.E.T.",
     specialty: "Gestão",
@@ -148,13 +130,61 @@ export const courses: Course[] = [
     hours: 20,
     modules: 8,
     lessons: 30,
-    students: 350,
+    students: 0,
     progress: 0,
     teacher: teachers[0],
     level: "Avançado",
     purchased: false,
-    externalLink: "https://mentoriaflix.com.br", // Link externo hipotético para a plataforma
+    externalLink: "https://mentoriaflix.com.br",
   },
+  {
+    id: "neuro-basica",
+    title: "Desvendando a Neurologia Clínica",
+    specialty: "Neurologia",
+    description: "Aprenda a realizar o exame neurológico perfeito. Saiba como localizar a lesão no sistema nervoso e definir se o caso é cirúrgico ou clínico com segurança.",
+    cover: neuro,
+    hours: 30,
+    modules: 6,
+    lessons: 45,
+    students: 0,
+    progress: 0,
+    teacher: teachers[1], // Dr. Renan
+    level: "Intermediário",
+    featured: false,
+    purchased: false,
+  },
+  {
+    id: "hemato-descomplicada",
+    title: "Hemograma na Prática Veterinária",
+    specialty: "Hematologia",
+    description: "Pare de ler apenas os números do hemograma. Entenda o que as células estão te dizendo e feche diagnósticos ocultos com a Dra. Carolina.",
+    cover: derma, // Usando uma imagem genérica como fallback
+    hours: 15,
+    modules: 4,
+    lessons: 20,
+    students: 0,
+    progress: 0,
+    teacher: teachers[2], // Dra. Carolina
+    level: "Iniciante",
+    featured: false,
+    purchased: false,
+  },
+  {
+    id: "emergencia-intensiva",
+    title: "Suporte Básico e Avançado de Vida",
+    specialty: "Emergência",
+    description: "Saiba exatamente o que fazer nos primeiros 5 minutos de uma emergência. Protocolos de RCP, fluidoterapia e estabilização de pacientes críticos.",
+    cover: cardio, // Usando uma imagem genérica como fallback
+    hours: 40,
+    modules: 8,
+    lessons: 60,
+    students: 0,
+    progress: 0,
+    teacher: teachers[3], // Dra. Nathalia
+    level: "Avançado",
+    featured: true,
+    purchased: false,
+  }
 ];
 
 export const specialties = [
@@ -206,7 +236,18 @@ export const ortopediaModules = [
   },
   {
     id: 6,
-    title: "Módulo 6 — 90% das alterações que vão chegar na sua clínica",
+    title: "Módulo 6 — Tipos de Exames na Ortopedia e Neurologia",
+    done: false,
+    topics: [
+      "Radiografia Simples vs. Contrastada: Indicações cruciais",
+      "Tomografia Computadorizada (TC): Quando o Raio-X não é suficiente?",
+      "Ressonância Magnética (RM): O padrão-ouro para lesões neurológicas",
+      "Diferenciais e Critérios de Encaminhamento: Quando e qual exame solicitar"
+    ]
+  },
+  {
+    id: 7,
+    title: "Módulo 7 — 90% das alterações que vão chegar na sua clínica",
     done: false,
     topics: [
       "Displasia Coxofemoral",

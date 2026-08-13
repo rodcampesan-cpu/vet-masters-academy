@@ -1,6 +1,6 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, BookOpen, CheckCircle2, Clock, FileText, MessagesSquare, Play, Trophy, Users, ShieldCheck, Activity } from "lucide-react";
+import { ArrowLeft, BookOpen, CheckCircle2, Clock, FileText, MessagesSquare, Play, Trophy, Users, ShieldCheck, Activity, GraduationCap, Stethoscope, Award, Building2, Briefcase, Star } from "lucide-react";
 import { courses, ortopediaModules } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,6 +20,7 @@ export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
 
 function CourseDetail() {
   const { course: c } = Route.useLoaderData();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Conteúdo");
   const [notes, setNotes] = useState("");
 
@@ -357,23 +358,50 @@ function CourseDetail() {
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-5 shadow-card">
-            <div className="flex items-center gap-3">
-              <img src={c.teacher.avatar} alt="" className="h-12 w-12 rounded-full object-cover" />
+            <div className="flex items-center gap-3 mb-4">
+              <img src={c.teacher.avatar} alt="" style={{ objectPosition: c.teacher.avatarPosition || "center" }} className="h-14 w-14 rounded-full object-cover ring-2 ring-coral/20" />
               <div>
-                <p className="font-display text-sm font-semibold">{c.teacher.name}</p>
+                <p className="font-display text-sm font-bold">{c.teacher.name}</p>
+                <p className="text-xs text-coral font-medium">{c.teacher.specialty}</p>
                 <p className="text-xs text-muted-foreground">{c.teacher.title}</p>
               </div>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              Referência em {c.teacher.specialty}, com publicações e mais de 15 anos de prática clínica.
-            </p>
+            {c.teacher.bioTopics && c.teacher.bioTopics.length > 0 ? (
+              <ul className="space-y-2">
+                {c.teacher.bioTopics.map((topic, i) => {
+                  const icons: Record<string, any> = {
+                    "Formação": GraduationCap,
+                    "Pós-Graduação": GraduationCap,
+                    "Especialização": Award,
+                    "Associação": ShieldCheck,
+                    "Atuação": Stethoscope,
+                    "Experiência": Briefcase,
+                    "Especialidade": Star,
+                  };
+                  const Icon = icons[topic.label] || BookOpen;
+                  return (
+                    <li key={i} className="flex items-start gap-2">
+                      <Icon className="h-3.5 w-3.5 text-coral mt-0.5 shrink-0" />
+                      <div>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wide">{topic.label}</span>
+                        <p className="text-xs text-foreground leading-snug">{topic.value}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {c.teacher.bio || `Referência em ${c.teacher.specialty}, com publicações e mais de 15 anos de prática clínica.`}
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-xs">
             <QuickLink icon={FileText} label="Material" onClick={() => setActiveTab("Material")} />
-            <QuickLink icon={MessagesSquare} label="Comunidade" onClick={() => setActiveTab("Comunidade")} />
-            <QuickLink icon={Trophy} label="Conquistas" onClick={() => setActiveTab("Conquistas")} />
-            <QuickLink icon={CheckCircle2} label="Certificado" onClick={() => setActiveTab("Certificado")} />
+            <QuickLink icon={MessagesSquare} label="Comunidade" onClick={() => navigate({ to: "/app/community" })} />
+            <QuickLink icon={Trophy} label="Conquistas" onClick={() => navigate({ to: "/app/achievements" })} />
+            <QuickLink icon={CheckCircle2} label="Certificado" onClick={() => navigate({ to: "/app/profile" })} />
           </div>
         </aside>
       </div>

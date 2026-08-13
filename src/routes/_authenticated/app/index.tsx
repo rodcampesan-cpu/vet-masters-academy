@@ -47,7 +47,7 @@ function Dashboard() {
             
             <div className="mt-8 flex items-center gap-4 bg-white/5 w-fit px-4 py-3 rounded-2xl border border-white/5">
               <div className="flex -space-x-3">
-                <img className="h-10 w-10 rounded-full border-2 border-[#1A1A1A] object-cover" src={continueCourse.teacher.avatar} alt=""/>
+                <img className="h-10 w-10 rounded-full border-2 border-[#1A1A1A] object-cover" style={{ objectPosition: continueCourse.teacher.avatarPosition || "center" }} src={continueCourse.teacher.avatar} alt=""/>
                 <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#1A1A1A] bg-coral text-xs font-bold text-white">
                   <Flame className="h-4 w-4" />
                 </div>
@@ -197,7 +197,7 @@ function Dashboard() {
           <div className="mt-4 space-y-3">
             {upcoming.map((c) => (
               <div key={c.id} className="flex items-center gap-3 rounded-xl bg-secondary/60 p-3">
-                <img src={c.teacher.avatar} alt="" className="h-10 w-10 rounded-full object-cover" />
+                <img src={c.teacher.avatar} alt="" style={{ objectPosition: c.teacher.avatarPosition || "center" }} className="h-10 w-10 rounded-full object-cover" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">Live: {c.specialty} avançado</p>
                   <p className="text-xs text-muted-foreground">{c.teacher.name} · hoje 20h</p>

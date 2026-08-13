@@ -1,14 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { courses } from "@/lib/courses-data";
-import { CheckCircle2, ShieldCheck, Lock, CreditCard, QrCode } from "lucide-react";
+import { CheckCircle2, ShieldCheck, Lock, CreditCard, QrCode, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
-import { useEffect } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
+import { Timer, Copy, Check } from "lucide-react";
 
 export const Route = createFileRoute("/checkout/$courseId")({
   head: () => ({ meta: [{ title: "Checkout Seguro — VetClass Pro" }] }),
@@ -25,6 +26,23 @@ function CheckoutPage() {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(15 * 60);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const orderBumpCourse = courses.find(c => c.id !== course.id && c.id !== 'mentoria-flix');
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -32,6 +50,26 @@ function CheckoutPage() {
       navigate({ to: "/signup", search: { redirect: `/checkout/${course.id}` } });
     }
   }, [user, authLoading, navigate, course.id]);
+
+  const handleCopyPix = () => {
+    navigator.clipboard.writeText("00020126360014br.gov.bcb.pix0114+55119999999995204000053039865802BR5915VetClass Pro6009Sao Paulo62070503***6304");
+    setCopied(true);
+    toast.success("Código PIX copiado!");
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Funções de máscara simples
+  const formatCPF = (v: string) => {
+    return v.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4').substring(0, 14);
+  };
+
+  const formatCC = (v: string) => {
+    return v.replace(/\D/g, '').replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1 $2 $3 $4').substring(0, 19);
+  };
+
+  const formatValidade = (v: string) => {
+    return v.replace(/\D/g, '').replace(/(\d{2})(\d{2})/, '$1/$2').substring(0, 5);
+  };
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,12 +87,19 @@ function CheckoutPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Header Simples do Checkout */}
-        <div className="flex justify-center mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
           <div className="flex items-center gap-2">
             <div className="bg-coral p-2 rounded-lg">
               <ShieldCheck className="h-6 w-6 text-white" />
             </div>
             <span className="font-display font-bold text-2xl tracking-tight">VetClass<span className="text-coral">Pro</span></span>
+          </div>
+
+          {/* TIMER DE ESCASSEZ */}
+          <div className="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100">
+            <Timer className="h-5 w-5 animate-pulse" />
+            <span className="text-sm font-bold">Oferta encerra em:</span>
+            <span className="font-display font-black text-xl tabular-nums">{formatTime(timeLeft)}</span>
           </div>
         </div>
 
@@ -67,7 +112,7 @@ function CheckoutPage() {
                 <img src={course.cover} alt={course.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-3 left-3 flex items-center gap-2">
-                  <img src={course.teacher.avatar} alt="Professor" className="h-8 w-8 rounded-full border-2 border-white object-cover" />
+                  <img src={course.teacher.avatar} alt="Professor" style={{ objectPosition: course.teacher.avatarPosition || "center" }} className="h-8 w-8 rounded-full border-2 border-white object-cover" />
                   <span className="text-white text-sm font-medium">{course.teacher.name}</span>
                 </div>
               </div>
@@ -130,7 +175,7 @@ function CheckoutPage() {
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-slate-700">CPF</label>
-                    <Input required placeholder="000.000.000-00" className="bg-slate-50 border-slate-200" />
+                    <Input required placeholder="000.000.000-00" className="bg-slate-50 border-slate-200" onChange={(e) => e.target.value = formatCPF(e.target.value)} />
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -161,15 +206,30 @@ function CheckoutPage() {
                 </TabsList>
                 
                 <TabsContent value="pix" className="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center">
-                  <QrCode className="h-12 w-12 text-slate-400 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-slate-700">O código PIX será gerado na próxima tela.</p>
-                  <p className="text-xs text-slate-500 mt-1">Seu acesso será liberado imediatamente após o pagamento.</p>
+                  <div className="bg-white p-4 rounded-xl border border-slate-200 inline-block mb-4 shadow-sm">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=vetclasspixmock" alt="QR Code PIX" className="w-32 h-32 mx-auto" />
+                  </div>
+                  <h4 className="font-bold text-slate-800 mb-1">Escaneie o QR Code</h4>
+                  <p className="text-xs text-slate-500 mb-4">Abra o app do seu banco e aponte a câmera para pagar. Aprovação imediata.</p>
+                  
+                  <div className="relative max-w-sm mx-auto">
+                    <Input readOnly value="00020126360014br.gov.bcb.pix0114..." className="bg-white pr-24 font-mono text-xs" />
+                    <Button 
+                      type="button" 
+                      onClick={handleCopyPix}
+                      size="sm" 
+                      className={`absolute right-1 top-1 h-8 ${copied ? 'bg-green-500 hover:bg-green-600' : 'bg-slate-800 hover:bg-slate-900'}`}
+                    >
+                      {copied ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
+                      {copied ? 'Copiado!' : 'Copiar'}
+                    </Button>
+                  </div>
                 </TabsContent>
                 
                 <TabsContent value="credit" className="space-y-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-semibold text-slate-700">Número do Cartão</label>
-                    <Input required placeholder="0000 0000 0000 0000" className="bg-slate-50 border-slate-200" />
+                    <Input required placeholder="0000 0000 0000 0000" className="bg-slate-50 border-slate-200" onChange={(e) => e.target.value = formatCC(e.target.value)} />
                   </div>
                   <div className="grid grid-cols-3 gap-4">
                     <div className="col-span-2 space-y-1.5">
@@ -178,11 +238,36 @@ function CheckoutPage() {
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold text-slate-700">Validade</label>
-                      <Input required placeholder="MM/AA" className="bg-slate-50 border-slate-200" />
+                      <Input required placeholder="MM/AA" className="bg-slate-50 border-slate-200" onChange={(e) => e.target.value = formatValidade(e.target.value)} />
                     </div>
                   </div>
                 </TabsContent>
               </Tabs>
+
+              {/* SECTION: ORDER BUMP */}
+              {orderBumpCourse && (
+                <div className={`mt-6 mb-8 p-4 rounded-xl border-2 transition-all ${orderBump ? 'border-coral bg-coral/5' : 'border-slate-200 bg-slate-50 border-dashed'}`}>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1">
+                      <Switch checked={orderBump} onCheckedChange={setOrderBump} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="font-bold text-slate-900 leading-none">Sim! Quero adicionar {orderBumpCourse.title}</h4>
+                        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded animate-pulse">40% OFF</span>
+                      </div>
+                      <p className="text-xs text-slate-600 mb-2 leading-relaxed">{orderBumpCourse.description.substring(0, 80)}...</p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-slate-400 line-through">R$ 790,00</span>
+                        <span className="text-sm font-bold text-coral">Por apenas R$ 474,00</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground mt-2 italic">
+                        *Oferta exclusiva válida apenas nesta página de checkout.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Resumo e Botão Final */}
               <div className="border-t border-slate-200 pt-6">
@@ -195,11 +280,11 @@ function CheckoutPage() {
                   </div>
                   <div className="text-right">
                     <p className="font-display font-black text-3xl text-slate-900">
-                      R$ 890
+                      R$ {orderBump ? '1.364' : '890'}
                       <span className="text-lg text-slate-500">,00</span>
                     </p>
-                    <p className="text-xs font-bold text-slate-500">
-                      ou 12x de R$ 89,00
+                    <p className="text-xs font-bold text-slate-500 mt-1">
+                      ou 12x de R$ {orderBump ? '136,40' : '89,00'}
                     </p>
                   </div>
                 </div>
@@ -207,13 +292,10 @@ function CheckoutPage() {
                 <Button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full h-14 text-lg font-bold bg-green-500 hover:bg-green-600 text-white shadow-xl shadow-green-500/30 transition-all hover:-translate-y-1"
+                  className="w-full h-16 text-lg font-bold bg-green-500 hover:bg-green-600 text-white shadow-[0_8px_30px_-10px_#22c55e] rounded-xl transition-all hover:scale-[1.02]"
                 >
-                  {loading ? "Processando..." : (
-                    <>
-                      <Lock className="h-5 w-5 mr-2" /> Comprar Agora
-                    </>
-                  )}
+                  <Lock className="h-5 w-5 mr-2" />
+                  {loading ? "Processando..." : orderBump ? "Finalizar Compra com Order Bump" : "Finalizar Compra e Acessar Agora"}
                 </Button>
                 
                 <p className="text-center text-[10px] text-slate-400 mt-4 flex justify-center items-center gap-1">

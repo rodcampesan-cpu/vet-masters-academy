@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { courses, specialties } from "@/lib/courses-data";
+import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/_authenticated/app/courses/")({
   head: () => ({ meta: [{ title: "Cursos — VetClass Pro" }] }),
@@ -9,13 +10,27 @@ export const Route = createFileRoute("/_authenticated/app/courses/")({
 });
 
 function CoursesPage() {
+  const { user } = useAuth();
   const [q, setQ] = useState("");
   const [spec, setSpec] = useState<string | null>(null);
 
-  const filtered = courses.filter((c) =>
-    (!spec || c.specialty === spec) &&
-    (!q || c.title.toLowerCase().includes(q.toLowerCase()) || c.teacher.name.toLowerCase().includes(q.toLowerCase()))
-  );
+  const emailLogado = user?.email?.toLowerCase().trim().replace(/\./g, '') || "";
+  const isTeacher = user?.user_metadata?.role === "teacher" || emailLogado.includes("rodrigovetlat") || emailLogado.includes("namdias02") || emailLogado.includes("carolina_vet") || emailLogado.includes("nathyarmarinhos");
+
+  const filtered = courses.filter((c) => {
+    // Se for professor, esconde os cursos dos outros professores
+    if (isTeacher) {
+      if (!c.teacher || !c.teacher.name) return false;
+      if (emailLogado.includes("rodrigovetlat")) return c.teacher.name.includes("Rodrigo");
+      if (emailLogado.includes("namdias02")) return c.teacher.name.includes("Renan");
+      if (emailLogado.includes("carolina_vet")) return c.teacher.name.includes("Carolina");
+      if (emailLogado.includes("nathyarmarinhos")) return c.teacher.name.includes("Nathalia");
+      return false;
+    }
+
+    return (!spec || c.specialty === spec) &&
+      (!q || c.title.toLowerCase().includes(q.toLowerCase()) || c.teacher.name.toLowerCase().includes(q.toLowerCase()));
+  });
 
   return (
     <div className="space-y-8 px-4 py-8 sm:px-8">
@@ -76,7 +91,7 @@ function CoursesPage() {
             <div className="p-4">
               <h3 className="font-display text-base font-semibold leading-snug line-clamp-2">{c.title}</h3>
               <div className="mt-3 flex items-center gap-2">
-                <img src={c.teacher.avatar} alt="" className="h-6 w-6 rounded-full object-cover" />
+                <img src={c.teacher.avatar} alt="" style={{ objectPosition: c.teacher.avatarPosition || "center" }} className="h-6 w-6 rounded-full object-cover" />
                 <span className="text-xs text-muted-foreground">{c.teacher.name}</span>
               </div>
               <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">

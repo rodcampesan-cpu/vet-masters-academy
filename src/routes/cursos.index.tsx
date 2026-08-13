@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, Stethoscope, ArrowRight } from "lucide-react";
+import { Search, Stethoscope, ArrowRight, Gift } from "lucide-react";
 import { courses, specialties } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 
@@ -41,9 +41,28 @@ function PublicCoursesPage() {
       <main className="container mx-auto max-w-7xl px-4 py-12 sm:px-8">
         <div className="mb-12 text-center">
           <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl mb-4">Catálogo de Cursos</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             Escolha o seu próximo nível na medicina veterinária. Aprenda com os maiores especialistas do mercado e aplique na sua clínica amanhã.
           </p>
+
+          <div className="mx-auto max-w-3xl bg-gradient-to-r from-coral/10 via-coral/5 to-transparent border border-coral/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden text-left sm:text-center shadow-sm">
+            <div className="absolute -right-10 -top-10 text-coral/10 rotate-12 pointer-events-none">
+              <Gift className="w-48 h-48" />
+            </div>
+            <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4 justify-center text-left">
+              <div className="bg-coral text-white p-4 rounded-full shrink-0 shadow-lg shadow-coral/20">
+                <Gift className="w-8 h-8" />
+              </div>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2">
+                  🎁 Bônus Especial de Lançamento
+                </h3>
+                <p className="text-slate-700 font-medium leading-relaxed">
+                  Compre qualquer curso no <strong className="text-coral">2º Semestre de 2026</strong> e ganhe acesso total ao curso <strong>Mentoria Flix / Gestão</strong> (Valor de R$ 1.200,00) <strong className="text-green-700 bg-green-100 px-2 py-0.5 rounded ml-1 uppercase text-sm">Totalmente Grátis!</strong>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-6 max-w-4xl mx-auto mb-12">
@@ -93,14 +112,22 @@ function PublicCoursesPage() {
               <div className="p-5 flex flex-col flex-grow">
                 <h3 className="font-display text-lg font-bold leading-tight mb-3 line-clamp-2">{c.title}</h3>
                 
-                <div className="flex items-center gap-3 mb-6">
-                  <img src={c.teacher.avatar} alt="" className="h-8 w-8 rounded-full object-cover border border-slate-100" />
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={c.teacher.avatar} alt="" style={{ objectPosition: c.teacher.avatarPosition || "center" }} className="h-8 w-8 rounded-full object-cover border border-slate-100" />
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Professor</span>
                     <span className="text-sm font-semibold text-slate-700">{c.teacher.name}</span>
                   </div>
                 </div>
-                
+
+                {c.id !== 'mentoria-flix' && (
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-xs text-slate-400 line-through">R$ 1.299</span>
+                    <span className="text-xl font-black text-green-600">R$ 799</span>
+                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Promoção</span>
+                  </div>
+                )}
+
                 <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
                   <span className="text-sm font-bold text-coral group-hover:text-coral/80 transition-colors">Ver Detalhes do Curso</span>
                   <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-coral/10 text-coral group-hover:bg-coral group-hover:text-white transition-colors pointer-events-none">
@@ -119,6 +146,42 @@ function PublicCoursesPage() {
               <p className="text-slate-500">Tente buscar por outros termos ou especialidades.</p>
             </div>
           )}
+        </div>
+        <div className="mt-24 space-y-12">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">Muito Além de Cursos</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Sua assinatura desbloqueia um ecossistema completo de aprendizado prático e networking profissional.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
+              <div className="h-16 w-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-6">
+                <span className="text-3xl">👥</span>
+              </div>
+              <h3 className="text-2xl font-bold font-display mb-3">Comunidade VetClass</h3>
+              <p className="text-muted-foreground mb-6">
+                Não fique mais sozinho no diagnóstico. Discuta casos complexos, troque experiências e faça networking de alto nível com veterinários de todo o Brasil e nossos professores especialistas.
+              </p>
+              <Button asChild variant="outline" className="mt-auto rounded-xl">
+                <Link to="/signup">Faça parte do grupo</Link>
+              </Button>
+            </div>
+            
+            <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
+              <div className="h-16 w-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
+                <span className="text-3xl">🧩</span>
+              </div>
+              <h3 className="text-2xl font-bold font-display mb-3">Casos Clínicos Interativos</h3>
+              <p className="text-muted-foreground mb-6">
+                Treine seu raciocínio clínico em um simulador de diagnósticos com casos reais gerados por IA. Receba feedback imediato das suas condutas antes de aplicá-las nos seus pacientes de verdade.
+              </p>
+              <Button asChild variant="outline" className="mt-auto rounded-xl">
+                <Link to="/signup">Teste seus conhecimentos</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </main>
     </div>
