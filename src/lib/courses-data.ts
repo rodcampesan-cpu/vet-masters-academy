@@ -118,7 +118,9 @@ export const courses: Course[] = [
       { term: "Goniometria", definition: "Mensuração dos ângulos de flexão e extensão das articulações, muito utilizada para avaliar a amplitude de movimento (ADM) na fisioterapia ortopédica." },
       { term: "Contratura Muscular", definition: "Encurtamento anormal e permanente de um músculo ou tendão, comum na contratura do músculo infraespinhoso ou quadríceps." },
       { term: "Necrose Asséptica da Cabeça do Fêmur (Doença de Legg-Calvé-Perthes)", definition: "Condição onde há interrupção do suprimento sanguíneo para a cabeça femoral, causando necrose e dor severa. Afeta tipicamente cães jovens de raças toy/pequenas." },
-      { term: "Panosteíte", definition: "Inflamação da cavidade medular dos ossos longos que causa dor intermitente e claudicação migratória em cães jovens de raças grandes em fase de crescimento." }
+      { term: "Panosteíte", definition: "Inflamação da cavidade medular dos ossos longos que causa dor intermitente e claudicação migratória em cães jovens de raças grandes em fase de crescimento." },
+      { term: "Lesão Neuropática", definition: "É o termo mais correto e específico. Ele indica uma patologia ou dano estrutural direto nos próprios nervos (como na neuropatia diabética ou compressões nervosas)." },
+      { term: "Padrão Neurogênico (na Eletromiografia)", definition: "Em exames de SNM, usa-se 'padrão neurogênico' para diferenciar um problema que nasce no nervo (neurogênico) de um problema que nasce diretamente no músculo (miopático)." }
     ],
   },
   {
