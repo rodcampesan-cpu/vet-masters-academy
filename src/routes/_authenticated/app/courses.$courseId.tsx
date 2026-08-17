@@ -178,7 +178,6 @@ function CourseDetail() {
                       <h3 className="font-display font-semibold mb-4">Materiais Complementares</h3>
                       <div className="space-y-3">
                         {[
-                          { title: "Slides da Aula 1", size: "2.4 MB" },
                           { title: "Protocolo Clínico Atualizado", size: "1.1 MB" },
                           { title: "Artigo de Referência (Nature)", size: "4.5 MB" }
                         ].map((doc, idx) => (

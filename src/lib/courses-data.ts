@@ -122,7 +122,9 @@ export const courses: Course[] = [
       { term: "Lesão Neuropática", definition: "É o termo mais correto e específico. Ele indica uma patologia ou dano estrutural direto nos próprios nervos (como na neuropatia diabética ou compressões nervosas)." },
       { term: "Padrão Neurogênico (na Eletromiografia)", definition: "Em exames de SNM, usa-se 'padrão neurogênico' para diferenciar um problema que nasce no nervo (neurogênico) de um problema que nasce diretamente no músculo (miopático)." },
       { term: "Tônus Muscular", definition: "Natureza: É um estado permanente e contínuo. Estímulo: É gerado pelo estiramento passivo e constante do músculo (gravidade), detectado pelo fuso muscular (reflexo miotático). Função: Manter a postura, a estabilidade das articulações e a prontidão motora. Resultado: Não gera um movimento visível; é apenas uma tensão de base." },
-      { term: "Reflexo de Retirada (Reflexo Flexor)", definition: "Natureza: É uma resposta temporária, rápida e abrupta. Estímulo: É ativado exclusivamente por um estímulo nocivo ou doloroso (como pisar em um prego ou tocar em uma superfície muito quente), detectado por nociceptores. Função: Proteção imediata e sobrevivência do organismo. Resultado: Gera um movimento motor vigoroso (ex: flexão rápida da perna ou do braço) para afastar o corpo do perigo." }
+      { term: "Reflexo de Retirada (Reflexo Flexor)", definition: "Natureza: É uma resposta temporária, rápida e abrupta. Estímulo: É ativado exclusivamente por um estímulo nocivo ou doloroso (como pisar em um prego ou tocar em uma superfície muito quente), detectado por nociceptores. Função: Proteção imediata e sobrevivência do organismo. Resultado: Gera um movimento motor vigoroso (ex: flexão rápida da perna ou do braço) para afastar o corpo do perigo." },
+      { term: "Intumescência Cervicotorácica", definition: "Espessamento da medula espinhal (segmentos C6-T2). É a região onde se originam os nervos espinhais que formam o plexo braquial, responsável pela inervação dos membros torácicos (anteriores)." },
+      { term: "Intumescência Lombossacra", definition: "Espessamento da medula espinhal (segmentos L4-S3). É a região onde se originam os nervos espinhais que formam o plexo lombossacro, responsável pela inervação dos membros pélvicos (posteriores)." }
     ],
   },
   {
@@ -202,6 +204,7 @@ export const ortopediaModules = [
     done: true,
     topics: [
       "Biomecânica do cão e gato na clínica médica",
+      "Descomplicando a neuroanatomia",
       "Como realizar uma avaliação clínica de excelência",
       "Biologia x score da lesão ortopédica",
       "Montando uma anamnese ortopédica",
