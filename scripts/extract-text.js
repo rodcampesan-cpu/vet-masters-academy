@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 
 // Inicializa com a chave fornecida
-const genAI = new GoogleGenerativeAI("AQ.Ab8RN6I3GP-u7Lljf57K00i6U9bhlXxBmSWpIhOBW0swgoIrLQ");
+const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY || "");
 
 function fileToGenerativePart(filePath, mimeType) {
   return {

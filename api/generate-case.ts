@@ -11,7 +11,7 @@ export default async function handler(req: any, res: any) {
     return res.status(400).json({ error: "Description is required" });
   }
 
-  const apiKey = "AQ.Ab8RN6I3GP-u7Lljf57K00i6U9bhlXxBmSWpIhOBW0swgoIrLQ";
+  const apiKey = process.env.VITE_GEMINI_API_KEY || "";
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const systemInstruction = `Você é um gerador automático de casos clínicos para uma plataforma de estudos em medicina veterinária.

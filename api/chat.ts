@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Messages are required" });
   }
 
-  const apiKey = "AQ.Ab8RN6I3GP-u7Lljf57K00i6U9bhlXxBmSWpIhOBW0swgoIrLQ";
+  const apiKey = process.env.VITE_GEMINI_API_KEY || "";
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const defaultPrompt = `Você é o Dr. Rodrigo Nicola, um renomado Médico Veterinário especialista em Ortopedia e Neurocirurgia. 
