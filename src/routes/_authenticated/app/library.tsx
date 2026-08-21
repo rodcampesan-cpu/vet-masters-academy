@@ -226,9 +226,9 @@ function LibraryPage() {
             authors: "Vet Master",
             type: "Slide de Aula",
             category: "Minhas Aulas",
-            year: new Date(lesson.created_at).getFullYear().toString(),
+            year: lesson.created_at ? new Date(lesson.created_at).getFullYear().toString() : "2026",
             url: lesson.material_url,
-            description: `Material de apoio para a aula: ${lesson.title}`
+            description: `Material de apoio para a aula: ${lesson.title || "Sem título"}`
           }));
           
           setDocuments([...dbDocs, ...staticDocuments]);
