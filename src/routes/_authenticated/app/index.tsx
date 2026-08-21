@@ -16,8 +16,9 @@ function Dashboard() {
   
   let name = rawName?.split(" ")[0];
   if (!name || name.toLowerCase() === "aluno") {
-    name = isAdmin ? "Administrador(a)" : "veterinário(a)";
+    name = isAdmin ? "Administrador(a)" : "Veterinário(a)";
   }
+  name = name.charAt(0).toUpperCase() + name.slice(1);
   
   const myCourses = courses.filter(c => c.purchased);
   const storeCourses = courses.filter(c => !c.purchased);

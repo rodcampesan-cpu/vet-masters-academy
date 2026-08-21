@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Activity, Search, AlertCircle, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon, BookOpen, Instagram, Share2, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FULL_CASES, MOCK_CASES } from "@/lib/cases-data";
 import { courses } from "@/lib/courses-data";
 import { useAuth } from "@/lib/auth-context";
+import { supabase } from "@/integrations/supabase/client";
 
 class LocalErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean, error: any}> {
   constructor(props: any) {
@@ -182,6 +183,74 @@ function ActiveCaseView({ caseData, onBack, isTeacher = false }: { caseData: any
   const [showResult, setShowResult] = useState(false);
   const [showPlaybookModal, setShowPlaybookModal] = useState(false);
 
+  const [questionInput, setQuestionInput] = useState("");
+  const [localChat, setLocalChat] = useState(() => {
+    try {
+      const saved = localStorage.getItem(`case_chat_${caseData.id}`);
+      if (saved) return JSON.parse(saved);
+    } catch(e) {}
+    return caseData.chatHistory || [];
+  });
+  const [isTyping, setIsTyping] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-save whenever localChat changes
+  React.useEffect(() => {
+    try {
+      if (localChat.length > 0) {
+        localStorage.setItem(`case_chat_${caseData.id}`, JSON.stringify(localChat));
+      }
+    } catch(e) {}
+  }, [localChat, caseData.id]);
+
+  // Auto-scroll whenever localChat or isTyping changes
+  React.useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [localChat, isTyping]);
+
+  const handleAskQuestion = async () => {
+    if (!questionInput.trim() || isTyping) return;
+    
+    const userMsg = { isVet: true, text: questionInput };
+    setLocalChat([...localChat, userMsg]);
+    setQuestionInput("");
+    setIsTyping(true);
+
+    try {
+      const messages = localChat.map((m: any) => ({
+        role: m.isVet ? "user" : "assistant",
+        content: m.text
+      }));
+      messages.push({ role: "user", content: userMsg.text });
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: messages,
+          systemInstruction: `Você é um tutor (dono) de um pet respondendo às perguntas do Médico Veterinário.
+Abaixo está o caso clínico do seu animal. Responda APENAS com base nas informações do caso. Se o veterinário perguntar algo que não está na anamnese ou que você não sabe, responda como um dono leigo dizendo que não percebeu ou não sabe.
+Mantenha respostas curtas e naturais de uma pessoa preocupada. Não dê o diagnóstico.
+PACIENTE: ${caseData.patient}
+CASO: ${caseData.title}
+ANAMNESE/QUEIXA: ${caseData.anamnesisText}
+DIFICULDADE: ${caseData.difficulty}
+          `
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || data.error || "Falha na IA");
+      setLocalChat((prev: any) => [...prev, { isVet: false, text: data.content }]);
+    } catch (e: any) {
+      setLocalChat((prev: any) => [...prev, { isVet: false, text: `Erro: ${e.message}` }]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
   const isCorrect = diagnostic === caseData.correctAnswer;
 
   return (
@@ -234,8 +303,8 @@ function ActiveCaseView({ caseData, onBack, isTeacher = false }: { caseData: any
                   </h4>
                 </div>
                 
-                <div className="p-4 flex-1 space-y-4 max-h-64 overflow-y-auto bg-muted/10 flex flex-col">
-                  {(caseData.chatHistory || []).map((msg: any, i: number) => (
+                <div ref={chatContainerRef} className="p-4 flex-1 space-y-4 max-h-64 overflow-y-auto bg-muted/10 flex flex-col scroll-smooth">
+                  {localChat.map((msg: any, i: number) => (
                     <div key={i} className={`flex gap-3 max-w-[85%] ${!msg.isVet ? 'self-end ml-auto flex-row-reverse' : ''}`}>
                       <div className={`h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.isVet ? 'bg-primary/10' : 'bg-coral/10'}`}>
                         {msg.isVet ? <Stethoscope className="h-4 w-4 text-primary" /> : <span className="text-xs font-bold text-coral">T</span>}
@@ -245,11 +314,34 @@ function ActiveCaseView({ caseData, onBack, isTeacher = false }: { caseData: any
                       </div>
                     </div>
                   ))}
+                  {isTyping && (
+                    <div className="flex gap-3 max-w-[85%] self-end ml-auto flex-row-reverse">
+                      <div className="h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 bg-coral/10">
+                        <span className="text-xs font-bold text-coral">T</span>
+                      </div>
+                      <div className="rounded-2xl px-4 py-2 text-sm shadow-sm bg-coral text-white rounded-tr-sm animate-pulse">
+                        Digitando...
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-3 bg-background border-t border-border flex items-center gap-2">
-                  <input type="text" placeholder="Faça uma pergunta para investigar..." className="flex-1 h-10 bg-secondary/50 border border-transparent rounded-full px-4 text-sm focus:outline-none focus:ring-2 focus:ring-coral/20 focus:border-coral/50 transition-all" />
-                  <Button size="icon" className="h-10 w-10 rounded-full bg-coral hover:bg-coral/90 text-white flex-shrink-0 transition-transform hover:scale-105 active:scale-95">
+                  <input 
+                    type="text" 
+                    placeholder="Faça uma pergunta para investigar..." 
+                    className="flex-1 h-10 bg-secondary/50 border border-transparent rounded-full px-4 text-sm focus:outline-none focus:ring-2 focus:ring-coral/20 focus:border-coral/50 transition-all"
+                    value={questionInput}
+                    onChange={(e) => setQuestionInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAskQuestion()}
+                    disabled={isTyping}
+                  />
+                  <Button 
+                    size="icon" 
+                    onClick={handleAskQuestion}
+                    disabled={isTyping || !questionInput.trim()}
+                    className="h-10 w-10 rounded-full bg-coral hover:bg-coral/90 text-white flex-shrink-0 transition-transform hover:scale-105 active:scale-95"
+                  >
                     <Send className="h-4 w-4" />
                   </Button>
                 </div>

@@ -20,7 +20,8 @@ function ProfilePage() {
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
 
   const email = user?.email || "";
-  const name = user?.user_metadata?.full_name || "Usuário VetClass";
+  let name = user?.user_metadata?.full_name || "Usuário VetClass";
+  name = name.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
 
   // Simulate progress data
   const myCourses = [

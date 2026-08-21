@@ -20,6 +20,7 @@ import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/ap
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app/index'
 import { Route as AuthenticatedAppTeacherRouteImport } from './routes/_authenticated/app/teacher'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app/profile'
+import { Route as AuthenticatedAppLiveChatRouteImport } from './routes/_authenticated/app/live-chat'
 import { Route as AuthenticatedAppLibraryRouteImport } from './routes/_authenticated/app/library'
 import { Route as AuthenticatedAppCommunityRouteImport } from './routes/_authenticated/app/community'
 import { Route as AuthenticatedAppClinicalCasesRouteImport } from './routes/_authenticated/app/clinical-cases'
@@ -84,6 +85,12 @@ const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppLiveChatRoute =
+  AuthenticatedAppLiveChatRouteImport.update({
+    id: '/live-chat',
+    path: '/live-chat',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppLibraryRoute = AuthenticatedAppLibraryRouteImport.update({
   id: '/library',
   path: '/library',
@@ -150,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/app/clinical-cases': typeof AuthenticatedAppClinicalCasesRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/library': typeof AuthenticatedAppLibraryRoute
+  '/app/live-chat': typeof AuthenticatedAppLiveChatRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/teacher': typeof AuthenticatedAppTeacherRoute
   '/app/': typeof AuthenticatedAppIndexRoute
@@ -170,6 +178,7 @@ export interface FileRoutesByTo {
   '/app/clinical-cases': typeof AuthenticatedAppClinicalCasesRoute
   '/app/community': typeof AuthenticatedAppCommunityRoute
   '/app/library': typeof AuthenticatedAppLibraryRoute
+  '/app/live-chat': typeof AuthenticatedAppLiveChatRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/teacher': typeof AuthenticatedAppTeacherRoute
   '/app': typeof AuthenticatedAppIndexRoute
@@ -193,6 +202,7 @@ export interface FileRoutesById {
   '/_authenticated/app/clinical-cases': typeof AuthenticatedAppClinicalCasesRoute
   '/_authenticated/app/community': typeof AuthenticatedAppCommunityRoute
   '/_authenticated/app/library': typeof AuthenticatedAppLibraryRoute
+  '/_authenticated/app/live-chat': typeof AuthenticatedAppLiveChatRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/teacher': typeof AuthenticatedAppTeacherRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/app/clinical-cases'
     | '/app/community'
     | '/app/library'
+    | '/app/live-chat'
     | '/app/profile'
     | '/app/teacher'
     | '/app/'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '/app/clinical-cases'
     | '/app/community'
     | '/app/library'
+    | '/app/live-chat'
     | '/app/profile'
     | '/app/teacher'
     | '/app'
@@ -258,6 +270,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/clinical-cases'
     | '/_authenticated/app/community'
     | '/_authenticated/app/library'
+    | '/_authenticated/app/live-chat'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/teacher'
     | '/_authenticated/app/'
@@ -355,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/live-chat': {
+      id: '/_authenticated/app/live-chat'
+      path: '/live-chat'
+      fullPath: '/app/live-chat'
+      preLoaderRoute: typeof AuthenticatedAppLiveChatRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/library': {
       id: '/_authenticated/app/library'
       path: '/library'
@@ -428,6 +448,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppClinicalCasesRoute: typeof AuthenticatedAppClinicalCasesRoute
   AuthenticatedAppCommunityRoute: typeof AuthenticatedAppCommunityRoute
   AuthenticatedAppLibraryRoute: typeof AuthenticatedAppLibraryRoute
+  AuthenticatedAppLiveChatRoute: typeof AuthenticatedAppLiveChatRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppTeacherRoute: typeof AuthenticatedAppTeacherRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
@@ -443,6 +464,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppClinicalCasesRoute: AuthenticatedAppClinicalCasesRoute,
   AuthenticatedAppCommunityRoute: AuthenticatedAppCommunityRoute,
   AuthenticatedAppLibraryRoute: AuthenticatedAppLibraryRoute,
+  AuthenticatedAppLiveChatRoute: AuthenticatedAppLiveChatRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppTeacherRoute: AuthenticatedAppTeacherRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,

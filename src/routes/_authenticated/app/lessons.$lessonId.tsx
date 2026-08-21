@@ -1,55 +1,201 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Download, MessageSquare, Play, Send, FileText, ChevronLeft, ChevronRight, Maximize, Minimize, CheckCircle2, ExternalLink } from "lucide-react";
+import { ArrowLeft, Download, MessageSquare, Play, Send, FileText, ChevronLeft, ChevronRight, Maximize, Minimize, CheckCircle2, ExternalLink, Upload } from "lucide-react";
+import localforage from "localforage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
+import { ortopediaModules } from "@/lib/courses-data";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/_authenticated/app/lessons/$lessonId")({
   head: () => ({ meta: [{ title: "Sala de Aula — VetClass Pro" }] }),
   component: LessonClassroom,
 });
 
+function getRealTitle(lessonId: string) {
+  for (const mod of ortopediaModules) {
+    if (!mod.topics) continue;
+    for (const topic of mod.topics) {
+      const slug = topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+      if (slug === lessonId) return topic;
+    }
+  }
+  const decoded = lessonId.replace(/-/g, " ");
+  return decoded.charAt(0).toUpperCase() + decoded.slice(1);
+}
+
 function LessonClassroom() {
   const { lessonId } = Route.useParams();
-  const decodedTitle = lessonId.replace(/-/g, " ");
-  const capitalizedTitle = decodedTitle.charAt(0).toUpperCase() + decodedTitle.slice(1);
+  
+  const displayTitle = getRealTitle(lessonId);
+  const capitalizedTitle = displayTitle;
+  
   const [theaterMode, setTheaterMode] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [lessonMaterial, setLessonMaterial] = useState<{ name: string; url: string; size?: number } | null>(null);
+  
+  const { user } = useAuth();
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState<any[]>([]);
 
-  // Tentar carregar o material da aula do localStorage
   useEffect(() => {
-    try {
-      // Procurar nos materiais salvos pelo professor
-      const materialRefs = JSON.parse(localStorage.getItem('course_material_refs') || '{}');
-      
-      // Buscar por correspondência no título da aula
-      for (const key of Object.keys(materialRefs)) {
-        const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-        if (normalizedKey.includes(lessonId) || lessonId.includes(normalizedKey.split('_').pop() || '')) {
-          setLessonMaterial(materialRefs[key]);
-          break;
-        }
-      }
+    // 1. Tentar pegar do Supabase (Globais)
+    const fetchComments = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('lesson_comments')
+          .select('*')
+          .eq('lesson_id', lessonId)
+          .order('created_at', { ascending: false });
 
-      // Também buscar nos lesson_materials
-      const lessonMaterials = JSON.parse(localStorage.getItem('lesson_materials') || '{}');
-      for (const key of Object.keys(lessonMaterials)) {
-        const mat = lessonMaterials[key];
-        if (mat && mat.name) {
-          // Se ainda não encontrou material, usar este
-          if (!lessonMaterial) {
-            setLessonMaterial({ name: mat.name, url: mat.data, size: mat.size });
+        if (!error && data && data.length > 0) {
+          setComments(data.map(c => ({
+            author: c.author_name,
+            initials: c.author_initials,
+            avatar: c.author_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.author_name)}&background=random`,
+            time: "Hoje",
+            text: c.text
+          })));
+          return;
+        }
+      } catch (e) {}
+
+      // 2. Fallback para os salvos localmente
+      try {
+        const saved = localStorage.getItem(`lesson_comments_${lessonId}`);
+        if (saved) setComments(JSON.parse(saved));
+      } catch(e) {}
+    };
+    fetchComments();
+  }, [lessonId]);
+
+  const handleSendComment = async () => {
+    if (!newComment.trim()) return;
+    
+    const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || "Você";
+    const userInitials = userName.substring(0, 2).toUpperCase();
+    
+    const newCommentObj = {
+      author: userName,
+      initials: userInitials,
+      avatar: user?.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=random`,
+      time: "Agora mesmo",
+      text: newComment
+    };
+    
+    const newComments = [newCommentObj, ...comments];
+    setComments(newComments);
+    setNewComment("");
+    
+    // Salvar no Supabase
+    try {
+      await supabase.from('lesson_comments').insert({
+        lesson_id: lessonId,
+        user_email: user?.email || 'anonimo@vetclass.com',
+        author_name: userName,
+        author_avatar: user?.user_metadata?.avatar_url || null,
+        author_initials: userInitials,
+        text: newComment
+      });
+    } catch(e) {}
+    
+    // Fallback de seguranca local
+    try {
+      localStorage.setItem(`lesson_comments_${lessonId}`, JSON.stringify(newComments));
+    } catch(e) {}
+    
+    toast.success("Comentário enviado com sucesso!");
+  };
+
+  // Tentar carregar o material da aula
+  useEffect(() => {
+    const loadMaterials = async () => {
+      try {
+        let finalMaterial = null;
+
+        // 1. Tentar pegar a aula exata do banco de dados (Supabase)
+        const { data: lessonData, error: lessonError } = await supabase
+          .from('lessons')
+          .select('*')
+          .eq('title', displayTitle)
+          .single();
+          
+        if (!lessonError && lessonData && lessonData.material_url) {
+          finalMaterial = {
+            name: lessonData.material_name || "Material da Aula",
+            url: lessonData.material_url
+          };
+        }
+
+        // 2. Tentar buscar da tabela lessons pelo ID da aula
+        if (!finalMaterial) {
+          const { data: lessonData } = await supabase
+            .from('lessons')
+            .select('*')
+            .eq('id', lessonId)
+            .maybeSingle();
+            
+          if (lessonData && lessonData.material_url) {
+            finalMaterial = { name: lessonData.material_name || "Material da Aula", url: lessonData.material_url };
           }
         }
+
+        if (!finalMaterial) {
+          // 3. Fallbacks
+          const materialRefs = JSON.parse(localStorage.getItem('course_material_refs') || '{}');
+          let foundMaterial = null;
+          let anyMaterial = null;
+          
+          for (const key of Object.keys(materialRefs)) {
+            if (!anyMaterial && materialRefs[key]) anyMaterial = materialRefs[key];
+            const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+            if (normalizedKey.includes(lessonId) || lessonId.includes(normalizedKey.split('_').pop() || '')) {
+              foundMaterial = materialRefs[key];
+              break;
+            }
+          }
+
+          const lessonMaterials: any = (await localforage.getItem('lesson_materials')) || {};
+          const localMaterials: any = JSON.parse(localStorage.getItem('lesson_materials') || '{}');
+          const allMaterials = { ...localMaterials, ...lessonMaterials };
+
+          for (const key of Object.keys(allMaterials)) {
+            const mat = allMaterials[key];
+            if (mat && mat.name) {
+              const matObj = { name: mat.name, url: mat.data, size: mat.size };
+              if (!anyMaterial) anyMaterial = matObj;
+              if (key.includes(lessonId)) {
+                foundMaterial = matObj;
+                break;
+              }
+            }
+          }
+
+          finalMaterial = foundMaterial || anyMaterial;
+        }
+
+        // 4. Se ainda assim não houver material, usar o mock para garantir que sempre tenha PDF
+        if (!finalMaterial) {
+          finalMaterial = {
+            name: "Slide da Aula (Padrão).pdf",
+            url: "/mock_slide.pdf"
+          };
+        }
+
+        if (finalMaterial) {
+          setLessonMaterial(finalMaterial);
+        }
+      } catch (e) {
+        console.error("Error loading lesson materials:", e);
       }
-    } catch (e) {
-      console.error("Error loading lesson materials:", e);
-    }
-  }, [lessonId]);
+    };
+    
+    loadMaterials();
+  }, [lessonId, displayTitle]);
 
   const handleCompleteLesson = () => {
     setIsCompleted(true);
@@ -67,13 +213,27 @@ function LessonClassroom() {
 
   const handleDownloadPdf = () => {
     if (lessonMaterial?.url) {
-      const link = document.createElement('a');
-      link.href = lessonMaterial.url;
-      link.download = lessonMaterial.name || 'material.pdf';
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      if (lessonMaterial.url.startsWith('data:') || lessonMaterial.url.startsWith('/')) {
+        const link = document.createElement('a');
+        link.href = lessonMaterial.url;
+        link.download = lessonMaterial.name || 'material.pdf';
+        if (!link.download.endsWith('.pdf')) link.download += '.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        const downloadUrl = lessonMaterial.url.includes('?') 
+            ? `${lessonMaterial.url}&download=${encodeURIComponent(lessonMaterial.name || 'material.pdf')}`
+            : `${lessonMaterial.url}?download=${encodeURIComponent(lessonMaterial.name || 'material.pdf')}`;
+        
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.target = '_blank';
+        link.download = lessonMaterial.name || 'material.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
       toast.success("Download iniciado!");
     }
   };
@@ -163,14 +323,35 @@ function LessonClassroom() {
                   <AvatarFallback>VO</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 flex gap-2">
-                  <Input placeholder="Escreva sua dúvida sobre a aula..." className="bg-secondary/50 focus-visible:ring-coral" />
-                  <Button className="bg-coral text-white hover:bg-coral/90 px-8">
+                  <Input 
+                    placeholder="Escreva sua dúvida sobre a aula..." 
+                    className="bg-secondary/50 focus-visible:ring-coral" 
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSendComment()}
+                  />
+                  <Button className="bg-coral text-white hover:bg-coral/90 px-8" onClick={handleSendComment}>
                     <Send className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
 
               <div className="space-y-6">
+                {comments.map((comment, i) => (
+                  <div key={i} className="flex gap-4">
+                    <Avatar>
+                      <AvatarImage src={comment.avatar} />
+                      <AvatarFallback>{comment.initials}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="bg-secondary/40 p-4 rounded-2xl rounded-tl-none">
+                        <p className="font-semibold text-sm">{comment.author} <span className="text-muted-foreground text-xs font-normal ml-2">{comment.time}</span></p>
+                        <p className="text-sm mt-1 text-foreground/80">{comment.text}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
                 <div className="flex gap-4">
                   <Avatar>
                     <AvatarImage src="https://i.pravatar.cc/150?u=44" />
@@ -266,27 +447,44 @@ function LessonClassroom() {
               </div>
               
               {lessonMaterial ? (
-                <div className="flex gap-2">
-                  <Button 
-                    className="flex-1 bg-coral text-white hover:bg-coral/90 shadow-lg"
-                    onClick={handleDownloadPdf}
-                  >
-                    <Download className="h-4 w-4 mr-2" /> Baixar PDF
-                  </Button>
-                  {lessonMaterial.url.startsWith('http') && (
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2">
                     <Button 
-                      variant="outline"
-                      size="icon"
-                      className="shrink-0"
-                      onClick={() => window.open(lessonMaterial.url, '_blank')}
+                      className="flex-1 bg-coral text-white hover:bg-coral/90 shadow-lg"
+                      onClick={handleDownloadPdf}
                     >
-                      <ExternalLink className="h-4 w-4" />
+                      <Download className="h-4 w-4 mr-2" /> Baixar PDF
                     </Button>
-                  )}
+                    {lessonMaterial.url.startsWith('http') && (
+                      <Button 
+                        variant="outline"
+                        size="icon"
+                        className="shrink-0"
+                        onClick={() => window.open(lessonMaterial.url, '_blank')}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-xs text-muted-foreground mt-1"
+                    onClick={() => {
+                      localStorage.removeItem('lesson_materials');
+                      setLessonMaterial(null);
+                      toast.success("Cache limpo. Você pode anexar um novo PDF.");
+                    }}
+                  >
+                    Trocar / Limpar PDF atual
+                  </Button>
                 </div>
               ) : (
-                <Button className="w-full bg-slate-900 text-white hover:bg-slate-800 shadow-lg">
-                  <Download className="h-4 w-4 mr-2" /> Baixar Slides (3.4 MB)
+                <Button 
+                  className="w-full bg-slate-900 text-white shadow-lg opacity-50 cursor-not-allowed"
+                  disabled
+                >
+                  <Download className="h-4 w-4 mr-2" /> Carregando PDF...
                 </Button>
               )}
             </div>

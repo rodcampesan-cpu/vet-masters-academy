@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, BookOpen, CheckCircle2, Clock, FileText, MessagesSquare, Play, Trophy, Users, ShieldCheck, Activity, GraduationCap, Stethoscope, Award, Building2, Briefcase, Star } from "lucide-react";
 import { courses, ortopediaModules } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,63 @@ function CourseDetail() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Conteúdo");
   const [notes, setNotes] = useState("");
+  const [courseMaterials, setCourseMaterials] = useState<{title: string, size: string, url?: string}[]>([
+    { title: "Protocolo Clínico Atualizado", size: "1.1 MB" },
+    { title: "Artigo de Referência (Nature)", size: "4.5 MB" }
+  ]);
+
+  useEffect(() => {
+    try {
+      // Tentar carregar os arquivos completos em Base64 salvos localmente
+      const storedData = localStorage.getItem('lesson_materials');
+      let dynamicMats: any[] = [];
+      
+      if (storedData) {
+        const mats = JSON.parse(storedData);
+        dynamicMats = Object.values(mats).map((mat: any) => ({
+          title: mat.name.replace('.pdf', ''),
+          size: mat.size ? `${(mat.size / 1024 / 1024).toFixed(1)} MB` : "PDF Anexado",
+          url: mat.data
+        }));
+      } else {
+        // Fallback para os links antigos
+        const storedRefs = localStorage.getItem('lesson_materials_refs');
+        if (storedRefs) {
+          const refs = JSON.parse(storedRefs);
+          dynamicMats = Object.values(refs).map((ref: any) => ({
+            title: ref.name.replace('.pdf', ''),
+            size: "PDF Anexado",
+            url: ref.url
+          }));
+        }
+      }
+
+      if (dynamicMats.length > 0) {
+        setCourseMaterials([
+          { title: "Protocolo Clínico Atualizado", size: "1.1 MB" },
+          { title: "Artigo de Referência (Nature)", size: "4.5 MB" },
+          ...dynamicMats
+        ]);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+  const handleDownload = (doc: { title: string, url?: string }) => {
+    if (!doc.url) return;
+    
+    if (doc.url.startsWith('data:')) {
+      const a = document.createElement('a');
+      a.href = doc.url;
+      a.download = doc.title.endsWith('.pdf') ? doc.title : `${doc.title}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      window.open(doc.url, '_blank');
+    }
+  };
 
   let modules: any[] = [];
 
@@ -177,19 +234,22 @@ function CourseDetail() {
                     <div>
                       <h3 className="font-display font-semibold mb-4">Materiais Complementares</h3>
                       <div className="space-y-3">
-                        {[
-                          { title: "Protocolo Clínico Atualizado", size: "1.1 MB" },
-                          { title: "Artigo de Referência (Nature)", size: "4.5 MB" }
-                        ].map((doc, idx) => (
+                        {courseMaterials.map((doc, idx) => (
                           <div key={idx} className="flex items-center justify-between p-3 rounded-lg border border-border bg-background">
                             <div className="flex items-center gap-3">
                               <FileText className="h-5 w-5 text-coral" />
                               <div>
-                                <p className="text-sm font-medium">{doc.title}.pdf</p>
+                                <p className="text-sm font-medium">{doc.title}{doc.title.endsWith('.pdf') ? '' : '.pdf'}</p>
                                 <p className="text-xs text-muted-foreground">{doc.size}</p>
                               </div>
                             </div>
-                            <Button variant="outline" size="sm">Baixar</Button>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              onClick={() => handleDownload(doc)}
+                            >
+                              Baixar
+                            </Button>
                           </div>
                         ))}
                       </div>

@@ -1,0 +1,245 @@
+# Base de Conhecimento: Tratado de Ortopedia de Cães e Gatos
+## Seção I – Introdução à Ortopedia de Pequenos Animais
+
+---
+
+# Capítulo 1 – Fisiologia Aplicada ao Sistema Musculoesquelético
+*Autor: Lizandra Amoroso*
+
+## 1. Introdução e Visão Geral
+* **Sistema Musculoesquelético:** Composto por elementos plásticos e dinâmicos integrados para movimentos e estabilização postural harmônica. Constituído por ossos, músculos, tendões, bursas, ligamentos, articulações, cartilagens e outros tecidos conjuntivos.
+* **Tecido Ósseo:** 
+  * Estrutura intrigante e complexa com alta rigidez e elasticidade.
+  * Funções: absorver impactos, proteger órgãos, permitir sustentação corporal, inserção da musculatura, regulação da massa óssea/mineral e proporcionar ambiente favorável à hematopoiese.
+  * Funções estruturais: mantenedor de integridade estrutural, regulador da homeostase orgânica (comunicação com outros tecidos/órgãos).
+  * Metabolismo: A osteoinunologia e o osteometabolismo demonstram o papel do tecido ósseo no metabolismo energético, status imunológico e regulação de vários hormônios.
+* **Tecido Muscular:**
+  * Tecido plástico que transforma energia química em mecânica (movimentos corporais).
+  * Dinâmica: Equilíbrio entre processos de síntese e degradação proteica, sensível a fatores como status nutricional, equilíbrio hormonal, atividade física, injúria ou doença.
+  * Contratilidade: O arranjo em miofilamentos proporciona contração pelo deslizamento de fibras (resultando em encurtamento).
+  * Outras propriedades: Extensibilidade (estender sem sofrer lesão) e elasticidade (retorno à forma e tamanho originais após contração/extensão).
+  * Evolução: A interação músculo-osso é essencial para garantir a saúde óssea e vice-versa (estudos em humanos sarcopênicos mostram saúde óssea comprometida; literatura veterinária ainda é escassa).
+
+---
+
+## 2. Constituição e Arquitetura Óssea
+* **Matriz Extracelular Óssea:**
+  * Constituída por proteínas colagênicas e não colagênicas, rede vascular nervosa, medula óssea e matéria mineral.
+  * **Mineralização:** Depósito na matriz de cristais de hidroxiapatita, fosfato dicálcico e carbonato de cálcio.
+  * **Matriz Proteica:** Disposta de forma oblíqua em diferentes direções, conferindo flexibilidade e capacidade de absorver forças de tensão.
+* **Marcadores Biológicos:**
+  * Detecção de ligações cruzadas de cadeias de colágeno (ex: deoxipiridinolina total) mensura a reabsorção óssea.
+  * Conformação diferenciada das cadeias de colágeno pode ser responsável pela "dureza" do osso.
+
+### Tipos de Tecido Ósseo
+* **Periósteo:**
+  * Tecido conjuntivo fibroso que envolve a superfície cortical externa (exceto nas articulações, onde é alinhado por cartilagem articular).
+  * Contém vasos sanguíneos, fibras nervosas, osteoblastos e osteoclastos. Fortemente associado à superfície cortical por fibras colagênicas espessas (fibras de Sharpey) que se estendem ao osso subjacente.
+  * Função: Suprimento sanguíneo, crescimento, regeneração, restauração de fraturas e transferência de força muscular ao osso.
+* **Endósteo:**
+  * Estrutura membranosa delgada formada por osteoblastos e osteoclastos. Reveste a superfície interna do osso cortical, osso trabecular e canais vasculares (Volkmann/Havers).
+  * Contato direto com o espaço medular. Área total aproximada de 0,5 m² (maior atividade de remodelação que o periosteal, devido a maior tensão biomecânica ou citocinas medulares).
+* **Osso Cortical (Compacto):**
+  * Composto por lamelas concêntricas mineralizadas entrelaçadas por material orgânico disposto obliquamente.
+  * **Canal Central (Havers):** Envolvido por lamelas concêntricas com osteócitos nas lacunas. Forma a unidade óssea denominada **ósteon**.
+  * **Canais Perfurantes (Volkmann):** Passagem de ramos arteriais/venosos periosteais e nervos da superfície até a região endosteal e medular.
+  * Maior densidade e menor porosidade que o osso esponjoso.
+* **Osso Esponjoso (Trabecular):**
+  * Localizado nas epífises dos ossos longos e cavidade medular.
+  * Constituído por hastes e placas ósseas que formam espaços medulares preenchidos por medula óssea.
+  * Maior área reabsortiva, maior exposição vascular celular, favorece o metabolismo ósseo e a hematopoiese.
+* **Medula Óssea:**
+  * Tecido conjuntivo gelatinoso altamente vascularizado nas cavidades medulares.
+  * *Medula Óssea Vermelha:* Nos recém-nascidos, rica em eritrócitos (hematopoiese ativa). Nos adultos, restringe-se às epífises de ossos longos, crista ilíaca e ossos do crânio (contém células-tronco mesenquimatosas - MSCs).
+  * *Medula Óssea Amarela:* Substitui a vermelha nos ossos longos de adultos (acúmulo de tecido adiposo unicelular).
+
+---
+
+## 3. Celularidade Óssea
+População heterogênea: **Osteoprogenitoras, Osteoblastos, Osteócitos e Osteoclastos**.
+
+* **Osteoblastos:**
+  * Derivados de células osteoprogenitoras mesenquimatosas (no periósteo e medula óssea).
+  * Função: Localizam-se na superfície óssea e secretam componentes orgânicos da matriz (colágeno tipo I, proteoglicanos, glicoproteínas, proteínas y-carboxiladas).
+  * Destino: Após atividade secretora, sofrem apoptose ou diferenciação terminal em **osteócitos**.
+  * Regulação: Fornecem fatores essenciais para diferenciação de osteoclastos e osteoprotegerina (OPG).
+* **Osteócitos:**
+  * Células mais abundantes no osso. Detectam estímulos mecânicos e hormonais para coordenar osteoblastos e osteoclastos.
+  * Fontes de moléculas que regulam osteoclastos: OPG e **RANKL** (ligante do receptor ativador *kappa*-B).
+* **Osteoclastos:**
+  * Células multinucleadas gigantes derivadas de monócitos circulantes na medula óssea (**precursores de osteoclastos - OCPs**).
+  * Função: Reabsorção óssea fisiológica e patológica.
+  * Morfologia e Mecanismo:
+    * **Borda pregueada:** Invaginações profundas da membrana plasmática e zona de vedação (aderência firme à superfície óssea formando lacunas de reabsorção/Howship).
+    * Produzem hidrolases ácidas: **catepsina K** e **fosfatase ácida tartarato-resistente (TRAcP)**, que dissolvem a matriz óssea.
+    * Alvos terapêuticos de fármacos antirreabsortivos.
+    * Regulação local: Controlam concentração de cálcio, rotatividade de fatores hematopoiéticos e angiogênese (armazenamento e secreção de citocinas/fatores de crescimento).
+
+---
+
+## 4. Constituição e Arquitetura Muscular e Tendínea
+* **Músculo Esquelético:**
+  * Organização estrutural: Fibras musculares (estriadas esqueléticas) delimitadas pelo **sarcolema**.
+  * Revestimentos de tecido conjuntivo:
+    * **Endomísio:** Envolve cada fibra muscular (fibras reticulares).
+    * **Perimísio:** Envolve feixes (fascículos) de fibras musculares.
+    * **Epimísio:** Envolve todo o músculo (tecido conjuntivo denso).
+  * Unidade contrátil: **Sarcômero** (delimitado por discos Z, contendo bandas I, banda A, zona H e linha M).
+  * Miofilamentos: Actina (finos e elásticos) e Miosina (espessos).
+  * Contração: Deslizamento de filamentos através do complexo troponina-cálcio dependente e tropomiosina. ATP gera energia e acoplamento excitação-contração.
+
+* **Tendões:**
+  * Cordões brancos de tecido conjuntivo denso que unem músculos aos ossos.
+  * Alta proporção de colágeno e baixo teor de elastina (alta resistência tênsil e viscoelasticidade).
+  * **Tenócitos:** Fibroblastos do tendão responsáveis pela homeostase e reparo.
+  * **Células-tronco do tendão (TSCs):** Auto-renovação; diferenciação aberrante pode levar a tendinopatias crônicas (sobrecarga mecânica).
+
+---
+
+## 5. Cicatrização dos Tecidos Musculoesqueléticos
+
+### Cicatrização Óssea
+* **Estabilidade e Strain:** 
+  * Movimentação interfragmentária de 0 a 0,2% no foco da fratura (*strain*) favorece reparo osteonal primário ou embriológico.
+  * A cicatrização óssea **secundária** (com calo ósseo por micromovimentação) é a mais frequente.
+* **Estágios da Cicatrização Óssea Secundária (Schindeler et al., 2008):**
+  1. **Resposta Inflamatória:** Liberação de COX-2, TNF-α, IL-1, IL-2. Chegada de MSCs, neutrófilos, macrófagos. Formação de hematoma e necrose inicial.
+  2. **Formação do Calo Cartilaginoso (Anabolismo):** Recrutamento de células-tronco, formação de tecido fibrocartilaginoso. Fatores tróficos (IGF-1, VEGF, BMPs) estimulam proliferação, síntese de colágeno e angiogênese.
+  3. **Formação do Calo Ósseo (Catabolismo/Ossificação Endocondral):** Remoção do calo cartilaginoso por apoptose de condrócitos e ação de osteoclastos (M-CSF, RANK, RANKL, OPG). Substituição por tecido ósseo imaturado.
+  4. **Remodelação Óssea:** Substituição de osso imaturo por osso lamelar, reabsorção do excesso de calo por osteoclastos e deposição osteoblástica. Pode durar anos até o restabelecimento total da arquitetura original e resistência mecânica.
+* **Fatores de Crescimento e Moléculas Importantes:**
+  * **BMPs (Proteínas Morfogenéticas Ósseas):** BMP-2, BMP-4, BMP-7 estimulam formação óssea in vitro e in vivo (sítios heterotópicos). BMP-6 apresenta maior atividade osteogênica e reduz número de osteoclastos.
+  * **VEGF:** Estimula neoangiogênese e recrutamento de MSCs.
+
+### Cicatrização de Músculos e Tendões
+* **Músculo Esquelético (Três Fases):**
+  1. **Destruição:** Ruptura de miofibrilas, necrose, hematoma e fagocitose por macrófagos.
+  2. **Reparo:** Ativação de células satélites, diferenciação em mioblasto (fusão em miotubos) e regeneração das miofibrilas em 5 a 6 dias. Revascularização capilar.
+  3. **Remodelação:** Maturação das miofibrilas de regeneração e cicatrização por junções miotendíneas.
+* **Efeitos do Desuso/Paralisia:** Perda de carga leva à atrofia muscular e perda óssea neurogênica (diminuição da densidade mineral óssea - DMO).
+
+---
+
+## 6. Biomecânica e os Tecidos do Sistema Musculoesquelético
+* **Materiais Anisotrópicos:** Ossos respondem distintamente à carga dependendo da direção e local de aplicação.
+* **Tipos de Estresse Ósseo:** Tensão, compressão e cisalhamento.
+* **Lei de Wolff:** Osso de um indivíduo saudável adapta-se às cargas que incidem sobre ele. O desuso provoca perda óssea; atividade física aumenta massa e densidade mineral óssea.
+* **Piezoelectricidade:** Geração de eletricidade sob pressão (atribuída ao colágeno), induzindo apoptose de osteócitos e início da cicatrização de microfraturas (Mecanotransdução via fluido no sistema lacuno-canalicular).
+* **Propriedades Tendíneas e Ligamentares:**
+  * **Enxertos:** Desafios biológicos em enxertos de tendão ou ligamento (ex: LCCr em cães) exigem rigidez mecânica inicial e estabilidade articular para sobrevivência vascular e celular (Biskup et al., 2015).
+
+---
+
+# Capítulo 2 – Exame Ortopédico
+*Autores: Rodrigo Casarin Costa e Luís Gustavo Gosuen Gonçalves Dias*
+
+## 1. Introdução e Terminologia
+A avaliação musculoesquelética exige metodologia rigorosa, pois lesões traumáticas agudas ou degenerativas crônicas causam dor que dificulta o exame clínico.
+
+### Definições Importantes:
+* **Abdução:** Afastamento do membro em relação à linha mediana corpórea.
+* **Adução:** Aproximação do membro em relação à linha mediana corpórea.
+* **Amplitude de movimento (ADM):** Grau máximo fisiológico atingido por articulação sinovial.
+* **Contratura muscular:** Contração total ou parcial de grupo muscular de maneira incorreta, impossibilitando retorno ao relaxamento (resposta à sobrecarga ou lesão).
+* **Claudicação:** Mudança de tempo de apoio de um ou mais membros (déficit ou ausência na sustentação de peso = impotência funcional).
+* **Crepitação:** Ruído percebido tátil ou auditivamente durante avaliação ortopédica (sensação de rangido).
+* **Deformidade:** Alteração permanente da forma de um membro ou osso.
+* **Extensão:** Movimento de distanciamento das extremidades.
+* **Flexão:** Movimento de aproximação das extremidades.
+* **Fibrose:** Formação de tecido conjuntivo decorrente de regeneração/reparação não fisiológica de tecidos moles.
+* **Impotência funcional:** Incapacidade intencional ou não de garantir sustentação de peso (membro suspenso ou apoiado sem capacidade de sustentação de massa).
+* **Instabilidade:** Movimentação anormal de ossos longos ou articulações (incongruência articular) por falha de estabilidade (tecidos moles ou continuidade óssea).
+* **Procurvatum:** Deformidade de eixo ósseo para *caudal* em relação ao plano sagital e ao CORA (centro de rotação e angulação).
+* **Recurvatum:** Deformidade de eixo ósseo para *cranial* em relação ao plano sagital e CORA.
+* **Valgo:** Desvio lateral da extremidade distal em relação ao CORA.
+* **Varo:** Desvio medial da extremidade distal em relação ao CORA.
+* **Genu varum:** Rotação externa dos pés nos membros pélvicos, com aproximação dos tarsos e afastamento dos joelhos.
+* **Genu valgum:** Rotação interna dos pés, afastamento dos tarsos e aproximação dos joelhos.
+
+---
+
+## 2. Avaliação do Paciente Ortopédico e Politraumatizado
+
+### Protocolo Inicial (ABCDE do Trauma)
+1. **A**irways (Vias aéreas)
+2. **B**reathing (Respiração)
+3. **C**irculation (Circulação)
+4. **D**isability (Incapacidade / neurológico)
+5. **E**xposure (Exposição / exame físico geral)
+
+* **Cuidados em Fraturas Expostas:** Proteger com compressas estéreis umedecidas em solução salina estéril (0,9%) e estabilizar provisoriamente com anteparos rígidos e ataduras para minimizar contaminação e lesões adicionais.
+
+### Anamnese e Resenha
+* **Resenha:** Espécie, raça, idade, gênero, integridade sexual e origem. (Ex: Cães grandes/gigantes predispostos à displasia coxofemoral; cães jovens a afecções congênitas/desenvolvimento; idosos a degenerativas).
+* **Anamnese Geral:** Sistema cardiorrespiratório, circulatório, gastrointestinal, geniturinário, nervoso, tegumentar, endócrino, imunológico, habitat e ectoparasitas.
+* **Anamnese Específica:** Início dos sinais, evolução, tratamentos prévios, sazonalidade e comportamento dos sinais clínicos. *(Dica: Não determinar diagnóstico de forma prematura e negligenciar outras queixas).*
+
+---
+
+## 3. Exame Físico Geral e Ortopédico
+* **Contenção Física:** Uso prudente de focinheiras, mordaças e auxílio do tutor para evitar acidentes (mordidas, arranhões) e estresse excessivo.
+* **Sinais Vitais:** Nível de consciência, escore de condição corporal (ECC), FC, FR, TPC, mucosas, hidratação, pulso, PA e temperatura corporal.
+* **Ambiente de Exame:** Calmo, aderente e seco, com aclives e declives (se possível) para avaliar a deambulação.
+
+### Avaliação da Deambulação (Marcha)
+* **Em Cães:** Avaliar em piso plano, velocidade variada, movimentos circulares (horário/anti-horário), aclive, declive e obstáculos (degraus).
+* **Em Gatos:** Mais desafiador devido à inibição pelo estresse do ambiente clínico. Recomenda-se ambientação, uso de feromônios faciais, caixas de transporte abertas, portas/janelas fechadas e evitar movimentação forçada que agrave lesões.
+
+#### Graduação da Claudicação (Cães e Gatos)
+* **Grau I:** Discreta (difícil visualização; troca leve de apoio na caminhada/troca em corrida).
+* **Grau II:** Leve (visível na caminhada, mas sem acentuação).
+* **Grau III:** Moderada (mudança de tempo de apoio evidente; sinais de compensação como balanço de cabeça).
+* **Grau IV:** Grave (claudicação tipo "apoio em pinça").
+* **Grau V:** Severa (impotência funcional total do membro).
+
+#### Análise Postural Estática
+* **Atrofia Muscular (Hipotrofia):** Indicativo de desuso prolongado (ex: membro pélvico acometido por ruptura de ligamento cruzado cranial ou displasia coxofemoral). Comparar sempre com o lado contralateral.
+* **Hipertrofia:** Sobrecarga crônica (ex: membros torácicos hipertrofiados por sobrecarga devido a claudicação crônica nos pélvicos).
+* **Avaliação no Sentado:** Pacientes com ruptura de ligamento cruzado cranial podem manter o membro pélvico afetado estendido para o lado ao sentar.
+
+---
+
+## 4. Palpação e Mobilização Articular Sistêmica
+* *Regra de Ouro:* Iniciar sempre pelos membros sadios e deixar o membro suspeito de lesão por último. Realizar palpação progressiva (nunca abrupta).
+
+### A. Membro Torácico
+* **Unhas, Coxins e Membros Interdigitais:** Avaliar desgaste assimétrico (indica poupar o membro, déficits neurológicos ou desvios angulares). Procurar corpos estranhos e ectoparasitas.
+* **Falanges e Articulações Interfalangeanas/Metacarpofalangeanas:** Palpação individual e mobilização (flexão/extensão/desvios) para detectar dor, crepitação ou instabilidade.
+* **Metacarpos e Articulações Carpometacarpianas:** Pesquisar dor, aumentos de volume e crepitação.
+* **Carpo (Radiocárpica e Intercárpicas):** Flexão e extensão cuidadosa + testes de estresse em *varus*, *valgus* e craniocaudal para instabilidade.
+* **Rádio e Ulna:** Palpação de toda a extensão para dor, crepitação, instabilidade e desvios angulares.
+* **Cotovelo:** Avaliação de flexão, extensão, supinação e pronação. 
+  * *Testes específicos:* Palpação do epicôndilo medial, processo anacôneo e processo corononóide medial (dor na extensão = artrose ou fragmentação do processo corononóide).
+* **Úmero:** Palpação digital de toda a extensão distal para proximal.
+* **Ombro:** 
+  * ADM de flexão/extensão e rotação medial/lateral.
+  * *Testes de abdução:* Escápula imóvel, abduzir o úmero até 45° no cão (acima disso ou dor = instabilidade ligamentar ou osteocondrite dissecante - OCD).
+
+---
+
+### B. Membro Pélvico
+* **Unhas, Coxins, Falanges e Metatarsos:** Mesmos princípios do membro torácico.
+* **Tarso (Intertársicas e Tibiotársica):** Flexão, extensão, estresse em varus/valgus e palpação dos maléolos medial e lateral.
+* **Tíbia e Fíbula:** Palpação da crista tibial (avaliar desvios ou fraturas por avulsão em animais imaturos).
+* **Joelho (Art. Tibiofemoropatelar):**
+  * Mobilização em flexão e extensão graduais.
+  * **Pesquisa de Luxação de Patela:** Estabilizar fêmur e realizar rotação interna/externa ou pressão direta na patela (graus 1 a 4).
+  * **Teste de Gaveta Craniana:** Avaliação da integridade do **Ligamento Cruzado Cranial (LCCr)**. Estabilizar fêmur com uma mão (dedo polegar no sesamóide do gastrocnêmio e indicador na patela) e a outra mão na tíbia (polegar na cabeça da fíbula e indicador na crista tibial). Projetar a tíbia cranialmente. Movimento cranial excessivo = ruptura do LCCr.
+  * **Teste de Compressão Tibial:** Avaliar LCCr comprimindo o tarso em flexão (contração do gastrocnêmio gera força que projeta a tíbia cranialmente se o LCCr for rompido).
+  * *Click Meniscal:* Ausculta ou palpação de estalos durante flexão/extensão (lesão de menisco associada).
+* **Fêmur:** Palpação em todas as faces para dor, crepitação e desvios.
+* **Quadril (Coxofemoral):**
+  * **Triângulo Anatômico de referências:** Linha imaginária unindo a crista ilíaca, o trocânter maior e a tuberosidade isquiática (configuração triangular). Desvios sugerem luxação.
+  * ADM: Flexão, extensão, abdução, adução e rotação.
+  * **Teste de Ortolani:** Avaliação de lassidão articular e diagnóstico precoce de displasia coxofemoral. Paciente em decúbito dorsal ou lateral; joelho flexionado e fêmur aduzido (subluxando a cabeça do fêmur fora do acetábulo), seguido de abdução gradual. O retorno audível/palpável da cabeça ao acetábulo indica positividade (Sinal de Ortolani positivo).
+
+---
+
+### C. Esqueleto Axial
+* **Coluna (Pelve / Sacro / Vértebras):**
+  * **Coxal (Pelve):** Palpação das cristas ilíacas (avaliar simetria, fraturas de ílio, disjunção sacroiliaca). Teste de compressão cruzada das hemipelve.
+  * **Coluna Vertebral:** Palpação epaxial com extremo cuidado para dor e desvios. Exame neurológico complementar (essencial, mas fora do escopo principal deste tratado ortopédico).
+  * **Crânio:** Palpação digital de depressões, instabilidades e crepitações. Articulação temporomandibular (ATM) e oclusão dentária.
+
+---
+*Fim da Base de Conhecimento da Seção I (Fisiologia Aplicada e Exame Ortopédico).*

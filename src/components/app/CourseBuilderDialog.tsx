@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, Trash2, Upload, FileText, X, CheckCircle2, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import localforage from "localforage";
 
 interface CourseBuilderProps {
   open: boolean;
@@ -53,13 +54,8 @@ function PdfUploadField({
   const handleFile = async (file: File) => {
     if (!file) return;
     
-    if (file.type !== "application/pdf") {
-      toast.error("Apenas arquivos PDF são permitidos.");
-      return;
-    }
-
-    if (file.size > 50 * 1024 * 1024) {
-      toast.error("O arquivo deve ter no máximo 50MB.");
+    if (file.type !== 'application/pdf') {
+      toast.error("Por favor, selecione apenas arquivos PDF.");
       return;
     }
 
@@ -94,27 +90,32 @@ function PdfUploadField({
       if (error) {
         // Se o bucket não existir, salvar como base64 no localStorage como fallback
         console.warn("Storage upload failed, using fallback:", error.message);
-        
-        // Fallback: salvar referência local
-        const localUrl = URL.createObjectURL(file);
-        
-        // Salvar no localStorage para persistência
+        // Fallback: salvar como base64
         const reader = new FileReader();
-        reader.onload = () => {
-          const materials = JSON.parse(localStorage.getItem('lesson_materials') || '{}');
-          materials[`${moduleId}_${lessonId}`] = {
-            name: file.name,
-            data: reader.result,
-            size: file.size,
-            uploadedAt: new Date().toISOString()
-          };
-          localStorage.setItem('lesson_materials', JSON.stringify(materials));
+        reader.onload = async () => {
+          const base64Data = reader.result as string;
+          try {
+            const materials: any = (await localforage.getItem('lesson_materials')) || {};
+            materials[`${moduleId}_${lessonId}`] = {
+              name: file.name,
+              data: base64Data,
+              size: file.size,
+              uploadedAt: new Date().toISOString()
+            };
+            await localforage.setItem('lesson_materials', materials);
+            
+            setUploadProgress(100);
+            onUploadComplete(base64Data, file.name);
+            toast.success(`"${file.name}" salvo no cache avançado com sucesso!`);
+          } catch (e) {
+            console.error("LocalForage error:", e);
+            toast.error("Erro ao salvar PDF na memória.");
+          } finally {
+            setIsUploading(false);
+            setUploadProgress(0);
+          }
         };
         reader.readAsDataURL(file);
-
-        setUploadProgress(100);
-        onUploadComplete(localUrl, file.name);
-        toast.success(`"${file.name}" salvo com sucesso!`);
         return;
       }
 
@@ -235,7 +236,7 @@ function PdfUploadField({
           <p className="text-sm font-medium text-slate-600">
             {isDragOver ? 'Solte o PDF aqui!' : 'Arraste o PDF ou clique para selecionar'}
           </p>
-          <p className="text-[10px] text-slate-400 mt-0.5">Aceita apenas PDF • Máximo 50MB</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">Aceita apenas PDF</p>
         </div>
       </div>
     </div>
@@ -461,6 +462,8 @@ export function CourseBuilderDialog({ open, onOpenChange, onSuccess, initialCour
           module_id: modId,
           title: lesson.title,
           video_url: lesson.video_url,
+          material_url: lesson.material_url,
+          material_name: lesson.material_name,
           order: lIdx + 1
         }));
         

@@ -19,6 +19,7 @@ const allNavLinks = [
   { to: "/app/courses", label: "Cursos", icon: BookOpen },
   { to: "/app/library", label: "Biblioteca", icon: Library },
   { to: "/app/community", label: "Comunidade", icon: MessagesSquare },
+  { to: "/app/live-chat", label: "Bate Papo Ao Vivo", icon: PlayCircle },
   { to: "/app/clinical-cases", label: "Casos Clínicos", icon: Activity },
   { to: "/app/ai-tutor", label: "Tutor IA", icon: Sparkles },
   { to: "/app/achievements", label: "Conquistas", icon: Trophy },
@@ -173,7 +174,12 @@ export function AppShell() {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user?.user_metadata?.full_name || "Usuário VetClass"}</p>
+                    <p className="text-sm font-medium leading-none">
+                      {(() => {
+                        const n = user?.user_metadata?.full_name || "Usuário VetClass";
+                        return n.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+                      })()}
+                    </p>
                     <p className="text-xs leading-none text-muted-foreground">{email}</p>
                   </div>
                 </DropdownMenuLabel>

@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
 import path from "path";
 
-const genAI = new GoogleGenerativeAI("AQ.Ab8RN6I3GP-u7Lljf57K00i6U9bhlXxBmSWpIhOBW0swgoIrLQ");
+const genAI = new GoogleGenerativeAI("AQ.Ab8RN6Jj96tVnjWV0ICDOAtbm_g1lX679rOLkRnXrgh2Li-RVQ");
 
 function fileToGenerativePart(filePath, mimeType) {
   return {
@@ -15,7 +15,7 @@ function fileToGenerativePart(filePath, mimeType) {
 
 async function main() {
   console.log("Iniciando extração com Gemini 2.5 Pro...");
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-flash-lite-latest" });
 
   const folders = ["mod1", "mod2"];
   const baseDir = path.join(process.cwd(), "public", "materials", "ortopedia");

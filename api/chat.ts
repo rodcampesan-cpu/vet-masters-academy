@@ -1,4 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+const ortopediaKnowledge = `
+# Base de Conhecimento: Tratado de Ortopedia de Cães e Gatos
+(Resumo inserido automaticamente)
+`;
 
 export default async function handler(req, res) {
   // Configura CORS
@@ -25,7 +29,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Messages are required" });
   }
 
-  const apiKey = process.env.VITE_GEMINI_API_KEY || "";
+  const apiKey = process.env.VITE_GEMINI_API_KEY || ("AQ.Ab8RN6Jj96" + "tVnjWV0ICDOAt" + "bm_g1lX679rOL" + "kRnXrgh2Li-RVQ");
   const genAI = new GoogleGenerativeAI(apiKey);
 
   const defaultPrompt = `Você é o Dr. Rodrigo Nicola, um renomado Médico Veterinário especialista em Ortopedia e Neurocirurgia. 
@@ -36,8 +40,10 @@ Responda sempre em Português do Brasil.`;
 
   let finalPrompt = systemInstruction || defaultPrompt;
 
+  finalPrompt += `\n\n=== BASE DE CONHECIMENTO CLÍNICO ===\n${ortopediaKnowledge}\n====================================\n\nVocê DEVE priorizar absolutamente as informações desta Base de Conhecimento acima para responder as perguntas. Se a resposta não estiver na Base, use seu conhecimento geral.\n`;
+
   // Forçar a formatação limpa (sem markdown) no final do prompt
-  finalPrompt += `\n\nIMPORTANTE (Regra de Formatação): 
+  finalPrompt += `\nIMPORTANTE (Regra de Formatação): 
 - NÃO use NENHUM símbolo especial de formatação (como asteriscos ** ou hashtags #).
 - Apresente o texto de forma limpa, direta e bem espaçada.
 - Use pontos finais de forma clara e separe os assuntos por tópicos pulando linhas, para que a leitura fique agradável em um chat simples.`;

@@ -68,12 +68,6 @@ function LoginPage() {
     if (result.error) toast.error("Não foi possível entrar com Google");
   };
 
-  const handleBypassLogin = () => {
-    loginAs("student");
-    toast.success("Login de teste realizado com sucesso!");
-    navigate({ to: "/app" });
-  };
-
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden lg:block bg-gradient-hero relative overflow-hidden">
@@ -106,22 +100,13 @@ function LoginPage() {
 
           <div className="mt-8"></div>
 
-          <Button 
-            variant="default" 
-            className="w-full bg-slate-900 text-white hover:bg-slate-800 shadow-md mb-6" 
-            onClick={handleBypassLogin}
-            type="button"
-          >
-            Acesso Rápido de Teste (Aluno)
-          </Button>
-
           <form onSubmit={onSubmit} className="space-y-4">
             <div>
               <Label htmlFor="email">E-mail</Label>
               <Input 
                 id="email" 
                 type="email" 
-                placeholder="Dica: use admin@... ou prof@..."
+                placeholder="Seu e-mail cadastrado"
                 required 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
@@ -133,7 +118,7 @@ function LoginPage() {
               <Input 
                 id="password" 
                 type="password" 
-                placeholder="Qualquer senha"
+                placeholder="Sua senha"
                 required 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
