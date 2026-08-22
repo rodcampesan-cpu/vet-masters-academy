@@ -2457,4 +2457,4 @@ export const FULL_CASES = {
     "feedbackIncorrect": "Incorreto. Avalie novamente os sinais descritos e a relação com Sem percepção de dor profunda: decisão cirúrgica, prognóstico e comunicação com o tutor.",
     "playbookProtocol": "1. Confirmação diagnóstica via exame clínico e imagem.\n2. Definição entre abordagem conservadora ou cirúrgica.\n3. Manejo de dor adequado.\n4. Plano de reabilitação a longo prazo."
   }
-};
+};export const MOCK_CASES = Object.values(FULL_CASES);
