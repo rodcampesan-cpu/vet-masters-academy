@@ -30,12 +30,20 @@ async function fetchPapers(query, category, count) {
 }
 
 async function main() {
-  const englishOrthoPapers = await fetchPapers('(canine OR dog OR feline OR cat) AND (orthopedic OR orthopaedic OR fracture OR neurosurgery OR spine) AND (OPEN_ACCESS:y)', 'Papers e Artigos', 25);
-  const englishGuidelines = await fetchPapers('(canine OR dog OR feline OR cat) AND (orthopedic OR orthopaedic OR fracture OR neurosurgery OR spine) AND (guideline OR protocol OR consensus) AND (OPEN_ACCESS:y)', 'Diretrizes e Protocolos', 25);
-  const ptOrthoPapers = await fetchPapers('(cães OR cão OR gatos OR gato) AND (ortopedia OR fratura OR articular OR neurocirurgia OR coluna) AND (OPEN_ACCESS:y)', 'Papers e Artigos', 25);
-  const ptGuidelines = await fetchPapers('(cães OR cão OR gatos OR gato) AND (ortopedia OR fratura OR articular OR neurocirurgia OR coluna) AND (diretrizes OR protocolo OR tratamento) AND (OPEN_ACCESS:y)', 'Diretrizes e Protocolos', 25);
+  console.log("Fetching English Ortho/Neuro guidelines...");
+  const englishGuidelines = await fetchPapers('(canine OR dog OR feline OR cat) AND (orthopedic OR orthopaedic OR fracture OR neurosurgery OR spine) AND (guideline OR protocol OR consensus) AND (OPEN_ACCESS:y)', 'Diretrizes e Protocolos', 35);
   
-  const allPapers = [...englishOrthoPapers, ...englishGuidelines, ...ptOrthoPapers, ...ptGuidelines];
+  console.log("Fetching Portuguese Ortho/Neuro guidelines...");
+  const ptGuidelines = await fetchPapers('(cães OR cão OR gatos OR gato) AND (ortopedia OR fratura OR articular OR neurocirurgia OR coluna) AND (diretrizes OR protocolo OR tratamento) AND (OPEN_ACCESS:y)', 'Diretrizes e Protocolos', 15);
+  
+  console.log("Fetching English Ortho/Neuro papers...");
+  const englishOrthoPapers = await fetchPapers('(canine OR dog OR feline OR cat) AND (orthopedic OR orthopaedic OR fracture OR neurosurgery OR spine) NOT (guideline OR protocol OR consensus) AND (OPEN_ACCESS:y)', 'Papers e Artigos', 35);
+  
+  console.log("Fetching Portuguese Ortho/Neuro papers...");
+  const ptOrthoPapers = await fetchPapers('(cães OR cão OR gatos OR gato) AND (ortopedia OR fratura OR articular OR neurocirurgia OR coluna) NOT (diretrizes OR protocolo OR consenso) AND (OPEN_ACCESS:y)', 'Papers e Artigos', 15);
+  
+  // Put guidelines first so they claim their IDs under the correct category
+  const allPapers = [...englishGuidelines, ...ptGuidelines, ...englishOrthoPapers, ...ptOrthoPapers];
   
   // Dedup by id
   const seenIds = new Set();
