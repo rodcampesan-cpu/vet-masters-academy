@@ -217,7 +217,8 @@ function LibraryPage() {
         const { data, error } = await supabase
           .from('lessons')
           .select('*')
-          .not('material_url', 'is', null);
+          .not('material_url', 'is', null)
+          .neq('material_url', '');
 
         if (data && data.length > 0) {
           const dbDocs = data.map(lesson => ({
