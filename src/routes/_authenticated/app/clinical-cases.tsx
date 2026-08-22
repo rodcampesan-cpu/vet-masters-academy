@@ -42,6 +42,7 @@ function ClinicalCasesPage() {
   const { user } = useAuth();
   const [selectedCase, setSelectedCase] = useState<number | null>(null);
   const [availableCases, setAvailableCases] = useState<any[]>([]);
+  const [q, setQ] = useState("");
   
   useEffect(() => {
     const fetchCases = async () => {
@@ -135,8 +136,10 @@ function ClinicalCasesPage() {
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input 
             type="text" 
-            placeholder="Buscar por especialidade..." 
+            placeholder="Buscar por especialidade ou título..." 
             className="h-10 w-full rounded-full border border-border bg-background pl-10 pr-4 text-sm focus:border-coral focus:outline-none"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
           />
         </div>
       </div>
@@ -149,29 +152,41 @@ function ClinicalCasesPage() {
         </div>
       )}
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {visibleCases.map(c => (
-          <Card key={c.id} className="flex flex-col hover:border-coral/50 transition-colors cursor-pointer relative" onClick={() => setSelectedCase(c.id)}>
-            {c.id > 1000 && <Badge className="absolute -top-3 -right-3 bg-primary text-primary-foreground">Novo</Badge>}
-            <CardHeader className="pb-3">
-              <div className="flex justify-between items-start mb-2">
-                <Badge variant="outline" className="bg-coral/10 text-coral border-coral/20">{c.specialty}</Badge>
-                <Badge variant="secondary" className="text-xs">{c.difficulty}</Badge>
-              </div>
-              <CardTitle className="text-lg leading-tight">{c.title}</CardTitle>
-              <CardDescription className="text-xs font-semibold text-primary/80 pt-1">{c.patient}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-1">
-              <p className="text-sm text-muted-foreground line-clamp-3">{c.description}</p>
-            </CardContent>
-            <CardFooter className="pt-3 border-t border-border mt-auto">
-              <Button variant="ghost" className="w-full text-coral hover:text-coral hover:bg-coral/10 justify-between">
-                Investigar Caso <ChevronRight className="h-4 w-4" />
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      {(() => {
+        const searchedCases = visibleCases.filter(c => {
+          if (!q) return true;
+          const term = q.toLowerCase();
+          return (c.title && c.title.toLowerCase().includes(term)) || 
+                 (c.specialty && c.specialty.toLowerCase().includes(term)) ||
+                 (c.description && c.description.toLowerCase().includes(term));
+        });
+
+        return (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {searchedCases.map(c => (
+              <Card key={c.id} className="flex flex-col hover:border-coral/50 transition-colors cursor-pointer relative" onClick={() => setSelectedCase(c.id)}>
+                {c.id > 1000 && <Badge className="absolute -top-3 -right-3 bg-primary text-primary-foreground">Novo</Badge>}
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start mb-2">
+                    <Badge variant="outline" className="bg-coral/10 text-coral border-coral/20">{c.specialty}</Badge>
+                    <Badge variant="secondary" className="text-xs">{c.difficulty}</Badge>
+                  </div>
+                  <CardTitle className="text-lg leading-tight">{c.title}</CardTitle>
+                  <CardDescription className="text-xs font-semibold text-primary/80 pt-1">{c.patient}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <p className="text-sm text-muted-foreground line-clamp-3">{c.description}</p>
+                </CardContent>
+                <CardFooter className="pt-3 border-t border-border mt-auto">
+                  <Button variant="ghost" className="w-full text-coral hover:text-coral hover:bg-coral/10 justify-between">
+                    Investigar Caso <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        );
+      })()}
     </div>
   );
 }
