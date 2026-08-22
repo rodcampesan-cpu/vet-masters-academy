@@ -283,8 +283,10 @@ function LibraryPage() {
       </div>
 
       <div className="grid gap-5 lg:grid-cols-2">
-        {filtered.map((doc) => (
-          <div key={doc.id} className="flex gap-5 rounded-2xl border border-border bg-card p-5 shadow-card hover:shadow-elevated transition">
+        {filtered.map((doc, idx) => {
+          if (!doc) return null;
+          return (
+          <div key={doc.id || idx} className="flex gap-5 rounded-2xl border border-border bg-card p-5 shadow-card hover:shadow-elevated transition">
             <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-coral/10 text-coral">
               <FileText className="h-6 w-6" />
             </div>
@@ -329,7 +331,7 @@ function LibraryPage() {
               </div>
             </div>
           </div>
-        ))}
+        )})}
         {filtered.length === 0 && (
           <div className="col-span-full py-12 text-center">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-secondary/50 text-muted-foreground">

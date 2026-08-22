@@ -499,9 +499,8 @@ export const scientificPapers = [
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC13099313/",
     "description": "Organoid technology is emerging as a powerful platform for in vitro disease modelling in veterinary research. Although veterinary organoid models have been established across multiple species and orga..."
   },
-,
-{
-  "id": "40104002",
+  {
+    "id": "40104002",
   "title": "Poxviruses in dogs and cats: a genuine threat?",
   "authors": "da Hora AS, Pedrosa IE, Gila LI.",
   "type": "Artigo Científico",
