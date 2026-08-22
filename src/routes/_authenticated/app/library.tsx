@@ -240,10 +240,13 @@ function LibraryPage() {
     loadDbLessons();
   }, []);
 
-  const filtered = documents.filter((d) => 
-    (cat === "Todos" || d?.category === cat) &&
-    (!q || (d?.title && d.title.toLowerCase().includes(q.toLowerCase())) || (d?.authors && d.authors.toLowerCase().includes(q.toLowerCase())))
-  );
+  const filtered = (documents || []).filter((d) => {
+    const titleStr = d?.title ? String(d.title).toLowerCase() : "";
+    const authorStr = d?.authors ? String(d.authors).toLowerCase() : "";
+    const searchStr = q ? String(q).toLowerCase() : "";
+    return (cat === "Todos" || d?.category === cat) &&
+      (!searchStr || titleStr.includes(searchStr) || authorStr.includes(searchStr));
+  });
 
   return (
     <div className="space-y-8 px-4 py-8 sm:px-8">
@@ -312,10 +315,10 @@ function LibraryPage() {
                   >
                     <ExternalLink className="h-4 w-4" />
                   </a>
-                  {doc?.url && doc.url.startsWith('/') && (
+                  {typeof doc?.url === 'string' && doc.url.startsWith('/') && (
                     <a 
                       href={doc.url} 
-                      download={(doc?.title || "arquivo") + ".pdf"}
+                      download={(doc?.title ? String(doc.title) : "arquivo") + ".pdf"}
                       className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-coral text-white hover:bg-coral/90 transition shadow-sm" 
                       title="Baixar PDF"
                     >
