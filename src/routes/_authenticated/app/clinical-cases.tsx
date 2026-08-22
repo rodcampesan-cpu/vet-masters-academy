@@ -34,7 +34,7 @@ class LocalErrorBoundary extends React.Component<{children: React.ReactNode}, {h
 }
 
 export const Route = createFileRoute("/_authenticated/app/clinical-cases")({
-  head: () => ({ meta: [{ title: "Casos Clínicos — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Casos Clínicos — Vetmasterclass" }] }),
   component: () => <LocalErrorBoundary><ClinicalCasesPage /></LocalErrorBoundary>,
 });
 
@@ -450,7 +450,7 @@ DIFICULDADE: ${caseData.difficulty}
                                 variant="outline"
                                 className="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 text-white border-0 hover:opacity-90 shadow-lg shadow-pink-500/20"
                                 onClick={() => {
-                                  alert("Na prática, isso geraria uma imagem lindíssima com a pontuação do aluno para ele postar nos Stories marcando a VetClass Pro!");
+                                  alert("Na prática, isso geraria uma imagem lindíssima com a pontuação do aluno para ele postar nos Stories marcando a Vetmasterclass!");
                                 }}
                               >
                                 <Instagram className="mr-2 h-4 w-4" />
@@ -475,7 +475,7 @@ DIFICULDADE: ${caseData.difficulty}
                               <div className="text-sm text-foreground/80 leading-relaxed whitespace-pre-line space-y-2">
                                 {typeof caseData.playbookProtocol === 'string' 
                                   ? caseData.playbookProtocol 
-                                  : (caseData.playbookProtocol ? JSON.stringify(caseData.playbookProtocol) : "Protocolo oficial em elaboração pela equipe VetClass Pro. Para este caso, o tratamento foca na estabilização inicial e acompanhamento.")}
+                                  : (caseData.playbookProtocol ? JSON.stringify(caseData.playbookProtocol) : "Protocolo oficial em elaboração pela equipe Vetmasterclass. Para este caso, o tratamento foca na estabilização inicial e acompanhamento.")}
                               </div>
                             </div>
                           )}

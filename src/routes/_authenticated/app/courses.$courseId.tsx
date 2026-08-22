@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/_authenticated/app/courses/$courseId")({
   head: ({ params }) => {
     const c = courses.find((x) => x.id === params.courseId);
-    return { meta: [{ title: c ? `${c.title} — VetClass Pro` : "Curso" }] };
+    return { meta: [{ title: c ? `${c.title} — Vetmasterclass` : "Curso" }] };
   },
   loader: ({ params }) => {
     const found = courses.find((x) => x.id === params.courseId);

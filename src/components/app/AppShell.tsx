@@ -35,7 +35,7 @@ export function AppShell() {
 
   useEffect(() => {
     // Show onboarding only for the first time the user logs in
-    const hasSeen = localStorage.getItem("vetclass_has_seen_onboarding");
+    const hasSeen = localStorage.getItem("Vetmasterclass_has_seen_onboarding");
     if (!hasSeen) {
       setShowOnboarding(true);
     }
@@ -65,7 +65,7 @@ export function AppShell() {
   };
 
   const closeOnboarding = () => {
-    localStorage.setItem("vetclass_has_seen_onboarding", "true");
+    localStorage.setItem("Vetmasterclass_has_seen_onboarding", "true");
     setShowOnboarding(false);
   };
   
@@ -102,7 +102,7 @@ export function AppShell() {
             <Stethoscope className="h-5 w-5" />
           </div>
           <span className="font-display text-lg font-semibold text-sidebar-foreground">
-            VetClass<span className="text-coral">Pro</span>
+            Vetmaster<span className="text-coral">class</span>
           </span>
         </Link>
         <nav className="flex-1 space-y-1 px-3">
@@ -148,7 +148,7 @@ export function AppShell() {
             <div className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
               <Stethoscope className="h-4 w-4" />
             </div>
-            <span className="font-display text-base font-semibold">VetClass<span className="text-coral">Pro</span></span>
+            <span className="font-display text-base font-semibold">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <div className="ml-auto flex items-center gap-2">
             <div className="relative hidden sm:block">
@@ -176,7 +176,7 @@ export function AppShell() {
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
                       {(() => {
-                        const n = user?.user_metadata?.full_name || "Usuário VetClass";
+                        const n = user?.user_metadata?.full_name || "Usuário Vetmasterclass";
                         return n.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
                       })()}
                     </p>
@@ -275,7 +275,7 @@ export function AppShell() {
               <div>
                 <DialogHeader className="text-left mb-6">
                   <DialogTitle className="font-display text-2xl text-white">
-                    Bem-vindo(a) à VetClass<span className="text-coral">Pro</span>
+                    Bem-vindo(a) à Vetmaster<span className="text-coral">class</span>
                   </DialogTitle>
                   <p className="text-sm text-[#8E9DB0] leading-relaxed mb-6">
                     Você acaba de dar o passo mais importante da sua carreira. Antes de devorar as aulas, assista a este vídeo rápido.

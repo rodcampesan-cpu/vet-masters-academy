@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "VetClass Pro — A Revolução na Medicina Veterinária Prática" },
+      { title: "Vetmasterclass — A Revolução na Medicina Veterinária Prática" },
       { name: "description", content: "Aprenda a aplicar a medicina do mundo real, ganhar a confiança absoluta do tutor e faturar mais com procedimentos assertivos." },
     ],
   }),
@@ -199,7 +199,7 @@ function Landing() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-gray-900">Totalmente Gratuito (Valor R$ 799)</p>
-                  <p className="text-sm text-gray-500">Exclusivo para os primeiros 15 inscritos no VetClass Pro.</p>
+                  <p className="text-sm text-gray-500">Exclusivo para os primeiros 15 inscritos no Vetmasterclass.</p>
                 </div>
               </div>
             </div>
@@ -247,7 +247,7 @@ function Landing() {
                 role: "Plantonista Intensivista"
               },
               {
-                text: "Os casos interativos são um absurdo de bons! Eu me sinto dentro da clínica tomando as decisões. Aprendi mais em 2 meses de VetClass do que em 2 anos de especialização teórica.",
+                text: "Os casos interativos são um absurdo de bons! Eu me sinto dentro da clínica tomando as decisões. Aprendi mais em 2 meses de Vetmasterclass do que em 2 anos de especialização teórica.",
                 name: "Dr. Carlos Eduardo",
                 role: "Clínico Geral"
               },
@@ -324,7 +324,7 @@ function Landing() {
                   </span>
                 </div>
                 
-                <h3 className="text-xl font-bold text-gray-900 mt-2">Plano VetClass Pro</h3>
+                <h3 className="text-xl font-bold text-gray-900 mt-2">Plano Vetmasterclass</h3>
                 <div className="my-6">
                   <span className="text-sm text-gray-500 line-through">De R$ 2.997</span>
                   <div className="flex justify-center items-start mt-2">
@@ -383,7 +383,7 @@ function Landing() {
             <AccordionItem value="item-2">
               <AccordionTrigger className="text-left font-bold text-lg">Tem garantia?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
-                Sim! Você tem 7 dias de Garantia Incondicional. Se você acessar as aulas e achar que a metodologia VetClass Pro não vai transformar a sua rotina, basta um e-mail para reembolsarmos 100% do seu investimento.
+                Sim! Você tem 7 dias de Garantia Incondicional. Se você acessar as aulas e achar que a metodologia Vetmasterclass não vai transformar a sua rotina, basta um e-mail para reembolsarmos 100% do seu investimento.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
@@ -404,7 +404,7 @@ function Landing() {
 
       <footer className="border-t border-border bg-card">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} VetClass Pro. Revolucionando a Educação Veterinária.
+          © {new Date().getFullYear()} Vetmasterclass. Revolucionando a Educação Veterinária.
         </div>
       </footer>
     </div>

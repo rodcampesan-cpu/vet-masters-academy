@@ -24,7 +24,7 @@ const chartData = [
 ];
 
 export const Route = createFileRoute("/_authenticated/app/admin")({
-  head: () => ({ meta: [{ title: "Administração — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Administração — Vetmasterclass" }] }),
   component: AdminPanel,
 });
 

@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/_authenticated/app/profile")({
-  head: () => ({ meta: [{ title: "Meu Perfil — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Meu Perfil — Vetmasterclass" }] }),
   component: ProfilePage,
 });
 
@@ -20,7 +20,7 @@ function ProfilePage() {
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
 
   const email = user?.email || "";
-  let name = user?.user_metadata?.full_name || "Usuário VetClass";
+  let name = user?.user_metadata?.full_name || "Usuário Vetmasterclass";
   name = name.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
 
   // Simulate progress data
@@ -105,7 +105,7 @@ function ProfilePage() {
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-green-700 bg-green-200/50 px-2 py-0.5 rounded-full">Ativo</span>
-                    <h3 className="text-lg font-bold text-green-900 mt-2">VetClass Pro Anual</h3>
+                    <h3 className="text-lg font-bold text-green-900 mt-2">Vetmasterclass Anual</h3>
                   </div>
                   <span className="text-2xl font-black text-green-700">R$ 997</span>
                 </div>
@@ -153,7 +153,7 @@ function ProfilePage() {
                   <div key={i} className="flex items-center justify-between p-4 border border-border rounded-xl bg-background/50">
                     <div>
                       <p className="font-medium">12/08/202{7-i}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">Anuidade VetClass Pro</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">Anuidade Vetmasterclass</p>
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="font-bold text-sm">R$ 997,00</span>
@@ -239,7 +239,7 @@ function ProfilePage() {
       <Dialog open={certModalOpen} onOpenChange={setCertModalOpen}>
         <DialogContent className="max-w-5xl p-0 overflow-hidden bg-[#E8E8E8] border-none rounded-sm shadow-2xl">
           <DialogTitle className="sr-only">Certificado Oficial</DialogTitle>
-          <DialogDescription className="sr-only">Certificado de conclusão de curso VetClass Pro</DialogDescription>
+          <DialogDescription className="sr-only">Certificado de conclusão de curso Vetmasterclass</DialogDescription>
           
           {/* Fundo do Certificado (branco off-white) num container menor para simular o papel */}
           <div className="m-4 md:m-8 relative w-auto aspect-[1.414/1] md:aspect-[1.414/0.95] bg-white flex flex-col items-center justify-center p-8 md:p-16 text-center overflow-hidden shadow-2xl">
@@ -247,7 +247,7 @@ function ProfilePage() {
             {/* Wavy background lines (usando repeating radial gradient para simular ondas) */}
             <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "repeating-radial-gradient(circle at 0 0, transparent 0, #000 1px, transparent 15px)" }}></div>
             
-            {/* Marca D'água Simétrica Gigante VetClass */}
+            {/* Marca D'água Simétrica Gigante Vetmasterclass */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
               <Stethoscope className="w-[450px] h-[450px] text-[#C8A951] opacity-[0.05]" />
             </div>

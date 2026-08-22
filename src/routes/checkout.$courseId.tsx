@@ -12,7 +12,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { Timer, Copy, Check } from "lucide-react";
 
 export const Route = createFileRoute("/checkout/$courseId")({
-  head: () => ({ meta: [{ title: "Checkout Seguro — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Checkout Seguro — Vetmasterclass" }] }),
   loader: ({ params }) => {
     const found = courses.find((x) => x.id === params.courseId);
     if (!found) throw notFound();
@@ -52,7 +52,7 @@ function CheckoutPage() {
   }, [user, authLoading, navigate, course.id]);
 
   const handleCopyPix = () => {
-    navigator.clipboard.writeText("00020126360014br.gov.bcb.pix0114+55119999999995204000053039865802BR5915VetClass Pro6009Sao Paulo62070503***6304");
+    navigator.clipboard.writeText("00020126360014br.gov.bcb.pix0114+55119999999995204000053039865802BR5915Vetmasterclass6009Sao Paulo62070503***6304");
     setCopied(true);
     toast.success("Código PIX copiado!");
     setTimeout(() => setCopied(false), 2000);
@@ -77,7 +77,7 @@ function CheckoutPage() {
     
     // Simulando processamento de pagamento
     setTimeout(() => {
-      toast.success("Pagamento aprovado com sucesso! Bem-vindo à VetClass Pro.");
+      toast.success("Pagamento aprovado com sucesso! Bem-vindo à Vetmasterclass.");
       navigate({ to: "/app" }); // Redireciona para o Início autenticado
     }, 2000);
   };
@@ -92,7 +92,7 @@ function CheckoutPage() {
             <div className="bg-coral p-2 rounded-lg">
               <ShieldCheck className="h-6 w-6 text-white" />
             </div>
-            <span className="font-display font-bold text-2xl tracking-tight">VetClass<span className="text-coral">Pro</span></span>
+            <span className="font-display font-bold text-2xl tracking-tight">Vetmaster<span className="text-coral">class</span></span>
           </div>
 
           {/* TIMER DE ESCASSEZ */}
@@ -207,7 +207,7 @@ function CheckoutPage() {
                 
                 <TabsContent value="pix" className="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center">
                   <div className="bg-white p-4 rounded-xl border border-slate-200 inline-block mb-4 shadow-sm">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=vetclasspixmock" alt="QR Code PIX" className="w-32 h-32 mx-auto" />
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Vetmasterclasspixmock" alt="QR Code PIX" className="w-32 h-32 mx-auto" />
                   </div>
                   <h4 className="font-bold text-slate-800 mb-1">Escaneie o QR Code</h4>
                   <p className="text-xs text-slate-500 mb-4">Abra o app do seu banco e aponte a câmera para pagar. Aprovação imediata.</p>

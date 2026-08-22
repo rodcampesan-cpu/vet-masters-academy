@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { scientificPapers } from "@/lib/library-data";
 
 export const Route = createFileRoute("/_authenticated/app/library")({
-  head: () => ({ meta: [{ title: "Biblioteca — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Biblioteca — Vetmasterclass" }] }),
   component: LibraryPage,
 });
 

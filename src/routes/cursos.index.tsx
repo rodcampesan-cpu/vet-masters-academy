@@ -5,7 +5,7 @@ import { courses, specialties } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/cursos/")({
-  head: () => ({ meta: [{ title: "Catálogo de Cursos — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Catálogo de Cursos — Vetmasterclass" }] }),
   component: PublicCoursesPage,
 });
 
@@ -27,7 +27,7 @@ function PublicCoursesPage() {
             <div className="grid h-8 w-8 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Stethoscope className="h-5 w-5" />
             </div>
-            <span className="font-display text-lg font-semibold tracking-tight">VetClass<span className="text-coral">Pro</span></span>
+            <span className="font-display text-lg font-semibold tracking-tight">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <div className="flex items-center gap-4">
             <Link to="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">Entrar</Link>
@@ -160,7 +160,7 @@ function PublicCoursesPage() {
               <div className="h-16 w-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-6">
                 <span className="text-3xl">👥</span>
               </div>
-              <h3 className="text-2xl font-bold font-display mb-3">Comunidade VetClass</h3>
+              <h3 className="text-2xl font-bold font-display mb-3">Comunidade Vetmasterclass</h3>
               <p className="text-muted-foreground mb-6">
                 Não fique mais sozinho no diagnóstico. Discuta casos complexos, troque experiências e faça networking de alto nível com veterinários de todo o Brasil e nossos professores especialistas.
               </p>

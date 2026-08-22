@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
 export const Route = createFileRoute("/_authenticated/app/achievements")({
-  head: () => ({ meta: [{ title: "Conquistas — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Conquistas — Vetmasterclass" }] }),
   component: AchievementsPage,
 });
 

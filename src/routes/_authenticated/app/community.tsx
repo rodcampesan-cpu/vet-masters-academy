@@ -67,7 +67,7 @@ const MOCK_COMMENTS = [
 ];
 
 export const Route = createFileRoute("/_authenticated/app/community")({
-  head: () => ({ meta: [{ title: "Comunidade — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Comunidade — Vetmasterclass" }] }),
   component: CommunityPage,
 });
 

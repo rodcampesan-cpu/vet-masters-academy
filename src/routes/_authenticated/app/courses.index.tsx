@@ -5,7 +5,7 @@ import { courses, specialties } from "@/lib/courses-data";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/_authenticated/app/courses/")({
-  head: () => ({ meta: [{ title: "Cursos — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Cursos — Vetmasterclass" }] }),
   component: CoursesPage,
 });
 

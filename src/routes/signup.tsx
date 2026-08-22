@@ -10,7 +10,7 @@ import { useAuth } from "@/lib/auth-context";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/signup")({
-  head: () => ({ meta: [{ title: "Criar conta — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Criar conta — Vetmasterclass" }] }),
   validateSearch: (search: Record<string, unknown>) => {
     return {
       redirect: search.redirect as string | undefined,
@@ -70,13 +70,13 @@ function SignupPage() {
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-coral text-coral-foreground">
               <Stethoscope className="h-5 w-5" />
             </div>
-            <span className="font-display text-lg font-semibold">VetClass<span className="text-coral">Pro</span></span>
+            <span className="font-display text-lg font-semibold">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <div>
             <h2 className="font-display text-4xl font-bold leading-tight">Comece sua jornada na medicina veterinária moderna.</h2>
             <p className="mt-4 text-white/70 max-w-md">Acesse aulas, casos clínicos e o Tutor Vet IA em uma só plataforma.</p>
           </div>
-          <p className="text-sm text-white/50">© VetClass Pro</p>
+          <p className="text-sm text-white/50">© Vetmasterclass</p>
         </div>
       </div>
 
@@ -86,7 +86,7 @@ function SignupPage() {
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Stethoscope className="h-5 w-5" />
             </div>
-            <span className="font-display text-lg font-semibold">VetClass<span className="text-coral">Pro</span></span>
+            <span className="font-display text-lg font-semibold">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <h1 className="font-display text-3xl font-bold">Criar conta</h1>
           <p className="mt-2 text-sm text-muted-foreground">Crie sua conta em menos de 1 minuto.</p>

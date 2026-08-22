@@ -5,7 +5,7 @@ import { courses } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/app/")({
-  head: () => ({ meta: [{ title: "Dashboard — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Dashboard — Vetmasterclass" }] }),
   component: Dashboard,
 });
 
@@ -37,7 +37,7 @@ function Dashboard() {
         <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur border border-white/10 mb-6">
-              <Sparkles className="h-3 w-3 text-coral" /> Bem-vindo à VetClass Pro
+              <Sparkles className="h-3 w-3 text-coral" /> Bem-vindo à Vetmasterclass
             </div>
             <h1 className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight leading-[1.1]">
               Olá, <span className="text-coral">{name}</span> 👋

@@ -33,7 +33,7 @@ export function Navbar() {
             <Stethoscope className="h-5 w-5" />
           </div>
           <span className="font-display text-lg font-semibold tracking-tight">
-            VetClass<span className="text-coral">Pro</span>
+            Vetmaster<span className="text-coral">class</span>
           </span>
         </Link>
         <nav className="hidden items-center gap-8 md:flex">

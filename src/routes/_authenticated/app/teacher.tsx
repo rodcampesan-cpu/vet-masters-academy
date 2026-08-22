@@ -14,7 +14,7 @@ import { courses, ortopediaModules } from "@/lib/courses-data";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/_authenticated/app/teacher")({
-  head: () => ({ meta: [{ title: "Painel do Professor — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Painel do Professor — Vetmasterclass" }] }),
   component: TeacherPanel,
 });
 

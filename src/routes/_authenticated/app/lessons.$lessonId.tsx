@@ -12,7 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/_authenticated/app/lessons/$lessonId")({
-  head: () => ({ meta: [{ title: "Sala de Aula — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Sala de Aula — Vetmasterclass" }] }),
   component: LessonClassroom,
 });
 
@@ -95,7 +95,7 @@ function LessonClassroom() {
     try {
       await supabase.from('lesson_comments').insert({
         lesson_id: lessonId,
-        user_email: user?.email || 'anonimo@vetclass.com',
+        user_email: user?.email || 'anonimo@Vetmasterclass.com',
         author_name: userName,
         author_avatar: user?.user_metadata?.avatar_url || null,
         author_initials: userInitials,

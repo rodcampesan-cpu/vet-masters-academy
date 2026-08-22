@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/app/live-chat")({
-  head: () => ({ meta: [{ title: "Bate Papo Ao Vivo — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Bate Papo Ao Vivo — Vetmasterclass" }] }),
   component: LiveChatPage,
 });
 

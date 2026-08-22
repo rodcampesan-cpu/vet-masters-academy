@@ -7,7 +7,7 @@ import mentoriaFlixImg from "@/assets/mentoria-flix.png";
 export const Route = createFileRoute("/cursos_/$courseId")({
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.course.title} — VetClass Pro` },
+      { title: `${loaderData?.course.title} — Vetmasterclass` },
     ],
   }),
   loader: ({ params }) => {

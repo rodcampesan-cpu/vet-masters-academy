@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_authenticated/app/ai-tutor")({
-  head: () => ({ meta: [{ title: "Tutor Vet IA — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Tutor Vet IA — Vetmasterclass" }] }),
   component: AITutorPage,
 });
 

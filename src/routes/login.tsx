@@ -10,7 +10,7 @@ import { useAuth } from "@/lib/auth-context";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Entrar — VetClass Pro" }] }),
+  head: () => ({ meta: [{ title: "Entrar — Vetmasterclass" }] }),
   component: LoginPage,
 });
 
@@ -41,7 +41,7 @@ function LoginPage() {
     e.preventDefault();
     setLoading(true);
 
-    if (email.trim().toLowerCase() === "aluno@vetclass.com" && password === "123456") {
+    if (email.trim().toLowerCase() === "aluno@Vetmasterclass.com" && password === "123456") {
       loginAs("student");
       toast.success("Bem-vindo de volta, Aluno VIP!");
       navigate({ to: "/app" });
@@ -77,13 +77,13 @@ function LoginPage() {
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-coral text-coral-foreground">
               <Stethoscope className="h-5 w-5" />
             </div>
-            <span className="font-display text-lg font-semibold">VetClass<span className="text-coral">Pro</span></span>
+            <span className="font-display text-lg font-semibold">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <div>
             <h2 className="font-display text-4xl font-bold leading-tight">Bem-vindo de volta à sua jornada veterinária.</h2>
             <p className="mt-4 text-white/70 max-w-md">Continue de onde parou e mantenha seu streak de estudos.</p>
           </div>
-          <p className="text-sm text-white/50">© VetClass Pro</p>
+          <p className="text-sm text-white/50">© Vetmasterclass</p>
         </div>
       </div>
 
@@ -93,7 +93,7 @@ function LoginPage() {
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
               <Stethoscope className="h-5 w-5" />
             </div>
-            <span className="font-display text-lg font-semibold">VetClass<span className="text-coral">Pro</span></span>
+            <span className="font-display text-lg font-semibold">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <h1 className="font-display text-3xl font-bold">Entrar</h1>
           <p className="mt-2 text-sm text-muted-foreground">Acesse sua área exclusiva.</p>
