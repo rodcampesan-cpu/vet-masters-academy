@@ -58,9 +58,9 @@ export const teachers: Teacher[] = [
   },
   {
     id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia",
-    specialty: "Neurologista e Neurocirurgião", avatar: t2, avatarPosition: "center 15%",
+    specialty: "Neurologista", avatar: t2, avatarPosition: "center 15%",
     bioTopics: [
-      { label: "Especialidade", value: "Neurologia e Neurocirurgia Veterinária" },
+      { label: "Especialidade", value: "Neurologia Veterinária" },
       { label: "Atuação", value: "Atendimento clínico especializado em neurologia" },
     ],
   },
@@ -73,11 +73,11 @@ export const teachers: Teacher[] = [
     ],
   },
   {
-    id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Emergência",
-    specialty: "Intensivista", avatar: "https://i.pravatar.cc/150?img=9",
+    id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Clínica Médica",
+    specialty: "Clínica Médica", avatar: "https://i.pravatar.cc/150?img=9",
     bioTopics: [
-      { label: "Especialidade", value: "Medicina de Emergência e Terapia Intensiva" },
-      { label: "Atuação", value: "Atendimento de pacientes críticos em UTI veterinária" },
+      { label: "Especialidade", value: "Clínica Médica" },
+      { label: "Atuação", value: "Atendimento de rotina e acompanhamento clínico" },
     ],
   },
 ];
