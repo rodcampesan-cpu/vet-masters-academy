@@ -236,7 +236,7 @@ function Landing() {
       <section className="py-24 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl font-bold sm:text-4xl mb-16">
-            O que dizem nossos <span className="text-coral">12.450+</span> alunos
+            O que dizem os alunos que estão <span className="text-coral">transformando</span> a medicina veterinária
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 text-left">
