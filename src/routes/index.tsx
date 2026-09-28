@@ -94,7 +94,7 @@ function Landing() {
               
               <div className="mt-8 flex items-center gap-4 text-sm text-muted-foreground font-medium">
                 <div className="flex -space-x-2">
-                  <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=682" alt=""/>
+                  <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=68" alt=""/>
                   <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=47" alt=""/>
                   <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=3" alt=""/>
                 </div>
