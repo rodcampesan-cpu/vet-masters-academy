@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Brain, GraduationCap, Library, MessagesSquare, Play, Sparkles, Stethoscope, Trophy, Users, CheckCircle, Gift, AlertTriangle, Clock, Store, Frown, Zap, MessageCircle, BarChart3, ChevronRight, PlayCircle } from "lucide-react";
+import { ArrowRight, Award, Brain, GraduationCap, Library, MessagesSquare, Play, Sparkles, Stethoscope, Trophy, Users, CheckCircle, Gift, AlertTriangle, Clock, Store, Frown, Zap, MessageCircle, BarChart3, ChevronRight, PlayCircle, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/landing/Navbar";
 import heroImg from "@/assets/hero-vet.jpg";
@@ -33,7 +33,7 @@ function Landing() {
 
       <Dialog open={showPopup} onOpenChange={setShowPopup}>
         <DialogContent className="sm:max-w-md p-0 border-none bg-transparent shadow-none overflow-hidden">
-          <Link to="/cursos/ortopedia-avancada" className="block w-full h-full hover:scale-105 transition-transform">
+          <Link to="/cursos/$courseId" params={{ courseId: "ortopedia-avancada" }} className="block w-full h-full hover:scale-105 transition-transform">
             <img src={popupPresaleImg} alt="Pré-venda" className="w-full h-auto rounded-2xl shadow-2xl" />
           </Link>
         </DialogContent>
@@ -136,43 +136,84 @@ function Landing() {
         </div>
       </section>
 
-      {/* SOLUTION / DIFFERENTIATORS */}
-      <section id="metodo" className="py-24 bg-card">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            A tríade do Médico Veterinário de Alto Valor
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Não basta ser bom tecnicamente. Você precisa dominar o cenário completo do atendimento.
-          </p>
+      {/* METHODOLOGY SECTION */}
+      <section id="metodo" className="py-24 lg:py-32 bg-slate-50 relative overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-80 w-80 rounded-full bg-coral/5 blur-3xl"></div>
 
-          <div className="mt-16 grid sm:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Stethoscope,
-                title: "Conduta Clínica Impecável",
-                desc: "Aprenda protocolos mastigados e diretos ao ponto, guiados pelas maiores autoridades do país."
-              },
-              {
-                icon: Users,
-                title: "Engajamento do Tutor",
-                desc: "Técnicas de comunicação e vendas para fazer o tutor entender o valor do seu diagnóstico e aprovar orçamentos maiores."
-              },
-              {
-                icon: Brain,
-                title: "Tutor Vet IA (Inteligência Artificial)",
-                desc: "Seu assistente de bolso treinado 100% na literatura oficial. Tire dúvidas de dosagem e protocolos no meio do plantão."
-              }
-            ].map((feature, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-8 rounded-3xl border border-border bg-background shadow-soft hover:-translate-y-2 transition-transform duration-300">
-                <div className="h-16 w-16 bg-primary/5 text-primary rounded-2xl flex items-center justify-center mb-6">
-                  <feature.icon className="h-8 w-8" />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
-              </div>
-            ))}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="font-display text-4xl font-extrabold sm:text-5xl text-primary tracking-tight">
+              Método Decisão Clínica
+            </h2>
+            <p className="mt-6 text-xl font-medium text-slate-800">
+              Aprender é importante. Saber o que fazer diante do paciente é o que muda a prática.
+            </p>
+            <p className="mt-4 text-lg text-slate-500 leading-relaxed">
+              A VetMasterClass foi criada para aproximar conhecimento e rotina clínica. O método ajuda o médico-veterinário a transformar conteúdo em raciocínio, interpretação e tomada de decisão.
+            </p>
           </div>
+
+          {/* 3 STEPS FLOW */}
+          <div className="relative">
+            {/* Connection line for desktop */}
+            <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-transparent via-slate-300 to-transparent -z-10"></div>
+            
+            <div className="grid md:grid-cols-3 gap-12 md:gap-8 relative">
+              {[
+                { step: "1", title: "ENTENDA O CASO", desc: "Organize sinais, histórico, exame físico e contexto clínico.", icon: ClipboardList },
+                { step: "2", title: "RACIOCINE", desc: "Construa hipóteses, interprete exames e defina prioridades.", icon: Brain },
+                { step: "3", title: "DECIDA", desc: "Transforme conhecimento em conduta com mais clareza e segurança.", icon: CheckCircle }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col items-center text-center group">
+                  <div className="w-24 h-24 rounded-full bg-white border border-slate-100 shadow-xl shadow-slate-200/50 flex items-center justify-center mb-6 relative group-hover:scale-110 transition-transform duration-500 z-10">
+                    <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-coral text-white text-sm font-bold flex items-center justify-center shadow-lg">
+                      {item.step}
+                    </div>
+                    <item.icon className="h-10 w-10 text-primary stroke-[1.5]" />
+                  </div>
+                  <h3 className="text-xl font-black text-primary mb-3 tracking-wide">{item.title}</h3>
+                  <p className="text-slate-500 leading-relaxed px-4">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RESOURCES BAND */}
+          <div className="mt-28 pt-16 border-t border-slate-200">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl font-bold text-slate-800">
+                A aula termina. <span className="text-coral">O aprendizado continua.</span>
+              </h3>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              {[
+                { name: "Tutor Vet IA", icon: Sparkles },
+                { name: "Casos Clínicos", icon: Stethoscope },
+                { name: "Comunidade", icon: Users },
+                { name: "Bate-Papo ao Vivo", icon: MessagesSquare },
+                { name: "Biblioteca", icon: Library }
+              ].map((resource, i) => (
+                <div key={i} className="flex items-center gap-3 bg-white px-6 py-4 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow hover:-translate-y-1 duration-300">
+                  <resource.icon className="h-5 w-5 text-coral" />
+                  <span className="font-semibold text-slate-700">{resource.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-20 text-center">
+            <div className="inline-flex items-center justify-center gap-3 md:gap-6 text-sm md:text-base font-black text-slate-300 tracking-[0.2em] uppercase">
+              <span className="text-primary">Conhecer</span>
+              <ArrowRight className="h-4 w-4" />
+              <span className="text-primary">Raciocinar</span>
+              <ArrowRight className="h-4 w-4" />
+              <span className="text-primary">Decidir</span>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -367,7 +408,7 @@ function Landing() {
                 </ul>
 
                 <Button asChild className="w-full h-14 text-lg font-bold bg-coral hover:bg-coral/90 shadow-xl shadow-coral/30 rounded-xl transition-all hover:scale-105">
-                  <Link to="/checkout/ortopedia-avancada">
+                  <Link to="/checkout/$courseId" params={{ courseId: "ortopedia-avancada" }}>
                     Garantir Vaga com Bônus
                   </Link>
                 </Button>
