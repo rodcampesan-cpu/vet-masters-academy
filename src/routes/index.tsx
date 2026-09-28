@@ -382,15 +382,18 @@ function Landing() {
                   </span>
                 </div>
                 
-                <h3 className="text-xl font-bold text-gray-900 mt-2">Plano Vetmasterclass</h3>
+                <div className="mb-4">
+                  <span className="inline-block bg-green-100 text-green-700 font-bold px-3 py-1 rounded-full text-sm mb-2">18% DE DESCONTO (ECONOMIZE R$ 500)</span>
+                  <h3 className="text-xl font-bold text-gray-900 mt-2">Plano Vetmasterclass</h3>
+                </div>
                 <div className="my-6">
-                  <span className="text-sm text-gray-500 line-through">De R$ 2.997</span>
+                  <span className="text-sm text-gray-500 line-through">De R$ 2.800</span>
                   <div className="flex justify-center items-start mt-2">
                     <span className="text-2xl font-bold text-gray-900 mt-2">12x</span>
-                    <span className="text-6xl font-black text-coral mx-2">97</span>
-                    <span className="text-xl font-bold text-gray-900 mt-8">,50</span>
+                    <span className="text-6xl font-black text-coral mx-2">230</span>
+                    <span className="text-xl font-bold text-gray-900 mt-8">,92</span>
                   </div>
-                  <span className="text-sm text-gray-500">ou R$ 997 à vista</span>
+                  <span className="text-sm text-gray-500">ou R$ 2.300 à vista</span>
                 </div>
 
                 <ul className="space-y-4 text-left mb-8">
