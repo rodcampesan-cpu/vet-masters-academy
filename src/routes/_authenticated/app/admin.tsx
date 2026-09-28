@@ -44,7 +44,7 @@ function AdminPanel() {
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 lg:w-[600px] bg-secondary/50 p-1 rounded-xl">
+        <TabsList className="grid w-full grid-cols-5 lg:w-[750px] bg-secondary/50 p-1 rounded-xl">
           <TabsTrigger value="overview" className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
             Visão Geral
           </TabsTrigger>
@@ -56,6 +56,9 @@ function AdminPanel() {
           </TabsTrigger>
           <TabsTrigger value="courses" className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
             Cursos
+          </TabsTrigger>
+          <TabsTrigger value="settings" className="rounded-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            Integrações
           </TabsTrigger>
         </TabsList>
 
@@ -228,6 +231,47 @@ function AdminPanel() {
                 </table>
               </div>
             </div>
+          </div>
+        </TabsContent>
+
+        {/* ================= ABA: INTEGRAÇÕES ================= */}
+        <TabsContent value="settings" className="mt-6 outline-none">
+          <div className="grid gap-8 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Mercado Pago / Livre</CardTitle>
+                <p className="text-sm text-muted-foreground">Credenciais para o sistema de pagamento e checkout transparente.</p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Public Key</label>
+                  <Input placeholder="APP_USR-000000-000000" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Access Token</label>
+                  <Input type="password" placeholder="APP_USR-00000000000-000000" />
+                </div>
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Salvar Credenciais</Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Gatilhos de Vendas (Landing Page)</CardTitle>
+                <p className="text-sm text-muted-foreground">Configurações de escassez e timer no painel de vendas.</p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Tempo do Timer (Minutos)</label>
+                  <Input type="number" defaultValue="15" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Vagas Restantes</label>
+                  <Input type="number" defaultValue="3" />
+                </div>
+                <Button className="w-full bg-coral hover:bg-coral/90 text-white">Salvar Gatilhos</Button>
+              </CardContent>
+            </Card>
           </div>
         </TabsContent>
 
