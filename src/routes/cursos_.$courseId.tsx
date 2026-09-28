@@ -44,8 +44,10 @@ function CourseSalesPage() {
               </p>
               
               <div className="flex flex-wrap gap-4">
-                <Button className="bg-[#E50914] hover:bg-[#E50914]/90 text-white font-bold px-8 h-12 rounded flex items-center gap-2">
-                  <Play className="fill-white w-5 h-5" /> Começar
+                <Button className="bg-[#E50914] hover:bg-[#E50914]/90 text-white font-bold px-8 h-12 rounded flex items-center gap-2" asChild>
+                  <Link to="/checkout/$courseId" params={{ courseId: course.id }}>
+                    <Play className="fill-white w-5 h-5" /> Começar
+                  </Link>
                 </Button>
                 <Button variant="outline" className="bg-white/10 hover:bg-white/20 border-0 text-white font-bold px-8 h-12 rounded">
                   Mais informações
