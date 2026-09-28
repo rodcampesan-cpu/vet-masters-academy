@@ -1,0 +1,900 @@
+diff --git a/diff.txt b/diff.txt
+index b582367..dcbae92 100644
+Binary files a/diff.txt and b/diff.txt differ
+diff --git a/src/lib/courses-data.ts b/src/lib/courses-data.ts
+index 24545fe..52e30c6 100644
+--- a/src/lib/courses-data.ts
++++ b/src/lib/courses-data.ts
+@@ -35,7 +35,7 @@ export interface Course {
+   students: number;
+   progress: number;
+   teacher: Teacher;
+-  level: "Iniciante" | "Intermediário" | "Avançado";
++  level: "Iniciante" | "Intermedi�rio" | "Avan�ado";
+   featured?: boolean;
+   purchased?: boolean;
+   externalLink?: string;
+@@ -44,40 +44,40 @@ export interface Course {
+ 
+ export const teachers: Teacher[] = [
+   {
+-    id: "t1", name: "Dr. Rodrigo Nicola", title: "Médico Veterinário",
++    id: "t1", name: "Dr. Rodrigo Nicola", title: "M�dico Veterin�rio",
+     specialty: "Ortopedia e Neurocirurgia", avatar: t1, avatarPosition: "center 30%",
+     bioTopics: [
+-      { label: "Formação", value: "Universidade Anhanguera de São Paulo" },
+-      { label: "Residência", value: "Ortopedia — Associação Anclivepa SP" },
+-      { label: "Pós-Graduação", value: "Ortopedia e Neurocirurgia — Anclivepa SP" },
+-      { label: "Especialização", value: "Master Avançado em Ortopedia — Anclivepa SP" },
+-      { label: "Associação", value: "Membro da O.A. Internacional" },
+-      { label: "Atuação", value: "Chefe de Ortopedia e Neurologia — Dr. Pets Santo André" },
+-      { label: "Experiência", value: "Empresário há mais de 25 anos no mercado Pet" },
++      { label: "Forma��o", value: "Universidade Anhanguera de S�o Paulo" },
++      { label: "Resid�ncia", value: "Ortopedia — Associa��o Anclivepa SP" },
++      { label: "P�s-Gradua��o", value: "Ortopedia e Neurocirurgia — Anclivepa SP" },
++      { label: "Especializa��o", value: "Master Avan�ado em Ortopedia — Anclivepa SP" },
++      { label: "Associa��o", value: "Membro da O.A. Internacional" },
++      { label: "Atua��o", value: "Chefe de Ortopedia e Neurologia — Dr. Pets Santo Andr�" },
++      { label: "Experi�ncia", value: "Empres�rio h mais de 25 anos no mercado Pet" },
+     ],
+   },
+   {
+     id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia",
+     specialty: "Neurologista", avatar: t2, avatarPosition: "center 15%",
+     bioTopics: [
+-      { label: "Especialidade", value: "Neurologia Veterinária" },
+-      { label: "Atuação", value: "Atendimento clínico especializado em neurologia" },
++      { label: "Especialidade", value: "Neurologia Veterin�ria" },
++      { label: "Atua��o", value: "Atendimento cl�nico especializado em neurologia" },
+     ],
+   },
+   {
+     id: "t3", name: "Dra. Carolina", title: "Especialista em Hematologia",
+     specialty: "Hematologista", avatar: "https://i.pravatar.cc/150?img=5",
+     bioTopics: [
+-      { label: "Especialidade", value: "Hematologia Veterinária" },
+-      { label: "Atuação", value: "Diagnóstico e tratamento de doenças sanguíneas" },
++      { label: "Especialidade", value: "Hematologia Veterin�ria" },
++      { label: "Atua��o", value: "Diagn�stico e tratamento de doen�as sangu�neas" },
+     ],
+   },
+   {
+-    id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Clínica Médica",
+-    specialty: "Clínica Médica", avatar: "https://i.pravatar.cc/150?img=9",
++    id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Cl�nica M�dica",
++    specialty: "Cl�nica M�dica", avatar: "https://i.pravatar.cc/150?img=9",
+     bioTopics: [
+-      { label: "Especialidade", value: "Clínica Médica" },
+-      { label: "Atuação", value: "Atendimento de rotina e acompanhamento clínico" },
++      { label: "Especialidade", value: "Cl�nica M�dica" },
++      { label: "Atua��o", value: "Atendimento de rotina e acompanhamento cl�nico" },
+     ],
+   },
+ ];
+@@ -85,10 +85,10 @@ export const teachers: Teacher[] = [
+ export const courses: Course[] = [
+   {
+     id: "ortopedia-avancada",
+-    title: "Ortopedia Clínica de Excelência",
++    title: "Ortopedia Cl�nica de Excel�ncia",
+     specialty: "Ortopedia",
+     description:
+-      "Domine a ortopedia clínica sem precisar operar. Aprenda a diagnosticar com segurança, solicitar exames precisos e conduzir atendimentos que encantam o tutor, gerando confiança absoluta na sua conduta médica.",
++      "Domine a ortopedia cl�nica sem precisar operar. Aprenda a diagnosticar com seguran�a, solicitar exames precisos e conduzir atendimentos que encantam o tutor, gerando confian�a absoluta na sua conduta m�dica.",
+     cover: ortho,
+     hours: 48,
+     modules: 12,
+@@ -96,42 +96,42 @@ export const courses: Course[] = [
+     students: 0,
+     progress: 0,
+     teacher: teachers[0],
+-    level: "Avançado",
++    level: "Avan�ado",
+     featured: true,
+     purchased: true,
+     glossary: [
+-      { term: "Claudicação", definition: "Falta de firmeza ou assimetria no andar, popularmente conhecido como 'mancar'. Pode ser de apoio (dor ao pisar) ou de elevação (dor ao mover o membro)." },
+-      { term: "Crepitação", definition: "Ruído ou sensação de atrito (roçar) de ossos ou cartilagens desgastadas durante o movimento articular ou à palpação de fraturas." },
+-      { term: "Sinal de Ortolani", definition: "Teste ortopédico específico utilizado para detectar a frouxidão da articulação coxofemoral em cães jovens (indicativo de Displasia Coxofemoral)." },
+-      { term: "Teste de Gaveta Cranial", definition: "Manobra semiológica que avalia a instabilidade do joelho. Positivo quando a tíbia se desloca cranialmente em relação ao fêmur, indicando ruptura do Ligamento Cruzado Cranial." },
+-      { term: "Teste de Compressão Tibial", definition: "Teste indireto para avaliar a integridade do Ligamento Cruzado Cranial simulando a carga de peso no membro pélvico." },
+-      { term: "TPLO (Osteotomia de Nivelamento do Platô Tibial)", definition: "Técnica cirúrgica que altera a biomecânica do joelho nivelando o platô tibial, anulando a necessidade do ligamento cruzado cranial." },
+-      { term: "TTA (Avançamento da Tuberosidade Tibial)", definition: "Técnica cirúrgica que neutraliza as forças de cisalhamento do joelho avançando a inserção do ligamento patelar." },
+-      { term: "Displasia Coxofemoral", definition: "Doença de desenvolvimento e hereditária caracterizada pela má formação e incongruência da articulação do quadril, levando à osteoartrose secundária." },
+-      { term: "Luxação Patelar", definition: "Deslocamento da patela de seu local anatômico normal (sulco troclear), podendo ser medial (mais comum em raças pequenas) ou lateral." },
+-      { term: "Artrodese", definition: "Procedimento cirúrgico que promove a fusão óssea permanente de uma articulação, eliminando o movimento e a dor." },
+-      { term: "Osteossíntese", definition: "Cirurgia de redução e fixação de fraturas ósseas utilizando implantes como placas, parafusos, pinos e hastes." },
+-      { term: "Osteocondrite Dissecante (OCD)", definition: "Falha na ossificação endocondral que resulta no espessamento e posterior desprendimento de um retalho de cartilagem articular (flap), comum no ombro de cães jovens." },
+-      { term: "Não-união", definition: "Complicação onde ocorre a falha definitiva na consolidação (cicatrização) de uma fratura óssea." },
+-      { term: "Calo Ósseo", definition: "Formação de tecido ósseo e cartilaginoso imaturo que estabiliza e cicatriza uma fratura ao longo das semanas." },
+-      { term: "Sinal da Almofada de Gordura", definition: "Achado radiográfico onde há compressão da gordura infrapatelar indicando efusão articular severa (líquido na articulação do joelho)." },
+-      { term: "Goniometria", definition: "Mensuração dos ângulos de flexão e extensão das articulações, muito utilizada para avaliar a amplitude de movimento (ADM) na fisioterapia ortopédica." },
+-      { term: "Contratura Muscular", definition: "Encurtamento anormal e permanente de um músculo ou tendão, comum na contratura do músculo infraespinhoso ou quadríceps." },
+-      { term: "Necrose Asséptica da Cabeça do Fêmur (Doença de Legg-Calvé-Perthes)", definition: "Condição onde há interrupção do suprimento sanguíneo para a cabeça femoral, causando necrose e dor severa. Afeta tipicamente cães jovens de raças toy/pequenas." },
+-      { term: "Panosteíte", definition: "Inflamação da cavidade medular dos ossos longos que causa dor intermitente e claudicação migratória em cães jovens de raças grandes em fase de crescimento." },
+-      { term: "Lesão Neuropática", definition: "É o termo mais correto e específico. Ele indica uma patologia ou dano estrutural direto nos próprios nervos (como na neuropatia diabética ou compressões nervosas)." },
+-      { term: "Padrão Neurogênico (na Eletromiografia)", definition: "Em exames de SNM, usa-se 'padrão neurogênico' para diferenciar um problema que nasce no nervo (neurogênico) de um problema que nasce diretamente no músculo (miopático)." },
+-      { term: "Tônus Muscular", definition: "Natureza: É um estado permanente e contínuo. Estímulo: É gerado pelo estiramento passivo e constante do músculo (gravidade), detectado pelo fuso muscular (reflexo miotático). Função: Manter a postura, a estabilidade das articulações e a prontidão motora. Resultado: Não gera um movimento visível; é apenas uma tensão de base." },
+-      { term: "Reflexo de Retirada (Reflexo Flexor)", definition: "Natureza: É uma resposta temporária, rápida e abrupta. Estímulo: É ativado exclusivamente por um estímulo nocivo ou doloroso (como pisar em um prego ou tocar em uma superfície muito quente), detectado por nociceptores. Função: Proteção imediata e sobrevivência do organismo. Resultado: Gera um movimento motor vigoroso (ex: flexão rápida da perna ou do braço) para afastar o corpo do perigo." },
+-      { term: "Intumescência Cervicotorácica", definition: "Espessamento da medula espinhal (segmentos C6-T2). É a região onde se originam os nervos espinhais que formam o plexo braquial, responsável pela inervação dos membros torácicos (anteriores)." },
+-      { term: "Intumescência Lombossacra", definition: "Espessamento da medula espinhal (segmentos L4-S3). É a região onde se originam os nervos espinhais que formam o plexo lombossacro, responsável pela inervação dos membros pélvicos (posteriores)." }
++      { term: "Claudica��o", definition: "Falta de firmeza ou assimetria no andar, popularmente conhecido como 'mancar'. Pode ser de apoio (dor ao pisar) ou de eleva��o (dor ao mover o membro)." },
++      { term: "Crepita��o", definition: "Ru�do ou sensa��o de atrito (ro�ar) de ossos ou cartilagens desgastadas durante o movimento articular ou à palpa��o de fraturas." },
++      { term: "Sinal de Ortolani", definition: "Teste ortop�dico espec�fico utilizado para detectar a frouxid�o da articula��o coxofemoral em c�es jovens (indicativo de Displasia Coxofemoral)." },
++      { term: "Teste de Gaveta Cranial", definition: "Manobra semiol�gica que avalia a instabilidade do joelho. Positivo quando a t�bia se desloca cranialmente em rela��o ao f�mur, indicando ruptura do Ligamento Cruzado Cranial." },
++      { term: "Teste de Compress�o Tibial", definition: "Teste indireto para avaliar a integridade do Ligamento Cruzado Cranial simulando a carga de peso no membro p�lvico." },
++      { term: "TPLO (Osteotomia de Nivelamento do Platô Tibial)", definition: "T�cnica cir�rgica que altera a biomec�nica do joelho nivelando o platô tibial, anulando a necessidade do ligamento cruzado cranial." },
++      { term: "TTA (Avan�amento da Tuberosidade Tibial)", definition: "T�cnica cir�rgica que neutraliza as for�as de cisalhamento do joelho avan�ando a inser��o do ligamento patelar." },
++      { term: "Displasia Coxofemoral", definition: "Doen�a de desenvolvimento e heredit�ria caracterizada pela m forma��o e incongru�ncia da articula��o do quadril, levando à osteoartrose secund�ria." },
++      { term: "Luxa��o Patelar", definition: "Deslocamento da patela de seu local anatômico normal (sulco troclear), podendo ser medial (mais comum em ra�as pequenas) ou lateral." },
++      { term: "Artrodese", definition: "Procedimento cir�rgico que promove a fus�o �ssea permanente de uma articula��o, eliminando o movimento e a dor." },
++      { term: "Osteoss�ntese", definition: "Cirurgia de redu��o e fixa��o de fraturas �sseas utilizando implantes como placas, parafusos, pinos e hastes." },
++      { term: "Osteocondrite Dissecante (OCD)", definition: "Falha na ossifica��o endocondral que resulta no espessamento e posterior desprendimento de um retalho de cartilagem articular (flap), comum no ombro de c�es jovens." },
++      { term: "N�o-uni�o", definition: "Complica��o onde ocorre a falha definitiva na consolida��o (cicatriza��o) de uma fratura �ssea." },
++      { term: "Calo �sseo", definition: "Forma��o de tecido �sseo e cartilaginoso imaturo que estabiliza e cicatriza uma fratura ao longo das semanas." },
++      { term: "Sinal da Almofada de Gordura", definition: "Achado radiogr�fico onde h compress�o da gordura infrapatelar indicando efus�o articular severa (l�quido na articula��o do joelho)." },
++      { term: "Goniometria", definition: "Mensura��o dos �ngulos de flex�o e extens�o das articula��es, muito utilizada para avaliar a amplitude de movimento (ADM) na fisioterapia ortop�dica." },
++      { term: "Contratura Muscular", definition: "Encurtamento anormal e permanente de um m�sculo ou tend�o, comum na contratura do m�sculo infraespinhoso ou quadr�ceps." },
++      { term: "Necrose Ass�ptica da Cabe�a do F�mur (Doen�a de Legg-Calv�-Perthes)", definition: "Condi��o onde h interrup��o do suprimento sangu�neo para a cabe�a femoral, causando necrose e dor severa. Afeta tipicamente c�es jovens de ra�as toy/pequenas." },
++      { term: "Panoste�te", definition: "Inflama��o da cavidade medular dos ossos longos que causa dor intermitente e claudica��o migrat�ria em c�es jovens de ra�as grandes em fase de crescimento." },
++      { term: "Les�o Neurop�tica", definition: " o termo mais correto e espec�fico. Ele indica uma patologia ou dano estrutural direto nos pr�prios nervos (como na neuropatia diab�tica ou compress�es nervosas)." },
++      { term: "Padr�o Neurog�nico (na Eletromiografia)", definition: "Em exames de SNM, usa-se 'padr�o neurog�nico' para diferenciar um problema que nasce no nervo (neurog�nico) de um problema que nasce diretamente no m�sculo (miop�tico)." },
++      { term: "Tônus Muscular", definition: "Natureza:  um estado permanente e cont�nuo. Est�mulo:  gerado pelo estiramento passivo e constante do m�sculo (gravidade), detectado pelo fuso muscular (reflexo miot�tico). Fun��o: Manter a postura, a estabilidade das articula��es e a prontid�o motora. Resultado: N�o gera um movimento vis�vel;  apenas uma tens�o de base." },
++      { term: "Reflexo de Retirada (Reflexo Flexor)", definition: "Natureza:  uma resposta tempor�ria, r�pida e abrupta. Est�mulo:  ativado exclusivamente por um est�mulo nocivo ou doloroso (como pisar em um prego ou tocar em uma superf�cie muito quente), detectado por nociceptores. Fun��o: Prote��o imediata e sobreviv�ncia do organismo. Resultado: Gera um movimento motor vigoroso (ex: flex�o r�pida da perna ou do bra�o) para afastar o corpo do perigo." },
++      { term: "Intumesc�ncia Cervicotor�cica", definition: "Espessamento da medula espinhal (segmentos C6-T2).  a regi�o onde se originam os nervos espinhais que formam o plexo braquial, respons�vel pela inerva��o dos membros tor�cicos (anteriores)." },
++      { term: "Intumesc�ncia Lombossacra", definition: "Espessamento da medula espinhal (segmentos L4-S3).  a regi�o onde se originam os nervos espinhais que formam o plexo lombossacro, respons�vel pela inerva��o dos membros p�lvicos (posteriores)." }
+     ],
+   },
+   {
+     id: "mentoria-flix",
+-    title: "Mentoria Flix: Método P.E.T.",
+-    specialty: "Gestão",
+-    description: "Transforme seu negócio pet. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.",
++    title: "Mentoria Flix: M�todo P.E.T.",
++    specialty: "Gest�o",
++    description: "Transforme seu neg�cio pet. Aprenda gest�o, estrutura��o, contrata��o e vendas com quem j construiu empresas s�lidas na medicina veterin�ria.",
+     cover: mentoriaFlixImg,
+     hours: 20,
+     modules: 8,
+@@ -139,15 +139,15 @@ export const courses: Course[] = [
+     students: 0,
+     progress: 0,
+     teacher: teachers[0],
+-    level: "Avançado",
++    level: "Avan�ado",
+     purchased: false,
+     externalLink: "https://mentoriaflix.com.br",
+   },
+   {
+     id: "neuro-basica",
+-    title: "Desvendando a Neurologia Clínica",
++    title: "Desvendando a Neurologia Cl�nica",
+     specialty: "Neurologia",
+-    description: "Aprenda a realizar o exame neurológico perfeito. Saiba como localizar a lesão no sistema nervoso e definir se o caso é cirúrgico ou clínico com segurança.",
++    description: "Aprenda a realizar o exame neurol�gico perfeito. Saiba como localizar a les�o no sistema nervoso e definir se o caso  cir�rgico ou cl�nico com seguran�a.",
+     cover: neuro,
+     hours: 30,
+     modules: 6,
+@@ -155,16 +155,16 @@ export const courses: Course[] = [
+     students: 0,
+     progress: 0,
+     teacher: teachers[1], // Dr. Renan
+-    level: "Intermediário",
++    level: "Intermedi�rio",
+     featured: false,
+     purchased: false,
+   },
+   {
+     id: "hemato-descomplicada",
+-    title: "Hemograma na Prática Veterinária",
++    title: "Hemograma na Pr�tica Veterin�ria",
+     specialty: "Hematologia",
+-    description: "Pare de ler apenas os números do hemograma. Entenda o que as células estão te dizendo e feche diagnósticos ocultos com a Dra. Carolina.",
+-    cover: derma, // Usando uma imagem genérica como fallback
++    description: "Pare de ler apenas os n�meros do hemograma. Entenda o que as c�lulas est�o te dizendo e feche diagn�sticos ocultos com a Dra. Carolina.",
++    cover: derma, // Usando uma imagem gen�rica como fallback
+     hours: 15,
+     modules: 4,
+     lessons: 20,
+@@ -177,91 +177,91 @@ export const courses: Course[] = [
+   },
+   {
+     id: "emergencia-intensiva",
+-    title: "Suporte Básico e Avançado de Vida",
+-    specialty: "Emergência",
+-    description: "Saiba exatamente o que fazer nos primeiros 5 minutos de uma emergência. Protocolos de RCP, fluidoterapia e estabilização de pacientes críticos.",
+-    cover: cardio, // Usando uma imagem genérica como fallback
++    title: "Suporte B�sico e Avan�ado de Vida",
++    specialty: "Emerg�ncia",
++    description: "Saiba exatamente o que fazer nos primeiros 5 minutos de uma emerg�ncia. Protocolos de RCP, fluidoterapia e estabiliza��o de pacientes cr�ticos.",
++    cover: cardio, // Usando uma imagem gen�rica como fallback
+     hours: 40,
+     modules: 8,
+     lessons: 60,
+     students: 0,
+     progress: 0,
+     teacher: teachers[3], // Dra. Nathalia
+-    level: "Avançado",
++    level: "Avan�ado",
+     featured: true,
+     purchased: false,
+   }
+ ];
+ 
+ export const specialties = [
+-  "Ortopedia", "Neurologia", "Gestão", "Hematologia", "Emergência"
++  "Ortopedia", "Neurologia", "Gest�o", "Hematologia", "Emerg�ncia"
+ ];
+ 
+ export const ortopediaModules = [
+   {
+     id: 1,
+-    title: "Módulo 1 — Introdução à Ortopedia Clínica",
++    title: "M�dulo 1 — Introdu��o à Ortopedia Cl�nica",
+     done: true,
+     topics: [
+-      "Biomecânica do cão e gato na clínica médica",
++      "Biomec�nica do c�o e gato na cl�nica m�dica",
+       "Descomplicando a neuroanatomia",
+-      "Como realizar uma avaliação clínica de excelência",
+-      "Biologia x score da lesão ortopédica",
+-      "Montando uma anamnese ortopédica",
+-      "Alterações ortopédicas clássicas e como tratá-las"
++      "Como realizar uma avalia��o cl�nica de excel�ncia",
++      "Biologia x score da les�o ortop�dica",
++      "Montando uma anamnese ortop�dica",
++      "Altera��es ortop�dicas cl�ssicas e como trat�-las"
+     ]
+   },
+   {
+     id: 2,
+-    title: "Módulo 2 — Diferenciando lesão motora muscular x neurológica",
++    title: "M�dulo 2 — Diferenciando les�o motora muscular x neurol�gica",
+     done: false,
+-    topics: ["Sinais clínicos", "Testes de reflexo", "Casos práticos de diagnóstico diferencial"]
++    topics: ["Sinais cl�nicos", "Testes de reflexo", "Casos pr�ticos de diagn�stico diferencial"]
+   },
+   {
+     id: 3,
+-    title: "Módulo 3 — Tratando lesões ortopédicas",
++    title: "M�dulo 3 — Tratando les�es ortop�dicas",
+     done: false,
+-    topics: ["Protocolos de tratamento conservador", "Indicações cirúrgicas", "Manejo da dor"]
++    topics: ["Protocolos de tratamento conservador", "Indica��es cir�rgicas", "Manejo da dor"]
+   },
+   {
+     id: 4,
+-    title: "Módulo 4 — A conexão com o tutor é o sucesso do tratamento",
++    title: "M�dulo 4 — A conex�o com o tutor  o sucesso do tratamento",
+     done: false,
+-    topics: ["Como comunicar o diagnóstico", "Alinhando expectativas", "Adesão ao tratamento em casa"]
++    topics: ["Como comunicar o diagn�stico", "Alinhando expectativas", "Ades�o ao tratamento em casa"]
+   },
+   {
+     id: 5,
+-    title: "Módulo 5 — Manejo Alimentar",
++    title: "M�dulo 5 — Manejo Alimentar",
+     done: false,
+     topics: [
+-      "Importância da nutrição na recuperação ortopédica",
+-      "Suplementação: Condroprotetores e Ômega-3",
+-      "Controle e manejo de peso no paciente osteoartrósico",
+-      "Dietas terapêuticas e prescrição nutricional",
+-      "Casos práticos de evolução com suporte nutricional"
++      "Import�ncia da nutri��o na recupera��o ortop�dica",
++      "Suplementa��o: Condroprotetores e Ômega-3",
++      "Controle e manejo de peso no paciente osteoartr�sico",
++      "Dietas terap�uticas e prescri��o nutricional",
++      "Casos pr�ticos de evolu��o com suporte nutricional"
+     ]
+   },
+   {
+     id: 6,
+-    title: "Módulo 6 — Tipos de Exames na Ortopedia e Neurologia",
++    title: "M�dulo 6 — Tipos de Exames na Ortopedia e Neurologia",
+     done: false,
+     topics: [
+-      "Radiografia Simples vs. Contrastada: Indicações cruciais",
+-      "Tomografia Computadorizada (TC): Quando o Raio-X não é suficiente?",
+-      "Ressonância Magnética (RM): O padrão-ouro para lesões neurológicas",
+-      "Diferenciais e Critérios de Encaminhamento: Quando e qual exame solicitar"
++      "Radiografia Simples vs. Contrastada: Indica��es cruciais",
++      "Tomografia Computadorizada (TC): Quando o Raio-X n�o  suficiente?",
++      "Resson�ncia Magn�tica (RM): O padr�o-ouro para les�es neurol�gicas",
++      "Diferenciais e Crit�rios de Encaminhamento: Quando e qual exame solicitar"
+     ]
+   },
+   {
+     id: 7,
+-    title: "Módulo 7 — 90% das alterações que vão chegar na sua clínica",
++    title: "M�dulo 7 — 90% das altera��es que v�o chegar na sua cl�nica",
+     done: false,
+     topics: [
+       "Displasia Coxofemoral",
+       "Ruptura de Ligamento Cruzado Cranial (RLCC)",
+       "Artrose Articular",
+-      "Doença do Disco Intervertebral (DDIV)",
+-      "Alterações Metabólicas"
++      "Doen�a do Disco Intervertebral (DDIV)",
++      "Altera��es Metab�licas"
+     ]
+   }
+ ];
+diff --git a/src/routes/checkout.$courseId.tsx b/src/routes/checkout.$courseId.tsx
+index 66922d9..7f72a8e 100644
+--- a/src/routes/checkout.$courseId.tsx
++++ b/src/routes/checkout.$courseId.tsx
+@@ -42,15 +42,17 @@ function CheckoutPage() {
+     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+   };
+ 
+-  const orderBumpCourse = courses.find(c => c.id !== course.id && c.id !== 'mentoria-flix');
+-  const [orderBump, setOrderBump] = useState(false);
++  const availableOrderBumps = courses.filter(c => c.id !== course.id && c.id !== 'mentoria-flix');
++  const [selectedOrderBumps, setSelectedOrderBumps] = useState<string[]>([]);
+ 
+-  useEffect(() => {
+-    if (!authLoading && !user) {
+-      toast.error("Por favor, crie sua conta para prosseguir com a compra.");
+-      navigate({ to: "/signup", search: { redirect: `/checkout/${course.id}` } });
+-    }
+-  }, [user, authLoading, navigate, course.id]);
++  const toggleOrderBump = (id: string) => {
++    setSelectedOrderBumps(prev => 
++      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
++    );
++  };
++
++  const getOrderBumpTotal = () => selectedOrderBumps.length * 2300;
++  const getGrandTotal = () => 2300 + getOrderBumpTotal();
+ 
+   const handleCopyPix = () => {
+     navigator.clipboard.writeText("00020126360014br.gov.bcb.pix0114+55119999999995204000053039865802BR5915Vetmasterclass6009Sao Paulo62070503***6304");
+@@ -271,26 +273,33 @@ function CheckoutPage() {
+               </Tabs>
+ 
+               {/* SECTION: ORDER BUMP */}
+-              {orderBumpCourse && (
+-                <div className={`mt-6 mb-8 p-4 rounded-xl border-2 transition-all ${orderBump ? 'border-coral bg-coral/5' : 'border-slate-200 bg-slate-50 border-dashed'}`}>
+-                  <div className="flex items-start gap-4">
+-                    <div className="mt-1">
+-                      <Switch checked={orderBump} onCheckedChange={setOrderBump} />
+-                    </div>
+-                    <div>
+-                      <div className="flex items-center gap-2 mb-1">
+-                        <h4 className="font-bold text-slate-900 leading-none">Sim! Quero adicionar {orderBumpCourse.title}</h4>
+-                        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded animate-pulse">40% OFF</span>
+-                      </div>
+-                      <p className="text-xs text-slate-600 mb-2 leading-relaxed">{orderBumpCourse.description.substring(0, 80)}...</p>
+-                      <div className="flex items-center gap-2">
+-                        <span className="text-xs text-slate-400 line-through">R$ 790,00</span>
+-                        <span className="text-sm font-bold text-coral">Por apenas R$ 474,00</span>
+-                      </div>
+-                      <p className="text-[10px] text-muted-foreground mt-2 italic">
+-                        *Oferta exclusiva válida apenas nesta página de checkout.
+-                      </p>
+-                    </div>
++              {availableOrderBumps.length > 0 && (
++                <div className="mt-6 mb-8">
++                  <h3 className="text-sm font-bold text-slate-900 mb-3 uppercase tracking-wider">Aproveite e leve também:</h3>
++                  <div className="space-y-3">
++                    {availableOrderBumps.map(bump => {
++                      const isSelected = selectedOrderBumps.includes(bump.id);
++                      return (
++                        <div key={bump.id} className={`p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected ? 'border-coral bg-coral/5' : 'border-slate-200 bg-slate-50 border-dashed hover:border-slate-300'}`} onClick={() => toggleOrderBump(bump.id)}>
++                          <div className="flex items-start gap-4 pointer-events-none">
++                            <div className="mt-1 pointer-events-auto">
++                              <Switch checked={isSelected} onCheckedChange={() => toggleOrderBump(bump.id)} />
++                            </div>
++                            <div>
++                              <div className="flex items-center gap-2 mb-1 flex-wrap">
++                                <h4 className="font-bold text-slate-900 leading-tight flex-1">Adicionar {bump.title}</h4>
++                                <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded animate-pulse whitespace-nowrap">OFERTA ESPECIAL</span>
++                              </div>
++                              <p className="text-xs text-slate-600 mb-2 leading-relaxed">{bump.description ? bump.description.substring(0, 80) : 'Curso premium Vetmasterclass'}...</p>
++                              <div className="flex items-center gap-2">
++                                <span className="text-xs text-slate-400 line-through">R$ 2.800,00</span>
++                                <span className="text-sm font-bold text-coral">Por R$ 2.300,00</span>
++                              </div>
++                            </div>
++                          </div>
++                        </div>
++                      );
++                    })}
+                   </div>
+                 </div>
+               )}
+@@ -299,29 +308,30 @@ function CheckoutPage() {
+               <div className="border-t border-slate-200 pt-6">
+                 <div className="flex justify-between items-end mb-6">
+                   <div>
+-                    <p className="text-sm text-slate-500 line-through">De R$ 1.290,00</p>
++                    <p className="text-sm text-slate-500 line-through">De R$ {2800 + selectedOrderBumps.length * 2800},00</p>
+                     <p className="text-xs font-semibold text-coral mt-1">
+-                      Oferta Especial com Bônus
++                      Desconto de Pré-venda
+                     </p>
+                   </div>
+                   <div className="text-right">
+                     <p className="font-display font-black text-3xl text-slate-900">
+-                      R$ {orderBump ? '1.364' : '890'}
++                      R$ {getGrandTotal()}
+                       <span className="text-lg text-slate-500">,00</span>
+                     </p>
+                     <p className="text-xs font-bold text-slate-500 mt-1">
+-                      ou 12x de R$ {orderBump ? '136,40' : '89,00'}
++                      ou 12x de R$ {(getGrandTotal() / 10).toFixed(2).replace('.', ',')}
+                     </p>
+                   </div>
+                 </div>
+ 
+                 <Button 
+                   type="button" 
+-                  disabled={true}
+-                  className="w-full h-16 text-lg font-bold bg-slate-200 text-red-600 shadow-none rounded-xl cursor-not-allowed"
++                  disabled={false}
++                  className="w-full h-16 text-sm sm:text-lg font-bold bg-[#34C759] hover:bg-[#34C759]/90 text-white shadow-xl shadow-green-500/20 rounded-xl transition-all hover:scale-105 flex items-center justify-center whitespace-nowrap px-4"
++                  onClick={() => window.open('https://buy.stripe.com/test_123', '_blank')}
+                 >
+-                  <Lock className="h-5 w-5 mr-2" />
+-                  VENDAS ABREM AMANHÃ ÀS 08:00
++                  <Lock className="h-4 w-4 mr-2 shrink-0" />
++                  Finalizar Compra Segura
+                 </Button>
+                 
+                 <p className="text-center text-[10px] text-slate-400 mt-4 flex justify-center items-center gap-1">
+diff --git a/src/routes/cursos.index.tsx b/src/routes/cursos.index.tsx
+index bf7c555..fd755a5 100644
+--- a/src/routes/cursos.index.tsx
++++ b/src/routes/cursos.index.tsx
+@@ -5,7 +5,7 @@ import { courses, specialties } from "@/lib/courses-data";
+ import { Button } from "@/components/ui/button";
+ 
+ export const Route = createFileRoute("/cursos/")({
+-  head: () => ({ meta: [{ title: "CatÃƒÂ¡logo de Cursos Ã¢â‚¬â€ Vetmasterclass" }] }),
++  head: () => ({ meta: [{ title: "Cat�ƒ�¡logo de Cursos �¢�‚¬�€ Vetmasterclass" }] }),
+   component: PublicCoursesPage,
+ });
+ 
+@@ -20,7 +20,7 @@ function PublicCoursesPage() {
+ 
+   return (
+     <div className="min-h-screen bg-[#F8F9FA]">
+-      {/* Header PÃƒÂºblico */}
++      {/* Header P�ƒ�ºblico */}
+       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+         <div className="container flex h-16 items-center justify-between px-4 sm:px-8">
+           <Link to="/" className="flex items-center gap-2">
+@@ -40,9 +40,9 @@ function PublicCoursesPage() {
+ 
+       <main className="container mx-auto max-w-7xl px-4 py-12 sm:px-8">
+         <div className="mb-12 text-center">
+-          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl mb-4">CatÃƒÂ¡logo de Cursos</h1>
++          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl mb-4">Cat�ƒ�¡logo de Cursos</h1>
+           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+-            Escolha o seu prÃƒÂ³ximo nÃƒÂ­vel na medicina veterinÃƒÂ¡ria. Aprenda com os maiores especialistas do mercado e aplique na sua clÃƒÂ­nica amanhÃƒÂ£.
++            Escolha o seu pr�ƒ�³ximo n�ƒ�­vel na medicina veterin�ƒ�¡ria. Aprenda com os maiores especialistas do mercado e aplique na sua cl�ƒ�­nica amanh�ƒ�£.
+           </p>
+ 
+           <div className="mx-auto max-w-3xl bg-gradient-to-r from-coral/10 via-coral/5 to-transparent border border-coral/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden text-left sm:text-center shadow-sm">
+@@ -55,10 +55,10 @@ function PublicCoursesPage() {
+               </div>
+               <div>
+                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2">
+-                  Ã°Å¸Å½Â BÃƒÂ´nus Especial de LanÃƒÂ§amento
++                  �°Å¸Å½� B�ƒ�´nus Especial de Lan�ƒ�§amento
+                 </h3>
+                 <p className="text-slate-700 font-medium leading-relaxed">
+-                  Compre qualquer curso no <strong className="text-coral">2Ã‚Âº Semestre de 2026</strong> e ganhe acesso total ao curso <strong>Mentoria Flix / GestÃƒÂ£o</strong> (Valor de R$ 1.200,00) <strong className="text-green-700 bg-green-100 px-2 py-0.5 rounded ml-1 uppercase text-sm">Totalmente GrÃƒÂ¡tis!</strong>
++                  Compre qualquer curso no <strong className="text-coral">2�‚�º Semestre de 2026</strong> e ganhe acesso total ao curso <strong>Mentoria Flix / Gest�ƒ�£o</strong> (Valor de R$ 1.200,00) <strong className="text-green-700 bg-green-100 px-2 py-0.5 rounded ml-1 uppercase text-sm">Totalmente Gr�ƒ�¡tis!</strong>
+                 </p>
+               </div>
+             </div>
+@@ -99,11 +99,11 @@ function PublicCoursesPage() {
+                 {c.id === 'mentoria-flix' && (
+                   <div className="absolute inset-0 bg-coral/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center z-20 backdrop-blur-md">
+                     <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white text-coral mb-3 shadow-xl">
+-                      <span className="font-bold text-lg">Ã°Å¸Å½Â</span>
++                      <span className="font-bold text-lg">�°Å¸Å½�</span>
+                     </span>
+-                    <p className="text-white font-black text-lg uppercase tracking-wider mb-2 leading-tight">BÃƒÂ´nus Exclusivo</p>
++                    <p className="text-white font-black text-lg uppercase tracking-wider mb-2 leading-tight">B�ƒ�´nus Exclusivo</p>
+                     <p className="text-white/95 text-xs sm:text-sm font-medium leading-relaxed">
+-                      Este incrÃƒÂ­vel curso de gestÃƒÂ£o com o renomado Dr. Rodrigo Nicola ÃƒÂ© <span className="bg-white text-coral px-1 rounded font-bold mx-0.5">GRATUITO</span> na compra dos nossos cursos principais.
++                      Este incr�ƒ�­vel curso de gest�ƒ�£o com o renomado Dr. Rodrigo Nicola �ƒ� <span className="bg-white text-coral px-1 rounded font-bold mx-0.5">GRATUITO</span> na compra dos nossos cursos principais.
+                     </p>
+                   </div>
+                 )}
+@@ -124,7 +124,7 @@ function PublicCoursesPage() {
+                   <div className="flex items-center gap-2 mb-4">
+                     <span className="text-xs text-slate-400 line-through">R$ 2.800</span>
+                     <span className="text-xl font-black text-green-600">R$ 2.300</span>
+-                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">PrÃƒÂ©-venda</span>
++                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Pr�ƒ��-venda</span>
+                   </div>
+                 )}
+ 
+@@ -149,33 +149,33 @@ function PublicCoursesPage() {
+         </div>
+         <div className="mt-24 space-y-12">
+           <div className="text-center mb-12">
+-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">Muito AlÃƒÂ©m de Cursos</h2>
++            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">Muito Al�ƒ��m de Cursos</h2>
+             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+-              Sua assinatura desbloqueia um ecossistema completo de aprendizado prÃƒÂ¡tico e networking profissional.
++              Sua assinatura desbloqueia um ecossistema completo de aprendizado pr�ƒ�¡tico e networking profissional.
+             </p>
+           </div>
+           
+           <div className="grid md:grid-cols-2 gap-8">
+             <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
+               <div className="h-16 w-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-6">
+-                <span className="text-3xl">Ã°Å¸â€˜Â¥</span>
++                <span className="text-3xl">�°Å¸�€˜�¥</span>
+               </div>
+               <h3 className="text-2xl font-bold font-display mb-3">Comunidade Vetmasterclass</h3>
+               <p className="text-muted-foreground mb-6">
+-                NÃƒÂ£o fique mais sozinho no diagnÃƒÂ³stico. Discuta casos complexos, troque experiÃƒÂªncias e faÃƒÂ§a networking de alto nÃƒÂ­vel com veterinÃƒÂ¡rios de todo o Brasil e nossos professores especialistas.
++                N�ƒ�£o fique mais sozinho no diagn�ƒ�³stico. Discuta casos complexos, troque experi�ƒ�ªncias e fa�ƒ�§a networking de alto n�ƒ�­vel com veterin�ƒ�¡rios de todo o Brasil e nossos professores especialistas.
+               </p>
+               <Button asChild variant="outline" className="mt-auto rounded-xl">
+-                <Link to="/signup" search={{ redirect: undefined }}> FaÃƒÂ§a parte do grupo</Link>
++                <Link to="/signup" search={{ redirect: undefined }}> Fa�ƒ�§a parte do grupo</Link>
+               </Button>
+             </div>
+             
+             <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
+               <div className="h-16 w-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
+-                <span className="text-3xl">Ã°Å¸Â§Â©</span>
++                <span className="text-3xl">�°Å¸�§��</span>
+               </div>
+-              <h3 className="text-2xl font-bold font-display mb-3">Casos ClÃƒÂ­nicos Interativos</h3>
++              <h3 className="text-2xl font-bold font-display mb-3">Casos Cl�ƒ�­nicos Interativos</h3>
+               <p className="text-muted-foreground mb-6">
+-                Treine seu raciocÃƒÂ­nio clÃƒÂ­nico em um simulador de diagnÃƒÂ³sticos com casos reais gerados por IA. Receba feedback imediato das suas condutas antes de aplicÃƒÂ¡-las nos seus pacientes de verdade.
++                Treine seu racioc�ƒ�­nio cl�ƒ�­nico em um simulador de diagn�ƒ�³sticos com casos reais gerados por IA. Receba feedback imediato das suas condutas antes de aplic�ƒ�¡-las nos seus pacientes de verdade.
+               </p>
+               <Button asChild variant="outline" className="mt-auto rounded-xl">
+                 <Link to="/signup" search={{ redirect: undefined }}> Teste seus conhecimentos</Link>
+diff --git a/src/routes/cursos_.$courseId.tsx b/src/routes/cursos_.$courseId.tsx
+index ff62efd..83b30d5 100644
+--- a/src/routes/cursos_.$courseId.tsx
++++ b/src/routes/cursos_.$courseId.tsx
+@@ -246,6 +246,9 @@ function CourseSalesPage() {
+               { icon: Microscope, title: "Estudo de Casos Clínicos", desc: "Discussão aprofundada de casos reais para treinar seu raciocínio diagnóstico de forma prática." },
+               { icon: BookOpen, title: "Biblioteca VIP de Papers", desc: "Acesso a um acervo de artigos científicos selecionados e traduzidos, sempre atualizados." },
+               { icon: Brain, title: "Mentor On-line (Tutor IA)", desc: "Seu assistente virtual 24h treinado com a literatura oficial para te ajudar no plantão." },
++              { icon: BookMarked, title: "Glossário e Medicamentos", desc: "Glossário com termos semiológicos e os medicamentos mais utilizados na rotina clínica." },
++              { icon: Star, title: "Bônus: Gestão e Pet Shop", desc: "Curso completo de como montar seu pet shop com Dr Rodrigo Nicola, 30 anos de experiência." },
++              { icon: MessageSquare, title: "Comunidade no WhatsApp", desc: "Grupos exclusivos de WhatsApp para networking e troca de experiências com outros alunos." },
+               { icon: ShieldCheck, title: "Garantia Incondicional de 7 Dias", desc: "Risco zero. Se não gostar da didática, devolvemos 100% do seu investimento." },
+             ].map((v, i) => (
+               <div key={i} className="flex gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow">
+@@ -414,8 +417,10 @@ function CourseSalesPage() {
+                 
+                 <div className="w-full h-px bg-slate-100 my-6"></div>
+                 
+-                <Button disabled className="w-full h-16 text-xl font-black bg-slate-200 text-red-600 shadow-none cursor-not-allowed rounded-2xl">
+-                  VENDAS ABREM AMANHÃ ÀS 08:00
++                <Button className="w-full h-16 text-xl font-black bg-[#34C759] hover:bg-[#34C759]/90 text-white shadow-xl shadow-green-500/20 rounded-2xl transition-all hover:scale-105" asChild>
++                  <Link to="/checkout/$courseId" params={{ courseId: course.id }}>
++                    Garantir Minha Vaga
++                  </Link>
+                 </Button>
+                 <div className="flex flex-col items-center gap-1 mt-4">
+                   <p className="text-[12px] font-semibold text-slate-600 flex items-center gap-1">
+diff --git a/src/routes/index.tsx b/src/routes/index.tsx
+index 13691af..dfcbd15 100644
+--- a/src/routes/index.tsx
++++ b/src/routes/index.tsx
+@@ -11,8 +11,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
+ export const Route = createFileRoute("/")({
+   head: () => ({
+     meta: [
+-      { title: "Vetmasterclass Ã¢â‚¬â€ A RevoluÃƒÂ§ÃƒÂ£o na Medicina VeterinÃƒÂ¡ria PrÃƒÂ¡tica" },
+-      { name: "description", content: "Aprenda a aplicar a medicina do mundo real, ganhar a confianÃƒÂ§a absoluta do tutor e faturar mais com procedimentos assertivos." },
++      { title: "Vetmasterclass �¢�‚¬�€ A Revolu�ƒ�§�ƒ�£o na Medicina Veterin�ƒ�¡ria Pr�ƒ�¡tica" },
++      { name: "description", content: "Aprenda a aplicar a medicina do mundo real, ganhar a confian�ƒ�§a absoluta do tutor e faturar mais com procedimentos assertivos." },
+     ],
+   }),
+   component: Landing,
+@@ -28,11 +28,11 @@ function Landing() {
+         <div className="absolute inset-0 -z-10 opacity-[0.4] [background-image:radial-gradient(circle_at_1px_1px,var(--tw-colors-coral-500)_1px,transparent_0)] [background-size:40px_40px]" />
+         
+         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+-          <div className="grid lg:grid-cols-2 gap-16 items-center">
++          <div className="grid lg:grid-cols-2 gap-16 items-start lg:pt-4">
+             <div className="animate-fade-up">
+               <div className="inline-flex w-fit items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-4 py-1.5 text-sm font-medium text-coral backdrop-blur mb-6">
+                 <AlertTriangle className="h-4 w-4" />
+-                O fim da inseguranÃƒÂ§a nos plantÃƒÂµes
++                O fim da inseguran�ƒ�§a nos plant�ƒ�µes
+               </div>
+               <h1 className="font-display text-4xl font-extrabold sm:text-5xl lg:text-6xl text-foreground leading-[1.1]">
+                 A faculdade te ensinou a anatomia. <br/>
+@@ -41,9 +41,9 @@ function Landing() {
+               
+               <div className="mt-8 space-y-4">
+                 {[
+-                  "VocÃƒÂª tem medo de fechar um diagnÃƒÂ³stico complexo na frente do cliente?",
+-                  "VocÃƒÂª prescreve o tratamento, mas o tutor nÃƒÂ£o adere porque nÃƒÂ£o entendeu o valor?",
+-                  "VocÃƒÂª sabe a teoria, mas trava na hora de aplicar o protocolo de emergÃƒÂªncia?"
++                  "Voc�ƒ�ª tem medo de fechar um diagn�ƒ�³stico complexo na frente do cliente?",
++                  "Voc�ƒ�ª prescreve o tratamento, mas o tutor n�ƒ�£o adere porque n�ƒ�£o entendeu o valor?",
++                  "Voc�ƒ�ª sabe a teoria, mas trava na hora de aplicar o protocolo de emerg�ƒ�ªncia?"
+                 ].map((text, i) => (
+                   <div key={i} className="flex gap-4">
+                     <div className="flex-shrink-0 mt-1">
+@@ -64,7 +64,7 @@ function Landing() {
+                 </Button>
+                 <Button asChild size="lg" variant="outline" className="h-14 border-border bg-card text-foreground hover:bg-secondary px-8 text-lg rounded-xl transition-all">
+                   <Link to="/cursos">
+-                    Ver CatÃƒÂ¡logo de Cursos
++                    Ver Cat�ƒ�¡logo de Cursos
+                   </Link>
+                 </Button>
+               </div>
+@@ -72,7 +72,7 @@ function Landing() {
+               <div className="mt-6 flex items-center gap-3 rounded-xl bg-coral/10 border border-coral/20 p-3 max-w-lg">
+                 <Gift className="h-5 w-5 text-coral flex-shrink-0 animate-pulse" />
+                 <p className="text-sm font-medium text-foreground">
+-                  <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu NegÃƒÂ³cio de Sucesso com Mentoria Flix" <span className="font-bold text-green-600 bg-green-100 px-1 rounded">(Valor R$ 799)</span>.
++                  <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Neg�ƒ�³cio de Sucesso com Mentoria Flix" <span className="font-bold text-green-600 bg-green-100 px-1 rounded">(Valor R$ 799)</span>.
+                 </p>
+               </div>
+               
+@@ -82,7 +82,7 @@ function Landing() {
+                   <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=2" alt=""/>
+                   <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=3" alt=""/>
+                 </div>
+-                <p>Junte-se aos nossos <strong className="text-foreground">alunos incrÃƒÂ­veis</strong> de todo o Brasil!</p>
++                <p>Junte-se aos nossos <strong className="text-foreground">alunos incr�ƒ�­veis</strong> de todo o Brasil!</p>
+               </div>
+             </div>
+             
+@@ -91,7 +91,7 @@ function Landing() {
+               
+               {/* VIDEO SALES LETTER MOCK */}
+               <div className="relative rounded-2xl shadow-2xl border border-border overflow-hidden bg-black aspect-video group cursor-pointer flex items-center justify-center">
+-                <img src={heroImg} alt="VeterinÃƒÂ¡rio atendendo" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" />
++                <img src={heroImg} alt="Veterin�ƒ�¡rio atendendo" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" />
+                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
+                 
+                 <div className="relative z-10 flex flex-col items-center">
+@@ -102,7 +102,7 @@ function Landing() {
+                 </div>
+ 
+                 <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded animate-pulse">
+-                  GRAVAÃƒâ€¡ÃƒÆ’O LIBERADA
++                  GRAVA�ƒ�€¡�ƒÆ’O LIBERADA
+                 </div>
+               </div>
+               
+@@ -111,7 +111,7 @@ function Landing() {
+                   <CheckCircle className="h-6 w-6" />
+                 </div>
+                 <div>
+-                  <p className="text-sm font-bold text-foreground">ComunicaÃƒÂ§ÃƒÂ£o Assertiva</p>
++                  <p className="text-sm font-bold text-foreground">Comunica�ƒ�§�ƒ�£o Assertiva</p>
+                   <p className="text-xs text-muted-foreground">Tutores engajados e tratamentos aprovados.</p>
+                 </div>
+               </div>
+@@ -124,28 +124,28 @@ function Landing() {
+       <section id="metodo" className="py-24 bg-card">
+         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+           <h2 className="font-display text-3xl font-bold sm:text-4xl">
+-            A trÃƒÂ­ade do MÃƒÂ©dico VeterinÃƒÂ¡rio de Alto Valor
++            A tr�ƒ�­ade do M�ƒ��dico Veterin�ƒ�¡rio de Alto Valor
+           </h2>
+           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+-            NÃƒÂ£o basta ser bom tecnicamente. VocÃƒÂª precisa dominar o cenÃƒÂ¡rio completo do atendimento.
++            N�ƒ�£o basta ser bom tecnicamente. Voc�ƒ�ª precisa dominar o cen�ƒ�¡rio completo do atendimento.
+           </p>
+ 
+           <div className="mt-16 grid sm:grid-cols-3 gap-8">
+             {[
+               {
+                 icon: Stethoscope,
+-                title: "Conduta ClÃƒÂ­nica ImpecÃƒÂ¡vel",
+-                desc: "Aprenda protocolos mastigados e diretos ao ponto, guiados pelas maiores autoridades do paÃƒÂ­s."
++                title: "Conduta Cl�ƒ�­nica Impec�ƒ�¡vel",
++                desc: "Aprenda protocolos mastigados e diretos ao ponto, guiados pelas maiores autoridades do pa�ƒ�­s."
+               },
+               {
+                 icon: Users,
+                 title: "Engajamento do Tutor",
+-                desc: "TÃƒÂ©cnicas de comunicaÃƒÂ§ÃƒÂ£o e vendas para fazer o tutor entender o valor do seu diagnÃƒÂ³stico e aprovar orÃƒÂ§amentos maiores."
++                desc: "T�ƒ��cnicas de comunica�ƒ�§�ƒ�£o e vendas para fazer o tutor entender o valor do seu diagn�ƒ�³stico e aprovar or�ƒ�§amentos maiores."
+               },
+               {
+                 icon: Brain,
+-                title: "Tutor Vet IA (InteligÃƒÂªncia Artificial)",
+-                desc: "Seu assistente de bolso treinado 100% na literatura oficial. Tire dÃƒÂºvidas de dosagem e protocolos no meio do plantÃƒÂ£o."
++                title: "Tutor Vet IA (Intelig�ƒ�ªncia Artificial)",
++                desc: "Seu assistente de bolso treinado 100% na literatura oficial. Tire d�ƒ�ºvidas de dosagem e protocolos no meio do plant�ƒ�£o."
+               }
+             ].map((feature, i) => (
+               <div key={i} className="flex flex-col items-center text-center p-8 rounded-3xl border border-border bg-background shadow-soft hover:-translate-y-2 transition-transform duration-300">
+@@ -167,24 +167,24 @@ function Landing() {
+           <div className="grid lg:grid-cols-2 gap-16 items-center">
+             <div className="order-2 lg:order-1 relative">
+               <div className="absolute inset-0 bg-coral/20 rounded-3xl blur-2xl transform rotate-3" />
+-              <img src={mentoriaFlixImg} alt="Mentoria Flix MÃƒÂ©todo P.E.T." className="relative rounded-3xl shadow-xl w-full max-w-2xl mx-auto object-cover border border-border" />
++              <img src={mentoriaFlixImg} alt="Mentoria Flix M�ƒ��todo P.E.T." className="relative rounded-3xl shadow-xl w-full max-w-2xl mx-auto object-cover border border-border" />
+             </div>
+             <div className="order-1 lg:order-2">
+               <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-bold text-blue-800 mb-6 uppercase tracking-wider">
+-                <Store className="h-4 w-4" /> BÃƒÂ´nus Especial
++                <Store className="h-4 w-4" /> B�ƒ�´nus Especial
+               </div>
+               <h2 className="font-display text-3xl font-bold sm:text-4xl text-gray-900 leading-tight">
+-                Como montar seu NegÃƒÂ³cio de Sucesso com a <span className="text-coral">Mentoria Flix</span>
++                Como montar seu Neg�ƒ�³cio de Sucesso com a <span className="text-coral">Mentoria Flix</span>
+               </h2>
+               <p className="mt-6 text-lg text-gray-600">
+-                Aprenda diretamente com o Dr. Rodrigo Nicola como transformar sua clÃƒÂ­nica ou consultÃƒÂ³rio em uma empresa extremamente lucrativa. VocÃƒÂª vai descobrir os segredos de gestÃƒÂ£o, contrataÃƒÂ§ÃƒÂ£o e estruturaÃƒÂ§ÃƒÂ£o de quem jÃƒÂ¡ construiu empresas sÃƒÂ³lidas na medicina veterinÃƒÂ¡ria.
++                Aprenda diretamente com o Dr. Rodrigo Nicola como transformar sua cl�ƒ�­nica ou consult�ƒ�³rio em uma empresa extremamente lucrativa. Voc�ƒ�ª vai descobrir os segredos de gest�ƒ�£o, contrata�ƒ�§�ƒ�£o e estrutura�ƒ�§�ƒ�£o de quem j�ƒ�¡ construiu empresas s�ƒ�³lidas na medicina veterin�ƒ�¡ria.
+               </p>
+               
+               <ul className="mt-8 space-y-4">
+                 {[
+                   "Curso completo com 8 aulas exclusivas",
+-                  "E-book interativo e Playbook de execuÃƒÂ§ÃƒÂ£o",
+-                  "Acesso ao Mentor IA para tirar dÃƒÂºvidas do negÃƒÂ³cio",
++                  "E-book interativo e Playbook de execu�ƒ�§�ƒ�£o",
++                  "Acesso ao Mentor IA para tirar d�ƒ�ºvidas do neg�ƒ�³cio",
+                   "Aulas gravadas para assistir quando e onde quiser"
+                 ].map((item, i) => (
+                   <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
+@@ -212,10 +212,10 @@ function Landing() {
+       <section className="py-24 bg-card border-t border-b border-border">
+         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+           <h2 className="font-display text-3xl font-bold sm:text-4xl">
+-            Aprenda com quem vive a prÃƒÂ¡tica diÃƒÂ¡ria
++            Aprenda com quem vive a pr�ƒ�¡tica di�ƒ�¡ria
+           </h2>
+           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto mb-16">
+-            Nossos professores nÃƒÂ£o sÃƒÂ£o apenas acadÃƒÂªmicos. SÃƒÂ£o profissionais renomados que lideram os maiores centros de referÃƒÂªncia do paÃƒÂ­s.
++            Nossos professores n�ƒ�£o s�ƒ�£o apenas acad�ƒ�ªmicos. S�ƒ�£o profissionais renomados que lideram os maiores centros de refer�ƒ�ªncia do pa�ƒ�­s.
+           </p>
+ 
+           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+@@ -237,25 +237,25 @@ function Landing() {
+       <section className="py-24 bg-background">
+         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+           <h2 className="font-display text-3xl font-bold sm:text-4xl mb-16">
+-            O que dizem os alunos que estÃƒÂ£o <span className="text-coral">transformando</span> a medicina veterinÃƒÂ¡ria
++            O que dizem os alunos que est�ƒ�£o <span className="text-coral">transformando</span> a medicina veterin�ƒ�¡ria
+           </h2>
+           
+           <div className="grid md:grid-cols-3 gap-8 text-left">
+             {[
+               {
+-                text: "A plataforma mudou meu plantÃƒÂ£o. Antes eu travava na hora de dar o diagnÃƒÂ³stico pro tutor, com medo de errar. Hoje o Tutor IA me dÃƒÂ¡ o suporte na hora, ÃƒÂ© impressionante.",
++                text: "A plataforma mudou meu plant�ƒ�£o. Antes eu travava na hora de dar o diagn�ƒ�³stico pro tutor, com medo de errar. Hoje o Tutor IA me d�ƒ�¡ o suporte na hora, �ƒ� impressionante.",
+                 name: "Dra. Marina Silva",
+                 role: "Plantonista Intensivista"
+               },
+               {
+-                text: "Os casos interativos sÃƒÂ£o um absurdo de bons! Eu me sinto dentro da clÃƒÂ­nica tomando as decisÃƒÂµes. Aprendi mais em 2 meses de Vetmasterclass do que em 2 anos de especializaÃƒÂ§ÃƒÂ£o teÃƒÂ³rica.",
++                text: "Os casos interativos s�ƒ�£o um absurdo de bons! Eu me sinto dentro da cl�ƒ�­nica tomando as decis�ƒ�µes. Aprendi mais em 2 meses de Vetmasterclass do que em 2 anos de especializa�ƒ�§�ƒ�£o te�ƒ�³rica.",
+                 name: "Dr. Carlos Eduardo",
+-                role: "ClÃƒÂ­nico Geral"
++                role: "Cl�ƒ�­nico Geral"
+               },
+               {
+-                text: "Eu nunca consegui cobrar o valor justo na minha consulta porque nÃƒÂ£o sabia agregar valor. Depois do curso de Ortopedia, fecho cirurgias com o dobro do valor que cobrava antes.",
++                text: "Eu nunca consegui cobrar o valor justo na minha consulta porque n�ƒ�£o sabia agregar valor. Depois do curso de Ortopedia, fecho cirurgias com o dobro do valor que cobrava antes.",
+                 name: "Dra. Fernanda Costa",
+-                role: "CirurgiÃƒÂ£ Ortopedista"
++                role: "Cirurgi�ƒ�£ Ortopedista"
+               }
+             ].map((testimonial, i) => (
+               <div key={i} className="bg-card p-8 rounded-3xl border border-border shadow-sm relative">
+@@ -294,24 +294,24 @@ function Landing() {
+                   <Clock className="h-4 w-4" /> Apenas para os 15 PRIMEIROS inscritos
+                 </div>
+                 <h2 className="font-display text-4xl font-black leading-tight">
+-                  CondiÃƒÂ§ÃƒÂ£o Vip de LanÃƒÂ§amento
++                  Condi�ƒ�§�ƒ�£o Vip de Lan�ƒ�§amento
+                 </h2>
+                 <p className="mt-4 text-lg text-white/80">
+-                  Ao garantir sua vaga, vocÃƒÂª terÃƒÂ¡ <strong>1 Ano de Acesso Total</strong> ao curso, tempo de sobra para rever as aulas e dominar a prÃƒÂ¡tica. AlÃƒÂ©m disso, os <strong>15 primeiros</strong> inscritos hoje vÃƒÂ£o levar um bÃƒÂ´nus inacreditÃƒÂ¡vel:
++                  Ao garantir sua vaga, voc�ƒ�ª ter�ƒ�¡ <strong>1 Ano de Acesso Total</strong> ao curso, tempo de sobra para rever as aulas e dominar a pr�ƒ�¡tica. Al�ƒ��m disso, os <strong>15 primeiros</strong> inscritos hoje v�ƒ�£o levar um b�ƒ�´nus inacredit�ƒ�¡vel:
+                 </p>
+                 
+                 <div className="mt-8 rounded-2xl bg-gradient-to-r from-coral/10 to-transparent border-l-4 border-coral p-6">
+                   <div className="flex items-start gap-4">
+                     <Store className="h-8 w-8 text-coral shrink-0 mt-1" />
+                     <div>
+-                      <h3 className="text-xl font-bold text-white">Como montar seu NegÃƒÂ³cio de Sucesso</h3>
+-                      <p className="text-coral text-sm font-bold mt-1 tracking-wider uppercase">BÃƒÂ´nus Exclusivo: Mentoria Flix</p>
++                      <h3 className="text-xl font-bold text-white">Como montar seu Neg�ƒ�³cio de Sucesso</h3>
++                      <p className="text-coral text-sm font-bold mt-1 tracking-wider uppercase">B�ƒ�´nus Exclusivo: Mentoria Flix</p>
+                       <div className="mt-2 inline-flex items-center gap-2 bg-white/5 px-3 py-1 rounded-md border border-white/10">
+                         <span className="text-sm text-white/50 line-through">De R$ 799,00</span>
+-                        <span className="text-sm font-bold text-green-400">GRÃƒÂTIS HOJE</span>
++                        <span className="text-sm font-bold text-green-400">GR�ƒ�TIS HOJE</span>
+                       </div>
+                       <p className="mt-3 text-white/70">
+-                        Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gestÃƒÂ£o, estruturaÃƒÂ§ÃƒÂ£o, contrataÃƒÂ§ÃƒÂ£o e vendas com quem jÃƒÂ¡ construiu empresas sÃƒÂ³lidas na medicina veterinÃƒÂ¡ria.
++                        Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gest�ƒ�£o, estrutura�ƒ�§�ƒ�£o, contrata�ƒ�§�ƒ�£o e vendas com quem j�ƒ�¡ construiu empresas s�ƒ�³lidas na medicina veterin�ƒ�¡ria.
+                       </p>
+                     </div>
+                   </div>
+@@ -333,7 +333,7 @@ function Landing() {
+                     <span className="text-6xl font-black text-coral mx-2">97</span>
+                     <span className="text-xl font-bold text-gray-900 mt-8">,50</span>
+                   </div>
+-                  <span className="text-sm text-gray-500">ou R$ 997 ÃƒÂ  vista</span>
++                  <span className="text-sm text-gray-500">ou R$ 997 �ƒ�  vista</span>
+                 </div>
+ 
+                 <ul className="space-y-4 text-left mb-8">
+@@ -341,7 +341,7 @@ function Landing() {
+                     "1 Ano de Acesso Completo ao Curso",
+                     "Biblioteca e Casos Interativos do Curso",
+                     "Desconto VIP de 25% em novos cursos",
+-                    "Mentoria Flix: NegÃƒÂ³cio de Sucesso (Para os 15 primeiros)"
++                    "Mentoria Flix: Neg�ƒ�³cio de Sucesso (Para os 15 primeiros)"
+                   ].map((item, i) => (
+                     <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                       <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
+@@ -352,7 +352,7 @@ function Landing() {
+ 
+                 <Button asChild className="w-full h-14 text-lg font-bold bg-coral hover:bg-coral/90 shadow-xl shadow-coral/30 rounded-xl transition-all hover:scale-105">
+                   <Link to="/checkout/$courseId" params={{ courseId: "ortopedia-avancada" }}>
+-                    Garantir Vaga com BÃƒÂ´nus
++                    Garantir Vaga com B�ƒ�´nus
+                   </Link>
+                 </Button>
+                 <p className="text-xs text-gray-500 mt-4 font-medium flex items-center justify-center gap-1">
+@@ -371,32 +371,32 @@ function Landing() {
+             <h2 className="font-display text-3xl font-bold sm:text-4xl text-foreground">
+               Perguntas Frequentes
+             </h2>
+-            <p className="mt-4 text-lg text-muted-foreground">Tudo o que vocÃƒÂª precisa saber antes de entrar.</p>
++            <p className="mt-4 text-lg text-muted-foreground">Tudo o que voc�ƒ�ª precisa saber antes de entrar.</p>
+           </div>
+ 
+           <Accordion type="single" collapsible className="w-full">
+             <AccordionItem value="item-1">
+-              <AccordionTrigger className="text-left font-bold text-lg">O acesso ÃƒÂ© vitalÃƒÂ­cio?</AccordionTrigger>
++              <AccordionTrigger className="text-left font-bold text-lg">O acesso �ƒ� vital�ƒ�­cio?</AccordionTrigger>
+               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+-                Neste formato VIP de lanÃƒÂ§amento, o acesso ÃƒÂ© de 1 Ano Completo. Esse ÃƒÂ© o tempo ideal e comprovado para vocÃƒÂª assistir, revisar as prÃƒÂ¡ticas clÃƒÂ­nicas e tirar suas dÃƒÂºvidas na Comunidade.
++                Neste formato VIP de lan�ƒ�§amento, o acesso �ƒ� de 1 Ano Completo. Esse �ƒ� o tempo ideal e comprovado para voc�ƒ�ª assistir, revisar as pr�ƒ�¡ticas cl�ƒ�­nicas e tirar suas d�ƒ�ºvidas na Comunidade.
+               </AccordionContent>
+             </AccordionItem>
+             <AccordionItem value="item-2">
+               <AccordionTrigger className="text-left font-bold text-lg">Tem garantia?</AccordionTrigger>
+               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+-                Sim! VocÃƒÂª tem 7 dias de Garantia Incondicional. Se vocÃƒÂª acessar as aulas e achar que a metodologia Vetmasterclass nÃƒÂ£o vai transformar a sua rotina, basta um e-mail para reembolsarmos 100% do seu investimento.
++                Sim! Voc�ƒ�ª tem 7 dias de Garantia Incondicional. Se voc�ƒ�ª acessar as aulas e achar que a metodologia Vetmasterclass n�ƒ�£o vai transformar a sua rotina, basta um e-mail para reembolsarmos 100% do seu investimento.
+               </AccordionContent>
+             </AccordionItem>
+             <AccordionItem value="item-3">
+               <AccordionTrigger className="text-left font-bold text-lg">Ainda sou estudante, posso fazer?</AccordionTrigger>
+               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+-                Com certeza. Ãƒâ€° a melhor fase para comeÃƒÂ§ar. Diferente da faculdade que ensina a teoria, aqui vocÃƒÂª vai aprender a "Medicina da Vida Real". Quando se formar, jÃƒÂ¡ estarÃƒÂ¡ muito ÃƒÂ  frente dos recÃƒÂ©m-formados inseguros.
++                Com certeza. �ƒ�€° a melhor fase para come�ƒ�§ar. Diferente da faculdade que ensina a teoria, aqui voc�ƒ�ª vai aprender a "Medicina da Vida Real". Quando se formar, j�ƒ�¡ estar�ƒ�¡ muito �ƒ�  frente dos rec�ƒ��m-formados inseguros.
+               </AccordionContent>
+             </AccordionItem>
+             <AccordionItem value="item-4">
+-              <AccordionTrigger className="text-left font-bold text-lg">Os certificados sÃƒÂ£o vÃƒÂ¡lidos?</AccordionTrigger>
++              <AccordionTrigger className="text-left font-bold text-lg">Os certificados s�ƒ�£o v�ƒ�¡lidos?</AccordionTrigger>
+               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
+-                Sim! Todos os nossos cursos geram certificados vÃƒÂ¡lidos em todo o territÃƒÂ³rio nacional como capacitaÃƒÂ§ÃƒÂ£o profissional, ideais para currÃƒÂ­culo e horas complementares na faculdade.
++                Sim! Todos os nossos cursos geram certificados v�ƒ�¡lidos em todo o territ�ƒ�³rio nacional como capacita�ƒ�§�ƒ�£o profissional, ideais para curr�ƒ�­culo e horas complementares na faculdade.
+               </AccordionContent>
+             </AccordionItem>
+           </Accordion>
+@@ -405,7 +405,7 @@ function Landing() {
+ 
+       <footer className="border-t border-border bg-card">
+         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 text-center text-sm text-muted-foreground">
+-          Ã‚Â© {new Date().getFullYear()} Vetmasterclass. Revolucionando a EducaÃƒÂ§ÃƒÂ£o VeterinÃƒÂ¡ria.
++          �‚� {new Date().getFullYear()} Vetmasterclass. Revolucionando a Educa�ƒ�§�ƒ�£o Veterin�ƒ�¡ria.
+         </div>
+       </footer>
+     </div>

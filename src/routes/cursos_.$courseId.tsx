@@ -246,6 +246,9 @@ function CourseSalesPage() {
               { icon: Microscope, title: "Estudo de Casos Clínicos", desc: "Discussão aprofundada de casos reais para treinar seu raciocínio diagnóstico de forma prática." },
               { icon: BookOpen, title: "Biblioteca VIP de Papers", desc: "Acesso a um acervo de artigos científicos selecionados e traduzidos, sempre atualizados." },
               { icon: Brain, title: "Mentor On-line (Tutor IA)", desc: "Seu assistente virtual 24h treinado com a literatura oficial para te ajudar no plantão." },
+              { icon: BookMarked, title: "Glossário e Medicamentos", desc: "Glossário com termos semiológicos e os medicamentos mais utilizados na rotina clínica." },
+              { icon: Star, title: "Bônus: Gestão e Pet Shop", desc: "Curso completo de como montar seu pet shop com Dr Rodrigo Nicola, 30 anos de experiência." },
+              { icon: MessageSquare, title: "Comunidade no WhatsApp", desc: "Grupos exclusivos de WhatsApp para networking e troca de experiências com outros alunos." },
               { icon: ShieldCheck, title: "Garantia Incondicional de 7 Dias", desc: "Risco zero. Se não gostar da didática, devolvemos 100% do seu investimento." },
             ].map((v, i) => (
               <div key={i} className="flex gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-md transition-shadow">
@@ -414,8 +417,10 @@ function CourseSalesPage() {
                 
                 <div className="w-full h-px bg-slate-100 my-6"></div>
                 
-                <Button disabled className="w-full h-16 text-xl font-black bg-slate-200 text-red-600 shadow-none cursor-not-allowed rounded-2xl">
-                  VENDAS ABREM AMANHÃ ÀS 08:00
+                <Button className="w-full h-16 text-xl font-black bg-[#34C759] hover:bg-[#34C759]/90 text-white shadow-xl shadow-green-500/20 rounded-2xl transition-all hover:scale-105" asChild>
+                  <Link to="/checkout/$courseId" params={{ courseId: course.id }}>
+                    Garantir Minha Vaga
+                  </Link>
                 </Button>
                 <div className="flex flex-col items-center gap-1 mt-4">
                   <p className="text-[12px] font-semibold text-slate-600 flex items-center gap-1">
