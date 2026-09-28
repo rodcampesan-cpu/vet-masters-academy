@@ -318,10 +318,10 @@ function CheckoutPage() {
                 <Button 
                   type="button" 
                   disabled={true}
-                  className="w-full h-16 text-lg font-bold bg-slate-300 text-slate-500 shadow-none rounded-xl cursor-not-allowed"
+                  className="w-full h-16 text-lg font-bold bg-slate-200 text-red-600 shadow-none rounded-xl cursor-not-allowed"
                 >
                   <Lock className="h-5 w-5 mr-2" />
-                  Vendas abrem amanhã às 08:00
+                  VENDAS ABREM AMANHÃ ÀS 08:00
                 </Button>
                 
                 <p className="text-center text-[10px] text-slate-400 mt-4 flex justify-center items-center gap-1">

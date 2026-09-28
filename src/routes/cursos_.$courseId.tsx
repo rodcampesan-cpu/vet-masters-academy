@@ -414,7 +414,7 @@ function CourseSalesPage() {
                 
                 <div className="w-full h-px bg-slate-100 my-6"></div>
                 
-                <Button disabled className="w-full h-16 text-xl font-black bg-slate-300 text-slate-500 shadow-none cursor-not-allowed rounded-2xl">
+                <Button disabled className="w-full h-16 text-xl font-black bg-slate-200 text-red-600 shadow-none cursor-not-allowed rounded-2xl">
                   VENDAS ABREM AMANHÃ ÀS 08:00
                 </Button>
                 <div className="flex flex-col items-center gap-1 mt-4">
