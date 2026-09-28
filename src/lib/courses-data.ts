@@ -3,6 +3,7 @@ import cardio from "@/assets/course-cardio.jpg";
 import derma from "@/assets/course-derma.jpg";
 import neuro from "@/assets/course-neuro.jpg";
 import t1 from "@/assets/dr-rodrigo.png";
+import draNathaliaImg from "@/assets/dra-nathalia.jpg";
 import t2 from "@/assets/teacher-2.jpg";
 import t3 from "@/assets/teacher-3.jpg";
 import mentoriaFlixImg from "@/assets/mentoria-flix.png";
@@ -74,7 +75,7 @@ export const teachers: Teacher[] = [
   },
   {
     id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Clínica Médica",
-    specialty: "Clínica Médica", avatar: "https://i.pravatar.cc/150?img=9",
+    specialty: "Clínica Médica", avatar: draNathaliaImg,
     bioTopics: [
       { label: "Especialidade", value: "Clínica Médica" },
       { label: "Atuação", value: "Atendimento de rotina e acompanhamento clínico" },
@@ -83,6 +84,22 @@ export const teachers: Teacher[] = [
 ];
 
 export const courses: Course[] = [
+  {
+    id: "mentoria-flix",
+    title: "Mentoria Flix: Método P.E.T.",
+    specialty: "Gestão",
+    description: "Transforme seu negócio pet. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.",
+    cover: mentoriaFlixImg,
+    hours: 20,
+    modules: 8,
+    lessons: 30,
+    students: 0,
+    progress: 0,
+    teacher: teachers[0],
+    level: "Avançado",
+    purchased: false,
+    externalLink: "https://mentoriaflix.com.br",
+  },
   {
     id: "ortopedia-avancada",
     title: "Ortopedia Clínica de Excelência",
@@ -126,22 +143,6 @@ export const courses: Course[] = [
       { term: "Intumescência Cervicotorácica", definition: "Espessamento da medula espinhal (segmentos C6-T2). É a região onde se originam os nervos espinhais que formam o plexo braquial, responsável pela inervação dos membros torácicos (anteriores)." },
       { term: "Intumescência Lombossacra", definition: "Espessamento da medula espinhal (segmentos L4-S3). É a região onde se originam os nervos espinhais que formam o plexo lombossacro, responsável pela inervação dos membros pélvicos (posteriores)." }
     ],
-  },
-  {
-    id: "mentoria-flix",
-    title: "Mentoria Flix: Método P.E.T.",
-    specialty: "Gestão",
-    description: "Transforme seu negócio pet. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.",
-    cover: mentoriaFlixImg,
-    hours: 20,
-    modules: 8,
-    lessons: 30,
-    students: 0,
-    progress: 0,
-    teacher: teachers[0],
-    level: "Avançado",
-    purchased: false,
-    externalLink: "https://mentoriaflix.com.br",
   },
   {
     id: "neuro-basica",
