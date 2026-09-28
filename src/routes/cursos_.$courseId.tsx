@@ -399,23 +399,21 @@ function CourseSalesPage() {
               </div>
 
               <div className="bg-white rounded-3xl p-8 text-center text-slate-900 shadow-xl">
-                <p className="text-slate-500 font-medium mb-2 line-through">De: R$ 1.299,00</p>
+                <p className="text-slate-500 font-medium mb-2 line-through">De: R$ 2.800,00</p>
                 <div className="flex justify-center items-start">
                   <span className="text-xl font-bold mt-2 text-slate-500 mr-1">R$</span>
-                  <span className="text-7xl font-black text-green-600">799</span>
+                  <span className="text-7xl font-black text-green-600">2.300</span>
                   <span className="text-xl font-bold mt-8">,00</span>
                 </div>
                 <div className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full mt-2">
-                  🔥 Economia de R$ 500,00
+                  🔥 Lote de Pré-Venda
                 </div>
-                <p className="text-sm text-slate-500 mt-3">ou 12x de R$ 79,90 sem juros</p>
+                <p className="text-sm text-slate-500 mt-3">ou em até 12x no cartão de crédito</p>
                 
                 <div className="w-full h-px bg-slate-100 my-6"></div>
                 
-                <Button asChild className="w-full h-16 text-xl font-black bg-green-500 hover:bg-green-600 shadow-lg shadow-green-500/30 transition-all hover:scale-105 rounded-2xl">
-                  <Link to="/signup" search={{ redirect: `/checkout/${course.id}` }}>
-                    COMPRAR AGORA
-                  </Link>
+                <Button disabled className="w-full h-16 text-xl font-black bg-slate-300 text-slate-500 shadow-none cursor-not-allowed rounded-2xl">
+                  VENDAS ABREM AMANHÃ ÀS 08:00
                 </Button>
                 <div className="flex flex-col items-center gap-1 mt-4">
                   <p className="text-[12px] font-semibold text-slate-600 flex items-center gap-1">

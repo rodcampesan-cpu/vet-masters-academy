@@ -71,15 +71,40 @@ function CheckoutPage() {
     return v.replace(/\D/g, '').replace(/(\d{2})(\d{2})/, '$1/$2').substring(0, 5);
   };
 
-  const handleCheckout = (e: React.FormEvent) => {
+  const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!user) return;
     setLoading(true);
     
-    // Simulando processamento de pagamento
-    setTimeout(() => {
-      toast.success("Pagamento aprovado com sucesso! Bem-vindo à Vetmasterclass.");
-      navigate({ to: "/app" }); // Redireciona para o Início autenticado
-    }, 2000);
+    try {
+      const res = await fetch('/api/create-preference', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          courseId: course.id,
+          title: course.title,
+          price: 2300,
+          userEmail: user.email,
+          userId: user.id
+        })
+      });
+
+      const data = await res.json();
+      
+      if (data.init_point) {
+        // Redireciona para a página segura do Mercado Pago
+        window.location.href = data.init_point;
+      } else {
+        toast.error("Erro ao gerar pagamento. Tente novamente.");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro de conexão ao processar pagamento.");
+      setLoading(false);
+    }
   };
 
   return (
@@ -290,12 +315,12 @@ function CheckoutPage() {
                 </div>
 
                 <Button 
-                  type="submit" 
-                  disabled={loading}
-                  className="w-full h-16 text-lg font-bold bg-green-500 hover:bg-green-600 text-white shadow-[0_8px_30px_-10px_#22c55e] rounded-xl transition-all hover:scale-[1.02]"
+                  type="button" 
+                  disabled={true}
+                  className="w-full h-16 text-lg font-bold bg-slate-300 text-slate-500 shadow-none rounded-xl cursor-not-allowed"
                 >
                   <Lock className="h-5 w-5 mr-2" />
-                  {loading ? "Processando..." : orderBump ? "Finalizar Compra com Order Bump" : "Finalizar Compra e Acessar Agora"}
+                  Vendas abrem amanhã às 08:00
                 </Button>
                 
                 <p className="text-center text-[10px] text-slate-400 mt-4 flex justify-center items-center gap-1">

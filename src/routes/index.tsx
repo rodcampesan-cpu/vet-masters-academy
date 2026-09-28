@@ -1,11 +1,13 @@
+import { useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Brain, GraduationCap, Library, MessagesSquare, Play, Sparkles, Stethoscope, Trophy, Users, CheckCircle, Gift, AlertTriangle, Clock, Store } from "lucide-react";
+import { ArrowRight, Award, Brain, GraduationCap, Library, MessagesSquare, Play, Sparkles, Stethoscope, Trophy, Users, CheckCircle, Gift, AlertTriangle, Clock, Store, CalendarClock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/landing/Navbar";
 import heroImg from "@/assets/hero-vet.jpg";
 import mentoriaFlixImg from "@/assets/mentoria-flix.png";
 import { courses, specialties, teachers } from "@/lib/courses-data";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,8 +20,42 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
+  const [showPreSalePopup, setShowPreSalePopup] = useState(false);
+
+  useEffect(() => {
+    // Show popup after 2 seconds
+    const timer = setTimeout(() => {
+      setShowPreSalePopup(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background font-sans">
+      <Dialog open={showPreSalePopup} onOpenChange={setShowPreSalePopup}>
+        <DialogContent className="sm:max-w-lg text-center p-10 border-coral border-2 shadow-2xl">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-coral/10 mb-4 animate-bounce">
+            <CalendarClock className="h-10 w-10 text-coral" />
+          </div>
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-black font-display text-center mb-4 uppercase tracking-wide text-coral">Pré-Venda Liberada!</DialogTitle>
+            <DialogDescription className="text-center text-lg text-foreground/90 font-medium">
+              Garanta sua vaga com desconto na primeira turma do curso de <strong className="text-coral text-xl block mt-2">Ortopedia Avançada</strong>
+              <br/><br/>
+              Aproveite a condição especial de lançamento: <br/>De <span className="line-through text-red-400">R$ 2.800</span> por apenas <strong className="text-green-600 text-2xl">R$ 2.300</strong> até o dia <strong>23/11/2026</strong>.
+              <br/><br/>
+              <span className="inline-block bg-primary text-white p-3 px-6 rounded-xl font-bold mt-2 shadow-lg text-lg animate-pulse">
+                Início das aulas: 18/11/2026
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-center mt-6">
+            <Button asChild size="lg" className="w-full h-12 bg-coral hover:bg-coral/90 text-white font-bold" onClick={() => setShowPreSalePopup(false)}>
+              <a href="#oferta">Aproveitar o Desconto</a>
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Navbar />
 
       {/* NEW HERO SECTION (OBJECTIVE & BRIGHT) */}
@@ -326,13 +362,14 @@ function Landing() {
                 
                 <h3 className="text-xl font-bold text-gray-900 mt-2">Plano Vetmasterclass</h3>
                 <div className="my-6">
-                  <span className="text-sm text-gray-500 line-through">De R$ 2.997</span>
-                  <div className="flex justify-center items-start mt-2">
-                    <span className="text-2xl font-bold text-gray-900 mt-2">12x</span>
-                    <span className="text-6xl font-black text-coral mx-2">97</span>
-                    <span className="text-xl font-bold text-gray-900 mt-8">,50</span>
+                  <span className="text-sm text-gray-500 line-through">De R$ 2.800</span>
+                  <div className="flex justify-center items-end mt-2 mb-2 text-coral">
+                    <span className="text-3xl font-bold text-gray-900 mr-2 mb-1">R$</span>
+                    <span className="text-6xl font-black">2.300</span>
+                    <span className="text-xl font-bold text-gray-900 ml-1 mb-1">,00</span>
                   </div>
-                  <span className="text-sm text-gray-500">ou R$ 997 à vista</span>
+                  <span className="text-sm text-gray-500 font-bold text-green-600 block mb-1">Pré-venda válida até 23/11/2026</span>
+                  <span className="text-sm text-gray-500">ou em até 12x no cartão de crédito</span>
                 </div>
 
                 <ul className="space-y-4 text-left mb-8">
@@ -349,10 +386,8 @@ function Landing() {
                   ))}
                 </ul>
 
-                <Button asChild className="w-full h-14 text-lg font-bold bg-coral hover:bg-coral/90 shadow-xl shadow-coral/30 rounded-xl transition-all hover:scale-105">
-                  <Link to="/checkout/ortopedia-avancada">
-                    Garantir Vaga com Bônus
-                  </Link>
+                <Button disabled className="w-full h-14 text-lg font-bold bg-slate-300 text-slate-500 shadow-none rounded-xl cursor-not-allowed">
+                  Vendas abrem amanhã
                 </Button>
                 <p className="text-xs text-gray-500 mt-4 font-medium flex items-center justify-center gap-1">
                   <Gift className="h-3 w-3" /> 7 dias de garantia incondicional

@@ -122,9 +122,9 @@ function PublicCoursesPage() {
 
                 {c.id !== 'mentoria-flix' && (
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="text-xs text-slate-400 line-through">R$ 1.299</span>
-                    <span className="text-xl font-black text-green-600">R$ 799</span>
-                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Promoção</span>
+                    <span className="text-xs text-slate-400 line-through">R$ 2.800</span>
+                    <span className="text-xl font-black text-green-600">R$ 2.300</span>
+                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Pré-venda</span>
                   </div>
                 )}
 

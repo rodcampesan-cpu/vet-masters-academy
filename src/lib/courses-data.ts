@@ -98,7 +98,7 @@ export const courses: Course[] = [
     teacher: teachers[0],
     level: "Avançado",
     featured: true,
-    purchased: true,
+    purchased: false,
     glossary: [
       { term: "Claudicação", definition: "Falta de firmeza ou assimetria no andar, popularmente conhecido como 'mancar'. Pode ser de apoio (dor ao pisar) ou de elevação (dor ao mover o membro)." },
       { term: "Crepitação", definition: "Ruído ou sensação de atrito (roçar) de ossos ou cartilagens desgastadas durante o movimento articular ou à palpação de fraturas." },
@@ -190,11 +190,27 @@ export const courses: Course[] = [
     level: "Avançado",
     featured: true,
     purchased: false,
+  },
+  {
+    id: "clinica-medica",
+    title: "Clínica Médica de Pequenos Animais",
+    specialty: "Clínica Médica",
+    description: "Aprenda a conduzir o atendimento clínico do dia a dia de forma assertiva, com protocolos atualizados e foco total na resolução dos casos.",
+    cover: derma, // Usando imagem de fallback
+    hours: 50,
+    modules: 10,
+    lessons: 80,
+    students: 0,
+    progress: 0,
+    teacher: teachers[3], // Dra. Nathalia
+    level: "Intermediário",
+    featured: true,
+    purchased: false,
   }
 ];
 
 export const specialties = [
-  "Ortopedia", "Neurologia", "Gestão", "Hematologia", "Emergência"
+  "Ortopedia", "Neurologia", "Gestão", "Hematologia", "Emergência", "Clínica Médica"
 ];
 
 export const ortopediaModules = [
