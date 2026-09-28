@@ -32,7 +32,7 @@ function PublicCoursesPage() {
           <div className="flex items-center gap-4">
             <Link to="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">Entrar</Link>
             <Button asChild className="h-9 px-4 text-xs bg-coral text-white hover:bg-coral/90">
-              <Link to="/signup" search={{ redirect: undefined }}>Criar Conta</Link>
+              <Link to="/signup">Criar Conta</Link>
             </Button>
           </div>
         </div>
@@ -155,17 +155,17 @@ function PublicCoursesPage() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
               <div className="h-16 w-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-6">
                 <span className="text-3xl">👥</span>
               </div>
-              <h3 className="text-2xl font-bold font-display mb-3">Comunidade Vetmasterclass</h3>
+              <h3 className="text-2xl font-bold font-display mb-3">Comunidade no WhatsApp</h3>
               <p className="text-muted-foreground mb-6">
-                Não fique mais sozinho no diagnóstico. Discuta casos complexos, troque experiências e faça networking de alto nível com veterinários de todo o Brasil e nossos professores especialistas.
+                Não fique mais sozinho no diagnóstico. Discuta casos complexos, troque experiências e faça networking nos grupos exclusivos com veterinários de todo o Brasil.
               </p>
               <Button asChild variant="outline" className="mt-auto rounded-xl">
-                <Link to="/signup" search={{ redirect: undefined }}>Faça parte do grupo</Link>
+                <Link to="/signup">Faça parte do grupo</Link>
               </Button>
             </div>
             
@@ -175,10 +175,49 @@ function PublicCoursesPage() {
               </div>
               <h3 className="text-2xl font-bold font-display mb-3">Casos Clínicos Interativos</h3>
               <p className="text-muted-foreground mb-6">
-                Treine seu raciocínio clínico em um simulador de diagnósticos com casos reais gerados por IA. Receba feedback imediato das suas condutas antes de aplicá-las nos seus pacientes de verdade.
+                Treine seu raciocínio clínico em um simulador de diagnósticos com casos reais. Receba feedback imediato das suas condutas antes da prática.
               </p>
               <Button asChild variant="outline" className="mt-auto rounded-xl">
-                <Link to="/signup" search={{ redirect: undefined }}>Teste seus conhecimentos</Link>
+                <Link to="/signup">Teste seus conhecimentos</Link>
+              </Button>
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
+              <div className="h-16 w-16 bg-purple-50 text-purple-500 rounded-full flex items-center justify-center mb-6">
+                <span className="text-3xl">📚</span>
+              </div>
+              <h3 className="text-2xl font-bold font-display mb-3">Glossário e Bulário</h3>
+              <p className="text-muted-foreground mb-6">
+                Acesse rapidamente os termos semiológicos e as doses dos medicamentos mais utilizados na rotina clínica veterinária.
+              </p>
+              <Button asChild variant="outline" className="mt-auto rounded-xl">
+                <Link to="/signup">Acessar Bulário</Link>
+              </Button>
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
+              <div className="h-16 w-16 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center mb-6">
+                <span className="text-3xl">🏪</span>
+              </div>
+              <h3 className="text-2xl font-bold font-display mb-3">Como Montar seu Pet Shop</h3>
+              <p className="text-muted-foreground mb-6">
+                Aprenda gestão, precificação e contratação. Transforme sua clínica em um negócio lucrativo com a Mentoria Flix.
+              </p>
+              <Button asChild variant="outline" className="mt-auto rounded-xl">
+                <Link to="/signup">Acessar Mentoria</Link>
+              </Button>
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center md:col-span-2 lg:col-span-1">
+              <div className="h-16 w-16 bg-coral/10 text-coral rounded-full flex items-center justify-center mb-6">
+                <span className="text-3xl">🤖</span>
+              </div>
+              <h3 className="text-2xl font-bold font-display mb-3">Tutor Vet IA</h3>
+              <p className="text-muted-foreground mb-6">
+                Seu assistente virtual 24h treinado com a literatura oficial para tirar dúvidas de protocolos no meio do plantão.
+              </p>
+              <Button asChild variant="outline" className="mt-auto rounded-xl">
+                <Link to="/signup">Conhecer a IA</Link>
               </Button>
             </div>
           </div>
