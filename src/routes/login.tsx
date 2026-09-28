@@ -10,7 +10,7 @@ import { useAuth } from "@/lib/auth-context";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Entrar — Vetmasterclass" }] }),
+  head: () => ({ meta: [{ title: "Entrar Ã¢â‚¬â€ Vetmasterclass" }] }),
   component: LoginPage,
 });
 
@@ -60,12 +60,12 @@ function LoginPage() {
     }
 
     toast.success("Bem-vindo de volta!");
-    // O useEffect já vai cuidar do redirecionamento
+    // O useEffect jÃƒÂ¡ vai cuidar do redirecionamento
   };
 
   const onGoogle = async () => {
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/app" });
-    if (result.error) toast.error("Não foi possível entrar com Google");
+    if (result.error) toast.error("NÃƒÂ£o foi possÃƒÂ­vel entrar com Google");
   };
 
   return (
@@ -80,10 +80,10 @@ function LoginPage() {
             <span className="font-display text-lg font-semibold">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <div>
-            <h2 className="font-display text-4xl font-bold leading-tight">Bem-vindo de volta à sua jornada veterinária.</h2>
+            <h2 className="font-display text-4xl font-bold leading-tight">Bem-vindo de volta ÃƒÂ  sua jornada veterinÃƒÂ¡ria.</h2>
             <p className="mt-4 text-white/70 max-w-md">Continue de onde parou e mantenha seu streak de estudos.</p>
           </div>
-          <p className="text-sm text-white/50">© Vetmasterclass</p>
+          <p className="text-sm text-white/50">Ã‚Â© Vetmasterclass</p>
         </div>
       </div>
 
@@ -96,7 +96,7 @@ function LoginPage() {
             <span className="font-display text-lg font-semibold">Vetmaster<span className="text-coral">class</span></span>
           </Link>
           <h1 className="font-display text-3xl font-bold">Entrar</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Acesse sua área exclusiva.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Acesse sua ÃƒÂ¡rea exclusiva.</p>
 
           <div className="mt-8"></div>
 
@@ -131,7 +131,7 @@ function LoginPage() {
           </form>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            Ainda não tem conta? <Link to="/signup" className="font-medium text-coral hover:underline">Criar conta</Link>
+            Ainda nÃƒÂ£o tem conta? <Link to="/signup" search={{ redirect: undefined }} className="font-medium text-coral hover:underline">Criar conta</Link>
           </p>
         </div>
       </div>

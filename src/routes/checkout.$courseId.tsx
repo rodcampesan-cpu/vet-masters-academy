@@ -43,6 +43,7 @@ function CheckoutPage() {
   };
 
   const orderBumpCourse = courses.find(c => c.id !== course.id && c.id !== 'mentoria-flix');
+  const [orderBump, setOrderBump] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {

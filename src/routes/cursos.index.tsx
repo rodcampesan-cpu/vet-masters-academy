@@ -5,7 +5,7 @@ import { courses, specialties } from "@/lib/courses-data";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/cursos/")({
-  head: () => ({ meta: [{ title: "Catálogo de Cursos — Vetmasterclass" }] }),
+  head: () => ({ meta: [{ title: "CatÃƒÂ¡logo de Cursos Ã¢â‚¬â€ Vetmasterclass" }] }),
   component: PublicCoursesPage,
 });
 
@@ -20,7 +20,7 @@ function PublicCoursesPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
-      {/* Header Público */}
+      {/* Header PÃƒÂºblico */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between px-4 sm:px-8">
           <Link to="/" className="flex items-center gap-2">
@@ -32,7 +32,7 @@ function PublicCoursesPage() {
           <div className="flex items-center gap-4">
             <Link to="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground">Entrar</Link>
             <Button asChild className="h-9 px-4 text-xs bg-coral text-white hover:bg-coral/90">
-              <Link to="/signup">Criar Conta</Link>
+              <Link to="/signup" search={{ redirect: undefined }}> Criar Conta</Link>
             </Button>
           </div>
         </div>
@@ -40,9 +40,9 @@ function PublicCoursesPage() {
 
       <main className="container mx-auto max-w-7xl px-4 py-12 sm:px-8">
         <div className="mb-12 text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl mb-4">Catálogo de Cursos</h1>
+          <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl mb-4">CatÃƒÂ¡logo de Cursos</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Escolha o seu próximo nível na medicina veterinária. Aprenda com os maiores especialistas do mercado e aplique na sua clínica amanhã.
+            Escolha o seu prÃƒÂ³ximo nÃƒÂ­vel na medicina veterinÃƒÂ¡ria. Aprenda com os maiores especialistas do mercado e aplique na sua clÃƒÂ­nica amanhÃƒÂ£.
           </p>
 
           <div className="mx-auto max-w-3xl bg-gradient-to-r from-coral/10 via-coral/5 to-transparent border border-coral/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden text-left sm:text-center shadow-sm">
@@ -55,10 +55,10 @@ function PublicCoursesPage() {
               </div>
               <div>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-2">
-                  🎁 Bônus Especial de Lançamento
+                  Ã°Å¸Å½Â BÃƒÂ´nus Especial de LanÃƒÂ§amento
                 </h3>
                 <p className="text-slate-700 font-medium leading-relaxed">
-                  Compre qualquer curso no <strong className="text-coral">2º Semestre de 2026</strong> e ganhe acesso total ao curso <strong>Mentoria Flix / Gestão</strong> (Valor de R$ 1.200,00) <strong className="text-green-700 bg-green-100 px-2 py-0.5 rounded ml-1 uppercase text-sm">Totalmente Grátis!</strong>
+                  Compre qualquer curso no <strong className="text-coral">2Ã‚Âº Semestre de 2026</strong> e ganhe acesso total ao curso <strong>Mentoria Flix / GestÃƒÂ£o</strong> (Valor de R$ 1.200,00) <strong className="text-green-700 bg-green-100 px-2 py-0.5 rounded ml-1 uppercase text-sm">Totalmente GrÃƒÂ¡tis!</strong>
                 </p>
               </div>
             </div>
@@ -99,11 +99,11 @@ function PublicCoursesPage() {
                 {c.id === 'mentoria-flix' && (
                   <div className="absolute inset-0 bg-coral/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-6 text-center z-20 backdrop-blur-md">
                     <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white text-coral mb-3 shadow-xl">
-                      <span className="font-bold text-lg">🎁</span>
+                      <span className="font-bold text-lg">Ã°Å¸Å½Â</span>
                     </span>
-                    <p className="text-white font-black text-lg uppercase tracking-wider mb-2 leading-tight">Bônus Exclusivo</p>
+                    <p className="text-white font-black text-lg uppercase tracking-wider mb-2 leading-tight">BÃƒÂ´nus Exclusivo</p>
                     <p className="text-white/95 text-xs sm:text-sm font-medium leading-relaxed">
-                      Este incrível curso de gestão com o renomado Dr. Rodrigo Nicola é <span className="bg-white text-coral px-1 rounded font-bold mx-0.5">GRATUITO</span> na compra dos nossos cursos principais.
+                      Este incrÃƒÂ­vel curso de gestÃƒÂ£o com o renomado Dr. Rodrigo Nicola ÃƒÂ© <span className="bg-white text-coral px-1 rounded font-bold mx-0.5">GRATUITO</span> na compra dos nossos cursos principais.
                     </p>
                   </div>
                 )}
@@ -124,7 +124,7 @@ function PublicCoursesPage() {
                   <div className="flex items-center gap-2 mb-4">
                     <span className="text-xs text-slate-400 line-through">R$ 2.800</span>
                     <span className="text-xl font-black text-green-600">R$ 2.300</span>
-                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Pré-venda</span>
+                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">PrÃƒÂ©-venda</span>
                   </div>
                 )}
 
@@ -149,36 +149,36 @@ function PublicCoursesPage() {
         </div>
         <div className="mt-24 space-y-12">
           <div className="text-center mb-12">
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">Muito Além de Cursos</h2>
+            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl mb-4">Muito AlÃƒÂ©m de Cursos</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Sua assinatura desbloqueia um ecossistema completo de aprendizado prático e networking profissional.
+              Sua assinatura desbloqueia um ecossistema completo de aprendizado prÃƒÂ¡tico e networking profissional.
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
               <div className="h-16 w-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-6">
-                <span className="text-3xl">👥</span>
+                <span className="text-3xl">Ã°Å¸â€˜Â¥</span>
               </div>
               <h3 className="text-2xl font-bold font-display mb-3">Comunidade Vetmasterclass</h3>
               <p className="text-muted-foreground mb-6">
-                Não fique mais sozinho no diagnóstico. Discuta casos complexos, troque experiências e faça networking de alto nível com veterinários de todo o Brasil e nossos professores especialistas.
+                NÃƒÂ£o fique mais sozinho no diagnÃƒÂ³stico. Discuta casos complexos, troque experiÃƒÂªncias e faÃƒÂ§a networking de alto nÃƒÂ­vel com veterinÃƒÂ¡rios de todo o Brasil e nossos professores especialistas.
               </p>
               <Button asChild variant="outline" className="mt-auto rounded-xl">
-                <Link to="/signup">Faça parte do grupo</Link>
+                <Link to="/signup" search={{ redirect: undefined }}> FaÃƒÂ§a parte do grupo</Link>
               </Button>
             </div>
             
             <div className="bg-white rounded-3xl p-8 border border-border shadow-sm flex flex-col items-center text-center">
               <div className="h-16 w-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mb-6">
-                <span className="text-3xl">🧩</span>
+                <span className="text-3xl">Ã°Å¸Â§Â©</span>
               </div>
-              <h3 className="text-2xl font-bold font-display mb-3">Casos Clínicos Interativos</h3>
+              <h3 className="text-2xl font-bold font-display mb-3">Casos ClÃƒÂ­nicos Interativos</h3>
               <p className="text-muted-foreground mb-6">
-                Treine seu raciocínio clínico em um simulador de diagnósticos com casos reais gerados por IA. Receba feedback imediato das suas condutas antes de aplicá-las nos seus pacientes de verdade.
+                Treine seu raciocÃƒÂ­nio clÃƒÂ­nico em um simulador de diagnÃƒÂ³sticos com casos reais gerados por IA. Receba feedback imediato das suas condutas antes de aplicÃƒÂ¡-las nos seus pacientes de verdade.
               </p>
               <Button asChild variant="outline" className="mt-auto rounded-xl">
-                <Link to="/signup">Teste seus conhecimentos</Link>
+                <Link to="/signup" search={{ redirect: undefined }}> Teste seus conhecimentos</Link>
               </Button>
             </div>
           </div>

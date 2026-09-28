@@ -11,8 +11,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vetmasterclass — A Revolução na Medicina Veterinária Prática" },
-      { name: "description", content: "Aprenda a aplicar a medicina do mundo real, ganhar a confiança absoluta do tutor e faturar mais com procedimentos assertivos." },
+      { title: "Vetmasterclass Ã¢â‚¬â€ A RevoluÃƒÂ§ÃƒÂ£o na Medicina VeterinÃƒÂ¡ria PrÃƒÂ¡tica" },
+      { name: "description", content: "Aprenda a aplicar a medicina do mundo real, ganhar a confianÃƒÂ§a absoluta do tutor e faturar mais com procedimentos assertivos." },
     ],
   }),
   component: Landing,
@@ -32,7 +32,7 @@ function Landing() {
             <div className="animate-fade-up">
               <div className="inline-flex w-fit items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-4 py-1.5 text-sm font-medium text-coral backdrop-blur mb-6">
                 <AlertTriangle className="h-4 w-4" />
-                O fim da insegurança nos plantões
+                O fim da inseguranÃƒÂ§a nos plantÃƒÂµes
               </div>
               <h1 className="font-display text-4xl font-extrabold sm:text-5xl lg:text-6xl text-foreground leading-[1.1]">
                 A faculdade te ensinou a anatomia. <br/>
@@ -41,9 +41,9 @@ function Landing() {
               
               <div className="mt-8 space-y-4">
                 {[
-                  "Você tem medo de fechar um diagnóstico complexo na frente do cliente?",
-                  "Você prescreve o tratamento, mas o tutor não adere porque não entendeu o valor?",
-                  "Você sabe a teoria, mas trava na hora de aplicar o protocolo de emergência?"
+                  "VocÃƒÂª tem medo de fechar um diagnÃƒÂ³stico complexo na frente do cliente?",
+                  "VocÃƒÂª prescreve o tratamento, mas o tutor nÃƒÂ£o adere porque nÃƒÂ£o entendeu o valor?",
+                  "VocÃƒÂª sabe a teoria, mas trava na hora de aplicar o protocolo de emergÃƒÂªncia?"
                 ].map((text, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="flex-shrink-0 mt-1">
@@ -64,7 +64,7 @@ function Landing() {
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-14 border-border bg-card text-foreground hover:bg-secondary px-8 text-lg rounded-xl transition-all">
                   <Link to="/cursos">
-                    Ver Catálogo de Cursos
+                    Ver CatÃƒÂ¡logo de Cursos
                   </Link>
                 </Button>
               </div>
@@ -72,7 +72,7 @@ function Landing() {
               <div className="mt-6 flex items-center gap-3 rounded-xl bg-coral/10 border border-coral/20 p-3 max-w-lg">
                 <Gift className="h-5 w-5 text-coral flex-shrink-0 animate-pulse" />
                 <p className="text-sm font-medium text-foreground">
-                  <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Negócio de Sucesso com Mentoria Flix" <span className="font-bold text-green-600 bg-green-100 px-1 rounded">(Valor R$ 799)</span>.
+                  <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu NegÃƒÂ³cio de Sucesso com Mentoria Flix" <span className="font-bold text-green-600 bg-green-100 px-1 rounded">(Valor R$ 799)</span>.
                 </p>
               </div>
               
@@ -82,7 +82,7 @@ function Landing() {
                   <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=2" alt=""/>
                   <img className="inline-block h-8 w-8 rounded-full ring-2 ring-background object-cover" src="https://i.pravatar.cc/100?img=3" alt=""/>
                 </div>
-                <p>Junte-se aos nossos <strong className="text-foreground">alunos incríveis</strong> de todo o Brasil!</p>
+                <p>Junte-se aos nossos <strong className="text-foreground">alunos incrÃƒÂ­veis</strong> de todo o Brasil!</p>
               </div>
             </div>
             
@@ -91,7 +91,7 @@ function Landing() {
               
               {/* VIDEO SALES LETTER MOCK */}
               <div className="relative rounded-2xl shadow-2xl border border-border overflow-hidden bg-black aspect-video group cursor-pointer flex items-center justify-center">
-                <img src={heroImg} alt="Veterinário atendendo" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" />
+                <img src={heroImg} alt="VeterinÃƒÂ¡rio atendendo" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
                 
                 <div className="relative z-10 flex flex-col items-center">
@@ -102,7 +102,7 @@ function Landing() {
                 </div>
 
                 <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded animate-pulse">
-                  GRAVAÇÃO LIBERADA
+                  GRAVAÃƒâ€¡ÃƒÆ’O LIBERADA
                 </div>
               </div>
               
@@ -111,7 +111,7 @@ function Landing() {
                   <CheckCircle className="h-6 w-6" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-foreground">Comunicação Assertiva</p>
+                  <p className="text-sm font-bold text-foreground">ComunicaÃƒÂ§ÃƒÂ£o Assertiva</p>
                   <p className="text-xs text-muted-foreground">Tutores engajados e tratamentos aprovados.</p>
                 </div>
               </div>
@@ -124,28 +124,28 @@ function Landing() {
       <section id="metodo" className="py-24 bg-card">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            A tríade do Médico Veterinário de Alto Valor
+            A trÃƒÂ­ade do MÃƒÂ©dico VeterinÃƒÂ¡rio de Alto Valor
           </h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Não basta ser bom tecnicamente. Você precisa dominar o cenário completo do atendimento.
+            NÃƒÂ£o basta ser bom tecnicamente. VocÃƒÂª precisa dominar o cenÃƒÂ¡rio completo do atendimento.
           </p>
 
           <div className="mt-16 grid sm:grid-cols-3 gap-8">
             {[
               {
                 icon: Stethoscope,
-                title: "Conduta Clínica Impecável",
-                desc: "Aprenda protocolos mastigados e diretos ao ponto, guiados pelas maiores autoridades do país."
+                title: "Conduta ClÃƒÂ­nica ImpecÃƒÂ¡vel",
+                desc: "Aprenda protocolos mastigados e diretos ao ponto, guiados pelas maiores autoridades do paÃƒÂ­s."
               },
               {
                 icon: Users,
                 title: "Engajamento do Tutor",
-                desc: "Técnicas de comunicação e vendas para fazer o tutor entender o valor do seu diagnóstico e aprovar orçamentos maiores."
+                desc: "TÃƒÂ©cnicas de comunicaÃƒÂ§ÃƒÂ£o e vendas para fazer o tutor entender o valor do seu diagnÃƒÂ³stico e aprovar orÃƒÂ§amentos maiores."
               },
               {
                 icon: Brain,
-                title: "Tutor Vet IA (Inteligência Artificial)",
-                desc: "Seu assistente de bolso treinado 100% na literatura oficial. Tire dúvidas de dosagem e protocolos no meio do plantão."
+                title: "Tutor Vet IA (InteligÃƒÂªncia Artificial)",
+                desc: "Seu assistente de bolso treinado 100% na literatura oficial. Tire dÃƒÂºvidas de dosagem e protocolos no meio do plantÃƒÂ£o."
               }
             ].map((feature, i) => (
               <div key={i} className="flex flex-col items-center text-center p-8 rounded-3xl border border-border bg-background shadow-soft hover:-translate-y-2 transition-transform duration-300">
@@ -167,24 +167,24 @@ function Landing() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="order-2 lg:order-1 relative">
               <div className="absolute inset-0 bg-coral/20 rounded-3xl blur-2xl transform rotate-3" />
-              <img src={mentoriaFlixImg} alt="Mentoria Flix Método P.E.T." className="relative rounded-3xl shadow-xl w-full max-w-2xl mx-auto object-cover border border-border" />
+              <img src={mentoriaFlixImg} alt="Mentoria Flix MÃƒÂ©todo P.E.T." className="relative rounded-3xl shadow-xl w-full max-w-2xl mx-auto object-cover border border-border" />
             </div>
             <div className="order-1 lg:order-2">
               <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-1.5 text-sm font-bold text-blue-800 mb-6 uppercase tracking-wider">
-                <Store className="h-4 w-4" /> Bônus Especial
+                <Store className="h-4 w-4" /> BÃƒÂ´nus Especial
               </div>
               <h2 className="font-display text-3xl font-bold sm:text-4xl text-gray-900 leading-tight">
-                Como montar seu Negócio de Sucesso com a <span className="text-coral">Mentoria Flix</span>
+                Como montar seu NegÃƒÂ³cio de Sucesso com a <span className="text-coral">Mentoria Flix</span>
               </h2>
               <p className="mt-6 text-lg text-gray-600">
-                Aprenda diretamente com o Dr. Rodrigo Nicola como transformar sua clínica ou consultório em uma empresa extremamente lucrativa. Você vai descobrir os segredos de gestão, contratação e estruturação de quem já construiu empresas sólidas na medicina veterinária.
+                Aprenda diretamente com o Dr. Rodrigo Nicola como transformar sua clÃƒÂ­nica ou consultÃƒÂ³rio em uma empresa extremamente lucrativa. VocÃƒÂª vai descobrir os segredos de gestÃƒÂ£o, contrataÃƒÂ§ÃƒÂ£o e estruturaÃƒÂ§ÃƒÂ£o de quem jÃƒÂ¡ construiu empresas sÃƒÂ³lidas na medicina veterinÃƒÂ¡ria.
               </p>
               
               <ul className="mt-8 space-y-4">
                 {[
                   "Curso completo com 8 aulas exclusivas",
-                  "E-book interativo e Playbook de execução",
-                  "Acesso ao Mentor IA para tirar dúvidas do negócio",
+                  "E-book interativo e Playbook de execuÃƒÂ§ÃƒÂ£o",
+                  "Acesso ao Mentor IA para tirar dÃƒÂºvidas do negÃƒÂ³cio",
                   "Aulas gravadas para assistir quando e onde quiser"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-gray-700 font-medium">
@@ -212,10 +212,10 @@ function Landing() {
       <section className="py-24 bg-card border-t border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">
-            Aprenda com quem vive a prática diária
+            Aprenda com quem vive a prÃƒÂ¡tica diÃƒÂ¡ria
           </h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto mb-16">
-            Nossos professores não são apenas acadêmicos. São profissionais renomados que lideram os maiores centros de referência do país.
+            Nossos professores nÃƒÂ£o sÃƒÂ£o apenas acadÃƒÂªmicos. SÃƒÂ£o profissionais renomados que lideram os maiores centros de referÃƒÂªncia do paÃƒÂ­s.
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -237,25 +237,25 @@ function Landing() {
       <section className="py-24 bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl font-bold sm:text-4xl mb-16">
-            O que dizem os alunos que estão <span className="text-coral">transformando</span> a medicina veterinária
+            O que dizem os alunos que estÃƒÂ£o <span className="text-coral">transformando</span> a medicina veterinÃƒÂ¡ria
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 text-left">
             {[
               {
-                text: "A plataforma mudou meu plantão. Antes eu travava na hora de dar o diagnóstico pro tutor, com medo de errar. Hoje o Tutor IA me dá o suporte na hora, é impressionante.",
+                text: "A plataforma mudou meu plantÃƒÂ£o. Antes eu travava na hora de dar o diagnÃƒÂ³stico pro tutor, com medo de errar. Hoje o Tutor IA me dÃƒÂ¡ o suporte na hora, ÃƒÂ© impressionante.",
                 name: "Dra. Marina Silva",
                 role: "Plantonista Intensivista"
               },
               {
-                text: "Os casos interativos são um absurdo de bons! Eu me sinto dentro da clínica tomando as decisões. Aprendi mais em 2 meses de Vetmasterclass do que em 2 anos de especialização teórica.",
+                text: "Os casos interativos sÃƒÂ£o um absurdo de bons! Eu me sinto dentro da clÃƒÂ­nica tomando as decisÃƒÂµes. Aprendi mais em 2 meses de Vetmasterclass do que em 2 anos de especializaÃƒÂ§ÃƒÂ£o teÃƒÂ³rica.",
                 name: "Dr. Carlos Eduardo",
-                role: "Clínico Geral"
+                role: "ClÃƒÂ­nico Geral"
               },
               {
-                text: "Eu nunca consegui cobrar o valor justo na minha consulta porque não sabia agregar valor. Depois do curso de Ortopedia, fecho cirurgias com o dobro do valor que cobrava antes.",
+                text: "Eu nunca consegui cobrar o valor justo na minha consulta porque nÃƒÂ£o sabia agregar valor. Depois do curso de Ortopedia, fecho cirurgias com o dobro do valor que cobrava antes.",
                 name: "Dra. Fernanda Costa",
-                role: "Cirurgiã Ortopedista"
+                role: "CirurgiÃƒÂ£ Ortopedista"
               }
             ].map((testimonial, i) => (
               <div key={i} className="bg-card p-8 rounded-3xl border border-border shadow-sm relative">
@@ -294,24 +294,24 @@ function Landing() {
                   <Clock className="h-4 w-4" /> Apenas para os 15 PRIMEIROS inscritos
                 </div>
                 <h2 className="font-display text-4xl font-black leading-tight">
-                  Condição Vip de Lançamento
+                  CondiÃƒÂ§ÃƒÂ£o Vip de LanÃƒÂ§amento
                 </h2>
                 <p className="mt-4 text-lg text-white/80">
-                  Ao garantir sua vaga, você terá <strong>1 Ano de Acesso Total</strong> ao curso, tempo de sobra para rever as aulas e dominar a prática. Além disso, os <strong>15 primeiros</strong> inscritos hoje vão levar um bônus inacreditável:
+                  Ao garantir sua vaga, vocÃƒÂª terÃƒÂ¡ <strong>1 Ano de Acesso Total</strong> ao curso, tempo de sobra para rever as aulas e dominar a prÃƒÂ¡tica. AlÃƒÂ©m disso, os <strong>15 primeiros</strong> inscritos hoje vÃƒÂ£o levar um bÃƒÂ´nus inacreditÃƒÂ¡vel:
                 </p>
                 
                 <div className="mt-8 rounded-2xl bg-gradient-to-r from-coral/10 to-transparent border-l-4 border-coral p-6">
                   <div className="flex items-start gap-4">
                     <Store className="h-8 w-8 text-coral shrink-0 mt-1" />
                     <div>
-                      <h3 className="text-xl font-bold text-white">Como montar seu Negócio de Sucesso</h3>
-                      <p className="text-coral text-sm font-bold mt-1 tracking-wider uppercase">Bônus Exclusivo: Mentoria Flix</p>
+                      <h3 className="text-xl font-bold text-white">Como montar seu NegÃƒÂ³cio de Sucesso</h3>
+                      <p className="text-coral text-sm font-bold mt-1 tracking-wider uppercase">BÃƒÂ´nus Exclusivo: Mentoria Flix</p>
                       <div className="mt-2 inline-flex items-center gap-2 bg-white/5 px-3 py-1 rounded-md border border-white/10">
                         <span className="text-sm text-white/50 line-through">De R$ 799,00</span>
-                        <span className="text-sm font-bold text-green-400">GRÁTIS HOJE</span>
+                        <span className="text-sm font-bold text-green-400">GRÃƒÂTIS HOJE</span>
                       </div>
                       <p className="mt-3 text-white/70">
-                        Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.
+                        Um treinamento completo com o mapa exato do zero ao lucro. Aprenda gestÃƒÂ£o, estruturaÃƒÂ§ÃƒÂ£o, contrataÃƒÂ§ÃƒÂ£o e vendas com quem jÃƒÂ¡ construiu empresas sÃƒÂ³lidas na medicina veterinÃƒÂ¡ria.
                       </p>
                     </div>
                   </div>
@@ -333,7 +333,7 @@ function Landing() {
                     <span className="text-6xl font-black text-coral mx-2">97</span>
                     <span className="text-xl font-bold text-gray-900 mt-8">,50</span>
                   </div>
-                  <span className="text-sm text-gray-500">ou R$ 997 à vista</span>
+                  <span className="text-sm text-gray-500">ou R$ 997 ÃƒÂ  vista</span>
                 </div>
 
                 <ul className="space-y-4 text-left mb-8">
@@ -341,7 +341,7 @@ function Landing() {
                     "1 Ano de Acesso Completo ao Curso",
                     "Biblioteca e Casos Interativos do Curso",
                     "Desconto VIP de 25% em novos cursos",
-                    "Mentoria Flix: Negócio de Sucesso (Para os 15 primeiros)"
+                    "Mentoria Flix: NegÃƒÂ³cio de Sucesso (Para os 15 primeiros)"
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
                       <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
@@ -351,8 +351,8 @@ function Landing() {
                 </ul>
 
                 <Button asChild className="w-full h-14 text-lg font-bold bg-coral hover:bg-coral/90 shadow-xl shadow-coral/30 rounded-xl transition-all hover:scale-105">
-                  <Link to="/checkout/ortopedia-avancada">
-                    Garantir Vaga com Bônus
+                  <Link to="/checkout/$courseId" params={{ courseId: "ortopedia-avancada" }}>
+                    Garantir Vaga com BÃƒÂ´nus
                   </Link>
                 </Button>
                 <p className="text-xs text-gray-500 mt-4 font-medium flex items-center justify-center gap-1">
@@ -371,32 +371,32 @@ function Landing() {
             <h2 className="font-display text-3xl font-bold sm:text-4xl text-foreground">
               Perguntas Frequentes
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">Tudo o que você precisa saber antes de entrar.</p>
+            <p className="mt-4 text-lg text-muted-foreground">Tudo o que vocÃƒÂª precisa saber antes de entrar.</p>
           </div>
 
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-left font-bold text-lg">O acesso é vitalício?</AccordionTrigger>
+              <AccordionTrigger className="text-left font-bold text-lg">O acesso ÃƒÂ© vitalÃƒÂ­cio?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
-                Neste formato VIP de lançamento, o acesso é de 1 Ano Completo. Esse é o tempo ideal e comprovado para você assistir, revisar as práticas clínicas e tirar suas dúvidas na Comunidade.
+                Neste formato VIP de lanÃƒÂ§amento, o acesso ÃƒÂ© de 1 Ano Completo. Esse ÃƒÂ© o tempo ideal e comprovado para vocÃƒÂª assistir, revisar as prÃƒÂ¡ticas clÃƒÂ­nicas e tirar suas dÃƒÂºvidas na Comunidade.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger className="text-left font-bold text-lg">Tem garantia?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
-                Sim! Você tem 7 dias de Garantia Incondicional. Se você acessar as aulas e achar que a metodologia Vetmasterclass não vai transformar a sua rotina, basta um e-mail para reembolsarmos 100% do seu investimento.
+                Sim! VocÃƒÂª tem 7 dias de Garantia Incondicional. Se vocÃƒÂª acessar as aulas e achar que a metodologia Vetmasterclass nÃƒÂ£o vai transformar a sua rotina, basta um e-mail para reembolsarmos 100% do seu investimento.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
               <AccordionTrigger className="text-left font-bold text-lg">Ainda sou estudante, posso fazer?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
-                Com certeza. É a melhor fase para começar. Diferente da faculdade que ensina a teoria, aqui você vai aprender a "Medicina da Vida Real". Quando se formar, já estará muito à frente dos recém-formados inseguros.
+                Com certeza. Ãƒâ€° a melhor fase para comeÃƒÂ§ar. Diferente da faculdade que ensina a teoria, aqui vocÃƒÂª vai aprender a "Medicina da Vida Real". Quando se formar, jÃƒÂ¡ estarÃƒÂ¡ muito ÃƒÂ  frente dos recÃƒÂ©m-formados inseguros.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
-              <AccordionTrigger className="text-left font-bold text-lg">Os certificados são válidos?</AccordionTrigger>
+              <AccordionTrigger className="text-left font-bold text-lg">Os certificados sÃƒÂ£o vÃƒÂ¡lidos?</AccordionTrigger>
               <AccordionContent className="text-muted-foreground text-base leading-relaxed">
-                Sim! Todos os nossos cursos geram certificados válidos em todo o território nacional como capacitação profissional, ideais para currículo e horas complementares na faculdade.
+                Sim! Todos os nossos cursos geram certificados vÃƒÂ¡lidos em todo o territÃƒÂ³rio nacional como capacitaÃƒÂ§ÃƒÂ£o profissional, ideais para currÃƒÂ­culo e horas complementares na faculdade.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -405,7 +405,7 @@ function Landing() {
 
       <footer className="border-t border-border bg-card">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Vetmasterclass. Revolucionando a Educação Veterinária.
+          Ã‚Â© {new Date().getFullYear()} Vetmasterclass. Revolucionando a EducaÃƒÂ§ÃƒÂ£o VeterinÃƒÂ¡ria.
         </div>
       </footer>
     </div>

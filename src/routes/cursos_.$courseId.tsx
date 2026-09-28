@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import mentoriaFlixImg from "@/assets/mentoria-flix.png";
 
 export const Route = createFileRoute("/cursos_/$courseId")({
-  head: ({ loaderData }) => ({
+  head: (ctx) => ({
     meta: [
-      { title: `${loaderData?.course.title} — Vetmasterclass` },
+      { title: `${(ctx.loaderData as any)?.course?.title ?? 'Curso'} — Vetmasterclass` },
     ],
   }),
   loader: ({ params }) => {
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/cursos_/$courseId")({
 });
 
 function CourseSalesPage() {
-  const { course } = Route.useLoaderData();
+  const { course } = Route.useLoaderData() as any;
 
   if (course.id === 'mentoria-flix') {
     return (
