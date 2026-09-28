@@ -3,6 +3,7 @@ import cardio from "@/assets/course-cardio.jpg";
 import derma from "@/assets/course-derma.jpg";
 import neuro from "@/assets/course-neuro.jpg";
 import t1 from "@/assets/dr-rodrigo.png";
+import draNathaliaImg from "@/assets/dra-nathalia.jpg";
 import t2 from "@/assets/teacher-2.jpg";
 import t3 from "@/assets/teacher-3.jpg";
 import mentoriaFlixImg from "@/assets/mentoria-flix.png";
@@ -74,7 +75,7 @@ export const teachers: Teacher[] = [
   },
   {
     id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Clínica Médica",
-    specialty: "Clínica Médica", avatar: "https://i.pravatar.cc/150?img=9",
+    specialty: "Clínica Médica", avatar: draNathaliaImg,
     bioTopics: [
       { label: "Especialidade", value: "Clínica Médica" },
       { label: "Atuação", value: "Atendimento de rotina e acompanhamento clínico" },
