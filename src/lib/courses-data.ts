@@ -6,6 +6,7 @@ import t1 from "@/assets/dr-rodrigo.png";
 import t2 from "@/assets/teacher-2.jpg";
 import t3 from "@/assets/teacher-3.jpg";
 import mentoriaFlixImg from "@/assets/mentoria-flix.png";
+import draNathaliaImg from "@/assets/dra-nathalia.jpg";
 
 export interface Teacher {
   id: string;
@@ -35,7 +36,7 @@ export interface Course {
   students: number;
   progress: number;
   teacher: Teacher;
-  level: "Iniciante" | "Intermediário" | "Avançado";
+  level: "Iniciante" | "IntermediÃ¡rio" | "AvanÃ§ado";
   featured?: boolean;
   purchased?: boolean;
   externalLink?: string;
@@ -44,94 +45,50 @@ export interface Course {
 
 export const teachers: Teacher[] = [
   {
-    id: "t1", name: "Dr. Rodrigo Nicola", title: "Médico Veterinário",
+    id: "t1", name: "Dr. Rodrigo Nicola", title: "MÃ©dico VeterinÃ¡rio",
     specialty: "Ortopedia e Neurocirurgia", avatar: t1, avatarPosition: "center 30%",
     bioTopics: [
-      { label: "Formação", value: "Universidade Anhanguera de São Paulo" },
-      { label: "Residência", value: "Ortopedia — Associação Anclivepa SP" },
-      { label: "Pós-Graduação", value: "Ortopedia e Neurocirurgia — Anclivepa SP" },
-      { label: "Especialização", value: "Master Avançado em Ortopedia — Anclivepa SP" },
-      { label: "Associação", value: "Membro da O.A. Internacional" },
-      { label: "Atuação", value: "Chefe de Ortopedia e Neurologia — Dr. Pets Santo André" },
-      { label: "Experiência", value: "Empresário há mais de 25 anos no mercado Pet" },
+      { label: "FormaÃ§Ã£o", value: "Universidade Anhanguera de SÃ£o Paulo" },
+      { label: "ResidÃªncia", value: "Ortopedia â€” AssociaÃ§Ã£o Anclivepa SP" },
+      { label: "PÃ³s-GraduaÃ§Ã£o", value: "Ortopedia e Neurocirurgia â€” Anclivepa SP" },
+      { label: "EspecializaÃ§Ã£o", value: "Master AvanÃ§ado em Ortopedia â€” Anclivepa SP" },
+      { label: "AssociaÃ§Ã£o", value: "Membro da O.A. Internacional" },
+      { label: "AtuaÃ§Ã£o", value: "Chefe de Ortopedia e Neurologia â€” Dr. Pets Santo AndrÃ©" },
+      { label: "ExperiÃªncia", value: "EmpresÃ¡rio hÃ¡ mais de 25 anos no mercado Pet" },
     ],
   },
   {
     id: "t2", name: "Dr. Renan Dias", title: "Especialista em Neurologia",
     specialty: "Neurologista", avatar: t2, avatarPosition: "center 15%",
     bioTopics: [
-      { label: "Especialidade", value: "Neurologia Veterinária" },
-      { label: "Atuação", value: "Atendimento clínico especializado em neurologia" },
+      { label: "Especialidade", value: "Neurologia VeterinÃ¡ria" },
+      { label: "AtuaÃ§Ã£o", value: "Atendimento clÃ­nico especializado em neurologia" },
     ],
   },
   {
-    id: "t3", name: "Dra. Carolina", title: "Especialista em Hematologia",
-    specialty: "Hematologista", avatar: "https://i.pravatar.cc/150?img=5",
+    id: "t3", name: "Dra. Nathalia", title: "Especialista em Hematologia",
+    specialty: "Hematologista", avatar: draNathaliaImg,
     bioTopics: [
-      { label: "Especialidade", value: "Hematologia Veterinária" },
-      { label: "Atuação", value: "Diagnóstico e tratamento de doenças sanguíneas" },
+      { label: "Especialidade", value: "Hematologia VeterinÃ¡ria" },
+      { label: "AtuaÃ§Ã£o", value: "DiagnÃ³stico e tratamento de doenÃ§as sanguÃ­neas" },
     ],
   },
   {
-    id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em Clínica Médica",
-    specialty: "Clínica Médica", avatar: "https://i.pravatar.cc/150?img=9",
+    id: "t4", name: "Dra. Nathalia Cristina", title: "Especialista em ClÃ­nica MÃ©dica",
+    specialty: "ClÃ­nica MÃ©dica", avatar: "https://i.pravatar.cc/150?img=9",
     bioTopics: [
-      { label: "Especialidade", value: "Clínica Médica" },
-      { label: "Atuação", value: "Atendimento de rotina e acompanhamento clínico" },
+      { label: "Especialidade", value: "ClÃ­nica MÃ©dica" },
+      { label: "AtuaÃ§Ã£o", value: "Atendimento de rotina e acompanhamento clÃ­nico" },
     ],
   },
 ];
 
 export const courses: Course[] = [
   {
-    id: "ortopedia-avancada",
-    title: "Ortopedia Clínica de Excelência",
-    specialty: "Ortopedia",
-    description:
-      "Domine a ortopedia clínica sem precisar operar. Aprenda a diagnosticar com segurança, solicitar exames precisos e conduzir atendimentos que encantam o tutor, gerando confiança absoluta na sua conduta médica.",
-    cover: ortho,
-    hours: 48,
-    modules: 12,
-    lessons: 86,
-    students: 0,
-    progress: 0,
-    teacher: teachers[0],
-    level: "Avançado",
-    featured: true,
-    purchased: false,
-    glossary: [
-      { term: "Claudicação", definition: "Falta de firmeza ou assimetria no andar, popularmente conhecido como 'mancar'. Pode ser de apoio (dor ao pisar) ou de elevação (dor ao mover o membro)." },
-      { term: "Crepitação", definition: "Ruído ou sensação de atrito (roçar) de ossos ou cartilagens desgastadas durante o movimento articular ou à palpação de fraturas." },
-      { term: "Sinal de Ortolani", definition: "Teste ortopédico específico utilizado para detectar a frouxidão da articulação coxofemoral em cães jovens (indicativo de Displasia Coxofemoral)." },
-      { term: "Teste de Gaveta Cranial", definition: "Manobra semiológica que avalia a instabilidade do joelho. Positivo quando a tíbia se desloca cranialmente em relação ao fêmur, indicando ruptura do Ligamento Cruzado Cranial." },
-      { term: "Teste de Compressão Tibial", definition: "Teste indireto para avaliar a integridade do Ligamento Cruzado Cranial simulando a carga de peso no membro pélvico." },
-      { term: "TPLO (Osteotomia de Nivelamento do Platô Tibial)", definition: "Técnica cirúrgica que altera a biomecânica do joelho nivelando o platô tibial, anulando a necessidade do ligamento cruzado cranial." },
-      { term: "TTA (Avançamento da Tuberosidade Tibial)", definition: "Técnica cirúrgica que neutraliza as forças de cisalhamento do joelho avançando a inserção do ligamento patelar." },
-      { term: "Displasia Coxofemoral", definition: "Doença de desenvolvimento e hereditária caracterizada pela má formação e incongruência da articulação do quadril, levando à osteoartrose secundária." },
-      { term: "Luxação Patelar", definition: "Deslocamento da patela de seu local anatômico normal (sulco troclear), podendo ser medial (mais comum em raças pequenas) ou lateral." },
-      { term: "Artrodese", definition: "Procedimento cirúrgico que promove a fusão óssea permanente de uma articulação, eliminando o movimento e a dor." },
-      { term: "Osteossíntese", definition: "Cirurgia de redução e fixação de fraturas ósseas utilizando implantes como placas, parafusos, pinos e hastes." },
-      { term: "Osteocondrite Dissecante (OCD)", definition: "Falha na ossificação endocondral que resulta no espessamento e posterior desprendimento de um retalho de cartilagem articular (flap), comum no ombro de cães jovens." },
-      { term: "Não-união", definition: "Complicação onde ocorre a falha definitiva na consolidação (cicatrização) de uma fratura óssea." },
-      { term: "Calo Ósseo", definition: "Formação de tecido ósseo e cartilaginoso imaturo que estabiliza e cicatriza uma fratura ao longo das semanas." },
-      { term: "Sinal da Almofada de Gordura", definition: "Achado radiográfico onde há compressão da gordura infrapatelar indicando efusão articular severa (líquido na articulação do joelho)." },
-      { term: "Goniometria", definition: "Mensuração dos ângulos de flexão e extensão das articulações, muito utilizada para avaliar a amplitude de movimento (ADM) na fisioterapia ortopédica." },
-      { term: "Contratura Muscular", definition: "Encurtamento anormal e permanente de um músculo ou tendão, comum na contratura do músculo infraespinhoso ou quadríceps." },
-      { term: "Necrose Asséptica da Cabeça do Fêmur (Doença de Legg-Calvé-Perthes)", definition: "Condição onde há interrupção do suprimento sanguíneo para a cabeça femoral, causando necrose e dor severa. Afeta tipicamente cães jovens de raças toy/pequenas." },
-      { term: "Panosteíte", definition: "Inflamação da cavidade medular dos ossos longos que causa dor intermitente e claudicação migratória em cães jovens de raças grandes em fase de crescimento." },
-      { term: "Lesão Neuropática", definition: "É o termo mais correto e específico. Ele indica uma patologia ou dano estrutural direto nos próprios nervos (como na neuropatia diabética ou compressões nervosas)." },
-      { term: "Padrão Neurogênico (na Eletromiografia)", definition: "Em exames de SNM, usa-se 'padrão neurogênico' para diferenciar um problema que nasce no nervo (neurogênico) de um problema que nasce diretamente no músculo (miopático)." },
-      { term: "Tônus Muscular", definition: "Natureza: É um estado permanente e contínuo. Estímulo: É gerado pelo estiramento passivo e constante do músculo (gravidade), detectado pelo fuso muscular (reflexo miotático). Função: Manter a postura, a estabilidade das articulações e a prontidão motora. Resultado: Não gera um movimento visível; é apenas uma tensão de base." },
-      { term: "Reflexo de Retirada (Reflexo Flexor)", definition: "Natureza: É uma resposta temporária, rápida e abrupta. Estímulo: É ativado exclusivamente por um estímulo nocivo ou doloroso (como pisar em um prego ou tocar em uma superfície muito quente), detectado por nociceptores. Função: Proteção imediata e sobrevivência do organismo. Resultado: Gera um movimento motor vigoroso (ex: flexão rápida da perna ou do braço) para afastar o corpo do perigo." },
-      { term: "Intumescência Cervicotorácica", definition: "Espessamento da medula espinhal (segmentos C6-T2). É a região onde se originam os nervos espinhais que formam o plexo braquial, responsável pela inervação dos membros torácicos (anteriores)." },
-      { term: "Intumescência Lombossacra", definition: "Espessamento da medula espinhal (segmentos L4-S3). É a região onde se originam os nervos espinhais que formam o plexo lombossacro, responsável pela inervação dos membros pélvicos (posteriores)." }
-    ],
-  },
-  {
     id: "mentoria-flix",
-    title: "Mentoria Flix: Método P.E.T.",
-    specialty: "Gestão",
-    description: "Transforme seu negócio pet. Aprenda gestão, estruturação, contratação e vendas com quem já construiu empresas sólidas na medicina veterinária.",
+    title: "Mentoria Flix: MÃ©todo P.E.T.",
+    specialty: "GestÃ£o",
+    description: "Transforme seu negÃ³cio pet. Aprenda gestÃ£o, estruturaÃ§Ã£o, contrataÃ§Ã£o e vendas com quem jÃ¡ construiu empresas sÃ³lidas na medicina veterinÃ¡ria.",
     cover: mentoriaFlixImg,
     hours: 20,
     modules: 8,
@@ -139,15 +96,60 @@ export const courses: Course[] = [
     students: 0,
     progress: 0,
     teacher: teachers[0],
-    level: "Avançado",
+    level: "AvanÃ§ado",
     purchased: false,
     externalLink: "https://mentoriaflix.com.br",
   },
   {
+    id: "ortopedia-avancada",
+    title: "Ortopedia ClÃ­nica de ExcelÃªncia",
+    specialty: "Ortopedia",
+    description:
+      "Domine a ortopedia clÃ­nica sem precisar operar. Aprenda a diagnosticar com seguranÃ§a, solicitar exames precisos e conduzir atendimentos que encantam o tutor, gerando confianÃ§a absoluta na sua conduta mÃ©dica.",
+    cover: ortho,
+    hours: 48,
+    modules: 12,
+    lessons: 86,
+    students: 0,
+    progress: 0,
+    teacher: teachers[0],
+    level: "AvanÃ§ado",
+    featured: true,
+    purchased: false,
+    glossary: [
+      { term: "ClaudicaÃ§Ã£o", definition: "Falta de firmeza ou assimetria no andar, popularmente conhecido como 'mancar'. Pode ser de apoio (dor ao pisar) ou de elevaÃ§Ã£o (dor ao mover o membro)." },
+      { term: "CrepitaÃ§Ã£o", definition: "RuÃ­do ou sensaÃ§Ã£o de atrito (roÃ§ar) de ossos ou cartilagens desgastadas durante o movimento articular ou Ã  palpaÃ§Ã£o de fraturas." },
+      { term: "Sinal de Ortolani", definition: "Teste ortopÃ©dico especÃ­fico utilizado para detectar a frouxidÃ£o da articulaÃ§Ã£o coxofemoral em cÃ£es jovens (indicativo de Displasia Coxofemoral)." },
+      { term: "Teste de Gaveta Cranial", definition: "Manobra semiolÃ³gica que avalia a instabilidade do joelho. Positivo quando a tÃ­bia se desloca cranialmente em relaÃ§Ã£o ao fÃªmur, indicando ruptura do Ligamento Cruzado Cranial." },
+      { term: "Teste de CompressÃ£o Tibial", definition: "Teste indireto para avaliar a integridade do Ligamento Cruzado Cranial simulando a carga de peso no membro pÃ©lvico." },
+      { term: "TPLO (Osteotomia de Nivelamento do PlatÃ´ Tibial)", definition: "TÃ©cnica cirÃºrgica que altera a biomecÃ¢nica do joelho nivelando o platÃ´ tibial, anulando a necessidade do ligamento cruzado cranial." },
+      { term: "TTA (AvanÃ§amento da Tuberosidade Tibial)", definition: "TÃ©cnica cirÃºrgica que neutraliza as forÃ§as de cisalhamento do joelho avanÃ§ando a inserÃ§Ã£o do ligamento patelar." },
+      { term: "Displasia Coxofemoral", definition: "DoenÃ§a de desenvolvimento e hereditÃ¡ria caracterizada pela mÃ¡ formaÃ§Ã£o e incongruÃªncia da articulaÃ§Ã£o do quadril, levando Ã  osteoartrose secundÃ¡ria." },
+      { term: "LuxaÃ§Ã£o Patelar", definition: "Deslocamento da patela de seu local anatÃ´mico normal (sulco troclear), podendo ser medial (mais comum em raÃ§as pequenas) ou lateral." },
+      { term: "Artrodese", definition: "Procedimento cirÃºrgico que promove a fusÃ£o Ã³ssea permanente de uma articulaÃ§Ã£o, eliminando o movimento e a dor." },
+      { term: "OsteossÃ­ntese", definition: "Cirurgia de reduÃ§Ã£o e fixaÃ§Ã£o de fraturas Ã³sseas utilizando implantes como placas, parafusos, pinos e hastes." },
+      { term: "Osteocondrite Dissecante (OCD)", definition: "Falha na ossificaÃ§Ã£o endocondral que resulta no espessamento e posterior desprendimento de um retalho de cartilagem articular (flap), comum no ombro de cÃ£es jovens." },
+      { term: "NÃ£o-uniÃ£o", definition: "ComplicaÃ§Ã£o onde ocorre a falha definitiva na consolidaÃ§Ã£o (cicatrizaÃ§Ã£o) de uma fratura Ã³ssea." },
+      { term: "Calo Ã“sseo", definition: "FormaÃ§Ã£o de tecido Ã³sseo e cartilaginoso imaturo que estabiliza e cicatriza uma fratura ao longo das semanas." },
+      { term: "Sinal da Almofada de Gordura", definition: "Achado radiogrÃ¡fico onde hÃ¡ compressÃ£o da gordura infrapatelar indicando efusÃ£o articular severa (lÃ­quido na articulaÃ§Ã£o do joelho)." },
+      { term: "Goniometria", definition: "MensuraÃ§Ã£o dos Ã¢ngulos de flexÃ£o e extensÃ£o das articulaÃ§Ãµes, muito utilizada para avaliar a amplitude de movimento (ADM) na fisioterapia ortopÃ©dica." },
+      { term: "Contratura Muscular", definition: "Encurtamento anormal e permanente de um mÃºsculo ou tendÃ£o, comum na contratura do mÃºsculo infraespinhoso ou quadrÃ­ceps." },
+      { term: "Necrose AssÃ©ptica da CabeÃ§a do FÃªmur (DoenÃ§a de Legg-CalvÃ©-Perthes)", definition: "CondiÃ§Ã£o onde hÃ¡ interrupÃ§Ã£o do suprimento sanguÃ­neo para a cabeÃ§a femoral, causando necrose e dor severa. Afeta tipicamente cÃ£es jovens de raÃ§as toy/pequenas." },
+      { term: "PanosteÃ­te", definition: "InflamaÃ§Ã£o da cavidade medular dos ossos longos que causa dor intermitente e claudicaÃ§Ã£o migratÃ³ria em cÃ£es jovens de raÃ§as grandes em fase de crescimento." },
+      { term: "LesÃ£o NeuropÃ¡tica", definition: "Ã‰ o termo mais correto e especÃ­fico. Ele indica uma patologia ou dano estrutural direto nos prÃ³prios nervos (como na neuropatia diabÃ©tica ou compressÃµes nervosas)." },
+      { term: "PadrÃ£o NeurogÃªnico (na Eletromiografia)", definition: "Em exames de SNM, usa-se 'padrÃ£o neurogÃªnico' para diferenciar um problema que nasce no nervo (neurogÃªnico) de um problema que nasce diretamente no mÃºsculo (miopÃ¡tico)." },
+      { term: "TÃ´nus Muscular", definition: "Natureza: Ã‰ um estado permanente e contÃ­nuo. EstÃ­mulo: Ã‰ gerado pelo estiramento passivo e constante do mÃºsculo (gravidade), detectado pelo fuso muscular (reflexo miotÃ¡tico). FunÃ§Ã£o: Manter a postura, a estabilidade das articulaÃ§Ãµes e a prontidÃ£o motora. Resultado: NÃ£o gera um movimento visÃ­vel; Ã© apenas uma tensÃ£o de base." },
+      { term: "Reflexo de Retirada (Reflexo Flexor)", definition: "Natureza: Ã‰ uma resposta temporÃ¡ria, rÃ¡pida e abrupta. EstÃ­mulo: Ã‰ ativado exclusivamente por um estÃ­mulo nocivo ou doloroso (como pisar em um prego ou tocar em uma superfÃ­cie muito quente), detectado por nociceptores. FunÃ§Ã£o: ProteÃ§Ã£o imediata e sobrevivÃªncia do organismo. Resultado: Gera um movimento motor vigoroso (ex: flexÃ£o rÃ¡pida da perna ou do braÃ§o) para afastar o corpo do perigo." },
+      { term: "IntumescÃªncia CervicotorÃ¡cica", definition: "Espessamento da medula espinhal (segmentos C6-T2). Ã‰ a regiÃ£o onde se originam os nervos espinhais que formam o plexo braquial, responsÃ¡vel pela inervaÃ§Ã£o dos membros torÃ¡cicos (anteriores)." },
+      { term: "IntumescÃªncia Lombossacra", definition: "Espessamento da medula espinhal (segmentos L4-S3). Ã‰ a regiÃ£o onde se originam os nervos espinhais que formam o plexo lombossacro, responsÃ¡vel pela inervaÃ§Ã£o dos membros pÃ©lvicos (posteriores)." }
+    ],
+  },
+  
+  {
     id: "neuro-basica",
-    title: "Desvendando a Neurologia Clínica",
+    title: "Desvendando a Neurologia ClÃ­nica",
     specialty: "Neurologia",
-    description: "Aprenda a realizar o exame neurológico perfeito. Saiba como localizar a lesão no sistema nervoso e definir se o caso é cirúrgico ou clínico com segurança.",
+    description: "Aprenda a realizar o exame neurolÃ³gico perfeito. Saiba como localizar a lesÃ£o no sistema nervoso e definir se o caso Ã© cirÃºrgico ou clÃ­nico com seguranÃ§a.",
     cover: neuro,
     hours: 30,
     modules: 6,
@@ -155,16 +157,16 @@ export const courses: Course[] = [
     students: 0,
     progress: 0,
     teacher: teachers[1], // Dr. Renan
-    level: "Intermediário",
+    level: "IntermediÃ¡rio",
     featured: false,
     purchased: false,
   },
   {
     id: "hemato-descomplicada",
-    title: "Hemograma na Prática Veterinária",
+    title: "Hemograma na PrÃ¡tica VeterinÃ¡ria",
     specialty: "Hematologia",
-    description: "Pare de ler apenas os números do hemograma. Entenda o que as células estão te dizendo e feche diagnósticos ocultos com a Dra. Carolina.",
-    cover: derma, // Usando uma imagem genérica como fallback
+    description: "Pare de ler apenas os nÃºmeros do hemograma. Entenda o que as cÃ©lulas estÃ£o te dizendo e feche diagnÃ³sticos ocultos com a Dra. Carolina.",
+    cover: derma, // Usando uma imagem genÃ©rica como fallback
     hours: 15,
     modules: 4,
     lessons: 20,
@@ -177,25 +179,25 @@ export const courses: Course[] = [
   },
   {
     id: "emergencia-intensiva",
-    title: "Suporte Básico e Avançado de Vida",
-    specialty: "Emergência",
-    description: "Saiba exatamente o que fazer nos primeiros 5 minutos de uma emergência. Protocolos de RCP, fluidoterapia e estabilização de pacientes críticos.",
-    cover: cardio, // Usando uma imagem genérica como fallback
+    title: "Suporte BÃ¡sico e AvanÃ§ado de Vida",
+    specialty: "EmergÃªncia",
+    description: "Saiba exatamente o que fazer nos primeiros 5 minutos de uma emergÃªncia. Protocolos de RCP, fluidoterapia e estabilizaÃ§Ã£o de pacientes crÃ­ticos.",
+    cover: cardio, // Usando uma imagem genÃ©rica como fallback
     hours: 40,
     modules: 8,
     lessons: 60,
     students: 0,
     progress: 0,
     teacher: teachers[3], // Dra. Nathalia
-    level: "Avançado",
+    level: "AvanÃ§ado",
     featured: true,
     purchased: false,
   },
   {
     id: "clinica-medica",
-    title: "Clínica Médica de Pequenos Animais",
-    specialty: "Clínica Médica",
-    description: "Aprenda a conduzir o atendimento clínico do dia a dia de forma assertiva, com protocolos atualizados e foco total na resolução dos casos.",
+    title: "ClÃ­nica MÃ©dica de Pequenos Animais",
+    specialty: "ClÃ­nica MÃ©dica",
+    description: "Aprenda a conduzir o atendimento clÃ­nico do dia a dia de forma assertiva, com protocolos atualizados e foco total na resoluÃ§Ã£o dos casos.",
     cover: derma, // Usando imagem de fallback
     hours: 50,
     modules: 10,
@@ -203,81 +205,81 @@ export const courses: Course[] = [
     students: 0,
     progress: 0,
     teacher: teachers[3], // Dra. Nathalia
-    level: "Intermediário",
+    level: "IntermediÃ¡rio",
     featured: true,
     purchased: false,
   }
 ];
 
 export const specialties = [
-  "Ortopedia", "Neurologia", "Gestão", "Hematologia", "Emergência", "Clínica Médica"
+  "Ortopedia", "Neurologia", "GestÃ£o", "Hematologia", "EmergÃªncia", "ClÃ­nica MÃ©dica"
 ];
 
 export const ortopediaModules = [
   {
     id: 1,
-    title: "Módulo 1 — Introdução à Ortopedia Clínica",
+    title: "MÃ³dulo 1 â€” IntroduÃ§Ã£o Ã  Ortopedia ClÃ­nica",
     done: true,
     topics: [
-      "Biomecânica do cão e gato na clínica médica",
+      "BiomecÃ¢nica do cÃ£o e gato na clÃ­nica mÃ©dica",
       "Descomplicando a neuroanatomia",
-      "Como realizar uma avaliação clínica de excelência",
-      "Biologia x score da lesão ortopédica",
-      "Montando uma anamnese ortopédica",
-      "Alterações ortopédicas clássicas e como tratá-las"
+      "Como realizar uma avaliaÃ§Ã£o clÃ­nica de excelÃªncia",
+      "Biologia x score da lesÃ£o ortopÃ©dica",
+      "Montando uma anamnese ortopÃ©dica",
+      "AlteraÃ§Ãµes ortopÃ©dicas clÃ¡ssicas e como tratÃ¡-las"
     ]
   },
   {
     id: 2,
-    title: "Módulo 2 — Diferenciando lesão motora muscular x neurológica",
+    title: "MÃ³dulo 2 â€” Diferenciando lesÃ£o motora muscular x neurolÃ³gica",
     done: false,
-    topics: ["Sinais clínicos", "Testes de reflexo", "Casos práticos de diagnóstico diferencial"]
+    topics: ["Sinais clÃ­nicos", "Testes de reflexo", "Casos prÃ¡ticos de diagnÃ³stico diferencial"]
   },
   {
     id: 3,
-    title: "Módulo 3 — Tratando lesões ortopédicas",
+    title: "MÃ³dulo 3 â€” Tratando lesÃµes ortopÃ©dicas",
     done: false,
-    topics: ["Protocolos de tratamento conservador", "Indicações cirúrgicas", "Manejo da dor"]
+    topics: ["Protocolos de tratamento conservador", "IndicaÃ§Ãµes cirÃºrgicas", "Manejo da dor"]
   },
   {
     id: 4,
-    title: "Módulo 4 — A conexão com o tutor é o sucesso do tratamento",
+    title: "MÃ³dulo 4 â€” A conexÃ£o com o tutor Ã© o sucesso do tratamento",
     done: false,
-    topics: ["Como comunicar o diagnóstico", "Alinhando expectativas", "Adesão ao tratamento em casa"]
+    topics: ["Como comunicar o diagnÃ³stico", "Alinhando expectativas", "AdesÃ£o ao tratamento em casa"]
   },
   {
     id: 5,
-    title: "Módulo 5 — Manejo Alimentar",
+    title: "MÃ³dulo 5 â€” Manejo Alimentar",
     done: false,
     topics: [
-      "Importância da nutrição na recuperação ortopédica",
-      "Suplementação: Condroprotetores e Ômega-3",
-      "Controle e manejo de peso no paciente osteoartrósico",
-      "Dietas terapêuticas e prescrição nutricional",
-      "Casos práticos de evolução com suporte nutricional"
+      "ImportÃ¢ncia da nutriÃ§Ã£o na recuperaÃ§Ã£o ortopÃ©dica",
+      "SuplementaÃ§Ã£o: Condroprotetores e Ã”mega-3",
+      "Controle e manejo de peso no paciente osteoartrÃ³sico",
+      "Dietas terapÃªuticas e prescriÃ§Ã£o nutricional",
+      "Casos prÃ¡ticos de evoluÃ§Ã£o com suporte nutricional"
     ]
   },
   {
     id: 6,
-    title: "Módulo 6 — Tipos de Exames na Ortopedia e Neurologia",
+    title: "MÃ³dulo 6 â€” Tipos de Exames na Ortopedia e Neurologia",
     done: false,
     topics: [
-      "Radiografia Simples vs. Contrastada: Indicações cruciais",
-      "Tomografia Computadorizada (TC): Quando o Raio-X não é suficiente?",
-      "Ressonância Magnética (RM): O padrão-ouro para lesões neurológicas",
-      "Diferenciais e Critérios de Encaminhamento: Quando e qual exame solicitar"
+      "Radiografia Simples vs. Contrastada: IndicaÃ§Ãµes cruciais",
+      "Tomografia Computadorizada (TC): Quando o Raio-X nÃ£o Ã© suficiente?",
+      "RessonÃ¢ncia MagnÃ©tica (RM): O padrÃ£o-ouro para lesÃµes neurolÃ³gicas",
+      "Diferenciais e CritÃ©rios de Encaminhamento: Quando e qual exame solicitar"
     ]
   },
   {
     id: 7,
-    title: "Módulo 7 — 90% das alterações que vão chegar na sua clínica",
+    title: "MÃ³dulo 7 â€” 90% das alteraÃ§Ãµes que vÃ£o chegar na sua clÃ­nica",
     done: false,
     topics: [
       "Displasia Coxofemoral",
       "Ruptura de Ligamento Cruzado Cranial (RLCC)",
       "Artrose Articular",
-      "Doença do Disco Intervertebral (DDIV)",
-      "Alterações Metabólicas"
+      "DoenÃ§a do Disco Intervertebral (DDIV)",
+      "AlteraÃ§Ãµes MetabÃ³licas"
     ]
   }
 ];
