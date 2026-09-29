@@ -11,16 +11,17 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Progress } from "@/components/ui/progress";
 import drRodrigoImg from "@/assets/dr-rodrigo.png";
+import draNathaliaImg from "@/assets/dra-nathalia.jpg";
 import { courses } from "@/lib/courses-data";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const chartData = [
-  { name: 'Jan', total: 42000 },
-  { name: 'Fev', total: 51000 },
-  { name: 'Mar', total: 48000 },
-  { name: 'Abr', total: 61000 },
-  { name: 'Mai', total: 72000 },
-  { name: 'Jun', total: 85400 },
+  { name: 'Jan', total: 0 },
+  { name: 'Fev', total: 0 },
+  { name: 'Mar', total: 0 },
+  { name: 'Abr', total: 0 },
+  { name: 'Mai', total: 0 },
+  { name: 'Jun', total: 0 },
 ];
 
 export const Route = createFileRoute("/_authenticated/app/admin")({
@@ -65,10 +66,10 @@ function AdminPanel() {
         {/* ================= ABA: VISÃO GERAL / FINANCEIRO ================= */}
         <TabsContent value="overview" className="mt-6 space-y-8 outline-none">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <MetricCard title="Total de Alunos" value="3.542" icon={Users} trend="+150 este mês" />
-            <MetricCard title="Professores Ativos" value="24" icon={GraduationCap} trend="+2 este mês" />
-            <MetricCard title="Cursos Publicados" value="86" icon={BookOpen} trend="+5 este mês" />
-            <MetricCard title="Faturamento (MRR)" value="R$ 85.400" icon={DollarSign} trend="+8% este mês" />
+            <MetricCard title="Total de Alunos" value="0" icon={Users} trend="" />
+            <MetricCard title="Professores Ativos" value="4" icon={GraduationCap} trend="" />
+            <MetricCard title="Cursos Publicados" value="5" icon={BookOpen} trend="" />
+            <MetricCard title="Faturamento (MRR)" value="R$ 0,00" icon={DollarSign} trend="" />
           </div>
           
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
@@ -105,21 +106,7 @@ function AdminPanel() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="flex items-center">
-                      <Avatar className="h-9 w-9">
-                        <AvatarImage src={`https://i.pravatar.cc/150?img=${i + 10}`} />
-                        <AvatarFallback>AL</AvatarFallback>
-                      </Avatar>
-                      <div className="ml-4 space-y-1">
-                        <p className="text-sm font-medium leading-none">Novo Aluno {i}</p>
-                        <p className="text-sm text-muted-foreground">Plano Pro Anual</p>
-                      </div>
-                      <div className="ml-auto font-medium text-sm text-green-500">
-                        + R$ 997,00
-                      </div>
-                    </div>
-                  ))}
+                  <div className="flex flex-col items-center justify-center py-8 text-center"><p className="text-sm text-muted-foreground">Nenhuma assinatura recente.</p></div>
                 </div>
               </CardContent>
             </Card>
@@ -187,7 +174,7 @@ function AdminPanel() {
                     <TeacherRow name="Dr. Rodrigo Nicola" specialty="Ortopedia e Neurocirurgia" courses={3} rating="5.0" img={drRodrigoImg} />
                     <TeacherRow name="Dr. Renan Dias" specialty="Neurologista" courses={1} rating="5.0" img="https://i.pravatar.cc/150?u=11" />
                     <TeacherRow name="Dra. Carolina" specialty="Hematologista" courses={1} rating="4.9" img="https://i.pravatar.cc/150?img=5" />
-                    <TeacherRow name="Dra. Nathalia Cristina" specialty="Clínica Médica" courses={1} rating="5.0" img="https://i.pravatar.cc/150?img=9" />
+                    <TeacherRow name="Dra. Nathalia Cristina" specialty="Clínica Médica" courses={1} rating="5.0" img={draNathaliaImg} />
                   </tbody>
                 </table>
               </div>
