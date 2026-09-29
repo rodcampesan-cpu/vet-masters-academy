@@ -23,6 +23,7 @@ export const Route = createFileRoute("/checkout/$courseId")({
 
 function CheckoutPage() {
   const { course } = Route.useLoaderData();
+  const basePrice = course.id === 'mentoria-flix' ? 1 : 2300;
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -52,7 +53,7 @@ function CheckoutPage() {
   };
 
   const getOrderBumpTotal = () => selectedOrderBumps.length * 2300;
-  const getGrandTotal = () => 2300 + getOrderBumpTotal();
+  const getGrandTotal = () => basePrice + getOrderBumpTotal();
 
   const handleCopyPix = () => {
     navigator.clipboard.writeText("00020126360014br.gov.bcb.pix0114+55119999999995204000053039865802BR5915Vetmasterclass6009Sao Paulo62070503***6304");
@@ -88,7 +89,7 @@ function CheckoutPage() {
         body: JSON.stringify({
           courseId: course.id,
           title: course.title,
-          price: 2300,
+          price: basePrice,
           userEmail: user.email,
           userId: user.id
         })
@@ -308,7 +309,7 @@ function CheckoutPage() {
               <div className="border-t border-slate-200 pt-6">
                 <div className="flex justify-between items-end mb-6">
                   <div>
-                    <p className="text-sm text-slate-500 line-through">De R$ {2800 + selectedOrderBumps.length * 2800},00</p>
+                    <p className="text-sm text-slate-500 line-through">De R$ {basePrice + 500 + selectedOrderBumps.length * 2800},00</p>
                     <p className="text-xs font-semibold text-coral mt-1">
                       Desconto de Pré-venda
                     </p>
