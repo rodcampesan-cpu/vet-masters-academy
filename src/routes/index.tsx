@@ -22,11 +22,63 @@ export const Route = createFileRoute("/")({
 
 function Landing() {
   const [showPopup, setShowPopup] = useState(false);
-  // Popup de pré-venda desativado durante a pausa de vendas
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPopup(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background font-sans">
       <Navbar />
+
+      {/* POPUP INICIAL: NOVA TURMA EM 03/2027 */}
+      <Dialog open={showPopup} onOpenChange={setShowPopup}>
+        <DialogContent className="sm:max-w-lg p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-2xl text-center">
+          <div className="mx-auto inline-flex items-center justify-center w-14 h-14 rounded-full bg-amber-100 text-amber-700 mb-4">
+            <Clock className="h-7 w-7" />
+          </div>
+
+          <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full mb-3">
+            Inscrições Encerradas • Vendas Pausadas
+          </div>
+
+          <h2 className="font-display font-black text-2xl sm:text-3xl text-slate-900 tracking-tight mb-2">
+            Nova Turma em 03/2027
+          </h2>
+
+          <p className="text-slate-600 text-sm leading-relaxed mb-6">
+            As vagas para a turma atual foram preenchidas e as vendas estão temporariamente pausadas para dedicação total aos alunos. A abertura da próxima turma será em <strong>Março de 2027 (03/2027)</strong>.
+          </p>
+
+          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 mb-6 text-left">
+            <div className="flex items-center gap-2 text-emerald-800 font-bold text-xs uppercase tracking-wider mb-1">
+              <Sparkles className="h-4 w-4 text-emerald-600" /> Lista de Espera VIP
+            </div>
+            <p className="text-xs text-emerald-700 leading-snug">
+              Cadastre-se para receber prioridade máxima e condições exclusivas de lançamento quando as novas vagas abrirem.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20entrar%20na%20lista%20de%20espera%20VIP%20para%20a%20nova%20turma%20em%2003%2F2027."
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#25D366]/90 text-white font-bold text-sm h-12 px-6 rounded-xl shadow-lg shadow-green-500/20 transition-all hover:scale-105"
+            >
+              <MessageCircle className="h-4 w-4" /> Entrar na Lista VIP (WhatsApp)
+            </a>
+            <Button 
+              variant="outline" 
+              onClick={() => setShowPopup(false)} 
+              className="h-12 px-5 text-sm font-semibold rounded-xl border-slate-300"
+            >
+              Conhecer o Site
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* NEW HERO SECTION (OBJECTIVE & BRIGHT) */}
       <section className="bg-secondary/30 pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden relative">
