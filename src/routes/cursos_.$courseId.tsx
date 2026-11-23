@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { courses, ortopediaModules } from "@/lib/courses-data";
-import { ArrowLeft, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon, Gift, Star, Award, BookOpen, Clock, Users, Play, Smartphone, BookMarked, MessageSquare, Brain, PlayCircle, ShieldCheck, Microscope } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ChevronRight, Stethoscope, Dna, FileText, Send, Image as ImageIcon, Gift, Star, Award, BookOpen, Clock, Users, Play, Smartphone, BookMarked, MessageSquare, Brain, PlayCircle, ShieldCheck, Microscope, Calendar, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import mentoriaFlixImg from "@/assets/mentoria-flix.png";
 
@@ -44,11 +44,14 @@ function CourseSalesPage() {
               </p>
               
               <div className="flex flex-wrap gap-4">
-                <Button className="bg-[#E50914] hover:bg-[#E50914]/90 text-white font-bold px-8 h-12 rounded flex items-center gap-2" asChild>
-                  <Link to="/checkout/$courseId" params={{ courseId: course.id }}>
-                    <Play className="fill-white w-5 h-5" /> Começar
-                  </Link>
-                </Button>
+                <a
+                  href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Gostaria de entrar na lista de espera para a turma de Março de 2027 do curso ${course.title}.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#E50914] hover:bg-[#E50914]/90 text-white font-bold px-8 h-12 rounded flex items-center gap-2 shadow-lg"
+                >
+                  <Calendar className="w-5 h-5" /> Próxima Turma: Março/2027
+                </a>
                 <Button variant="outline" className="bg-white/10 hover:bg-white/20 border-0 text-white font-bold px-8 h-12 rounded">
                   Mais informações
                 </Button>
@@ -404,30 +407,29 @@ function CourseSalesPage() {
               </div>
 
               <div className="bg-white rounded-3xl p-8 text-center text-slate-900 shadow-xl">
-                <p className="text-slate-500 font-medium mb-2 line-through">De: R$ 2.800,00</p>
-                <div className="flex justify-center items-start">
-                  <span className="text-xl font-bold mt-2 text-slate-500 mr-1">R$</span>
-                  <span className="text-7xl font-black text-green-600">2.300</span>
-                  <span className="text-xl font-bold mt-8">,00</span>
+                <div className="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 text-xs font-bold px-3.5 py-1.5 rounded-full mb-3">
+                  <Calendar className="h-3.5 w-3.5" /> Inscrições Encerradas
                 </div>
-                <div className="inline-flex items-center gap-1 bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full mt-2">
-                  🔥 Lote de Pré-Venda
-                </div>
-                <p className="text-sm text-slate-500 mt-3">ou em até 12x no cartão de crédito</p>
+                <h3 className="font-display font-black text-2xl text-slate-900 mb-2">
+                  Próxima Turma em Março de 2027
+                </h3>
+                <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+                  As vendas para a turma atual estão pausadas para dedicação total aos alunos matriculados. Cadastre-se na Lista de Espera VIP e garanta prioridade no lançamento.
+                </p>
                 
-                <div className="w-full h-px bg-slate-100 my-6"></div>
+                <div className="w-full h-px bg-slate-100 my-4"></div>
                 
-                <Button className="w-full h-16 text-xl font-black bg-[#34C759] hover:bg-[#34C759]/90 text-white shadow-xl shadow-green-500/20 rounded-2xl transition-all hover:scale-105" asChild>
-                  <Link to="/checkout/$courseId" params={{ courseId: course.id }}>
-                    Garantir Minha Vaga
-                  </Link>
-                </Button>
+                <a
+                  href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Gostaria de entrar na lista de espera para a turma de Março de 2027 do curso ${course.title}.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full h-16 text-lg font-bold bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-xl shadow-green-500/20 rounded-2xl transition-all hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="h-5 w-5" /> Entrar na Lista VIP (WhatsApp)
+                </a>
                 <div className="flex flex-col items-center gap-1 mt-4">
                   <p className="text-[12px] font-semibold text-slate-600 flex items-center gap-1">
-                    <Clock className="h-4 w-4 text-coral" /> Acesso total por 12 meses
-                  </p>
-                  <p className="text-[11px] text-slate-400 flex items-center gap-1">
-                    <ShieldCheck className="h-4 w-4" /> Pagamento 100% Seguro
+                    <Clock className="h-4 w-4 text-amber-600" /> Abertura oficial: Março de 2027
                   </p>
                 </div>
               </div>

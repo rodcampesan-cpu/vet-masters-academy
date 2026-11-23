@@ -14,7 +14,7 @@ function PublicCoursesPage() {
   const [spec, setSpec] = useState<string | null>(null);
 
   const filtered = courses.filter((c) =>
-    (!spec || c.specialty === spec) &&
+    c.id !== "mentoria-flix" && (!spec || c.specialty === spec) &&
     (!q || c.title.toLowerCase().includes(q.toLowerCase()) || c.teacher.name.toLowerCase().includes(q.toLowerCase()))
   );
 
@@ -120,13 +120,11 @@ function PublicCoursesPage() {
                   </div>
                 </div>
 
-                {c.id !== 'mentoria-flix' && (
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-xs text-slate-400 line-through">R$ 2.800</span>
-                    <span className="text-xl font-black text-green-600">R$ 2.300</span>
-                    <span className="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Pré-venda</span>
-                  </div>
-                )}
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-[11px] font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">
+                    Próxima Turma: Março/2027
+                  </span>
+                </div>
 
                 <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
                   <span className="text-sm font-bold text-coral group-hover:text-coral/80 transition-colors">Ver Detalhes do Curso</span>

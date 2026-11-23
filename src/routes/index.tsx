@@ -22,22 +22,11 @@ export const Route = createFileRoute("/")({
 
 function Landing() {
   const [showPopup, setShowPopup] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setShowPopup(true), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // Popup de pré-venda desativado durante a pausa de vendas
 
   return (
     <div className="min-h-screen bg-background font-sans">
       <Navbar />
-
-      <Dialog open={showPopup} onOpenChange={setShowPopup}>
-        <DialogContent className="sm:max-w-md p-0 border-none bg-transparent shadow-none overflow-hidden">
-          <Link to="/cursos/$courseId" params={{ courseId: "ortopedia-avancada" }} className="block w-full h-full hover:scale-105 transition-transform">
-            <img src={popupPresaleImg} alt="Pré-venda" className="w-full h-auto rounded-2xl shadow-2xl" />
-          </Link>
-        </DialogContent>
-      </Dialog>
 
       {/* NEW HERO SECTION (OBJECTIVE & BRIGHT) */}
       <section className="bg-secondary/30 pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden relative">
@@ -46,9 +35,9 @@ function Landing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start lg:pt-4">
             <div className="animate-fade-up">
-              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-coral/30 bg-coral/10 px-4 py-1.5 text-sm font-medium text-coral backdrop-blur mb-6">
-                <AlertTriangle className="h-4 w-4" />
-                O fim da insegurança nos plantões
+              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs sm:text-sm font-bold text-amber-800 backdrop-blur mb-6">
+                <Clock className="h-4 w-4 text-amber-600" />
+                Inscrições Encerradas • Próximas Turmas em Março de 2027
               </div>
               <h1 className="font-display text-4xl font-extrabold sm:text-5xl lg:text-6xl text-foreground leading-[1.1]">
                 A faculdade te ensinou a anatomia. <br/>
@@ -73,9 +62,9 @@ function Landing() {
               </div>
               
               <div className="mt-10 flex flex-wrap gap-4">
-                <Button asChild size="lg" className="h-14 bg-coral text-coral-foreground hover:bg-coral/90 shadow-coral px-8 text-lg font-semibold rounded-xl transition-all hover:scale-105">
+                <Button asChild size="lg" className="h-14 bg-amber-600 hover:bg-amber-700 text-white shadow-lg px-8 text-lg font-semibold rounded-xl transition-all hover:scale-105">
                   <a href="#oferta">
-                    Garantir minha vaga agora <ArrowRight className="ml-2 h-5 w-5" />
+                    Lista de Espera (Março/2027) <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="h-14 border-border bg-card text-foreground hover:bg-secondary px-8 text-lg rounded-xl transition-all">
@@ -85,10 +74,10 @@ function Landing() {
                 </Button>
               </div>
               
-              <div className="mt-6 flex items-center gap-3 rounded-xl bg-coral/10 border border-coral/20 p-3 max-w-lg">
-                <Gift className="h-5 w-5 text-coral flex-shrink-0 animate-pulse" />
-                <p className="text-sm font-medium text-foreground">
-                  <span className="text-coral font-bold">15 PRIMEIROS:</span> Ganhe o curso "Como montar seu Negócio de Sucesso com Mentoria Flix" <span className="font-bold text-green-600 bg-green-100 px-1 rounded">(Valor R$ 1.200)</span>.
+              <div className="mt-6 flex items-center gap-3 rounded-xl bg-amber-50 border border-amber-200 p-3.5 max-w-lg">
+                <Clock className="h-5 w-5 text-amber-600 flex-shrink-0" />
+                <p className="text-sm font-medium text-amber-900">
+                  <strong>Vendas Pausadas:</strong> Acompanhamento exclusivo da turma atual. Próximas turmas em <strong>Março de 2027</strong>.
                 </p>
               </div>
               
@@ -377,23 +366,19 @@ function Landing() {
 
               <div className="w-full md:w-[380px] shrink-0 bg-white rounded-3xl p-8 text-center shadow-2xl relative">
                 <div className="absolute -top-4 inset-x-0 flex justify-center">
-                  <span className="bg-primary text-white text-xs font-bold uppercase tracking-widest py-1 px-4 rounded-full shadow-lg">
-                    Vagas Esgotando
+                  <span className="bg-amber-600 text-white text-xs font-bold uppercase tracking-widest py-1 px-4 rounded-full shadow-lg">
+                    Inscrições Encerradas
                   </span>
                 </div>
                 
                 <div className="mb-4">
-                  <span className="inline-block bg-green-100 text-green-700 font-bold px-3 py-1 rounded-full text-sm mb-2">18% DE DESCONTO (ECONOMIZE R$ 500)</span>
-                  <h3 className="text-xl font-bold text-gray-900 mt-2">Plano Vetmasterclass</h3>
+                  <span className="inline-block bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full text-xs mb-2">VENDAS PAUSADAS</span>
+                  <h3 className="text-xl font-bold text-gray-900 mt-2">Próximas Turmas em Março de 2027</h3>
                 </div>
-                <div className="my-6">
-                  <span className="text-sm text-gray-500 line-through">De R$ 2.800</span>
-                  <div className="flex justify-center items-start mt-2">
-                    <span className="text-2xl font-bold text-gray-900 mt-2">12x</span>
-                    <span className="text-6xl font-black text-coral mx-2">230</span>
-                    <span className="text-xl font-bold text-gray-900 mt-8">,92</span>
-                  </div>
-                  <span className="text-sm text-gray-500">ou R$ 2.300 à vista</span>
+                <div className="my-6 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                  <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                    As vagas para o período atual foram preenchidas. Entre na Lista de Espera VIP para ser avisado com prioridade e condições exclusivas na abertura das novas turmas.
+                  </p>
                 </div>
 
                 <ul className="space-y-4 text-left mb-8">
@@ -401,7 +386,7 @@ function Landing() {
                     "1 Ano de Acesso Completo ao Curso",
                     "Biblioteca e Casos Interativos do Curso",
                     "Desconto VIP de 25% em novos cursos",
-                    "Mentoria Flix: Negócio de Sucesso (Para os 15 primeiros)"
+                    "Acesso antecipado garantido na abertura"
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
                       <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />
@@ -410,13 +395,16 @@ function Landing() {
                   ))}
                 </ul>
 
-                <Button asChild className="w-full h-14 text-lg font-bold bg-coral hover:bg-coral/90 shadow-xl shadow-coral/30 rounded-xl transition-all hover:scale-105">
-                  <Link to="/checkout/$courseId" params={{ courseId: "ortopedia-avancada" }}>
-                    Garantir Vaga com Bônus
-                  </Link>
-                </Button>
+                <a
+                  href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20entrar%20na%20lista%20de%20espera%20VIP%20para%20as%20turmas%20de%20Mar%C3%A7o%20de%202027."
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full h-14 text-base font-bold bg-[#25D366] hover:bg-[#25D366]/90 text-white shadow-xl shadow-green-500/20 rounded-xl transition-all hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <MessageCircle className="h-5 w-5" /> Entrar na Lista VIP (WhatsApp)
+                </a>
                 <p className="text-xs text-gray-500 mt-4 font-medium flex items-center justify-center gap-1">
-                  <Gift className="h-3 w-3" /> 7 dias de garantia incondicional
+                  <Clock className="h-3 w-3 text-amber-600" /> Abertura oficial em Março de 2027
                 </p>
               </div>
             </div>

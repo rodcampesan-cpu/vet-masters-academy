@@ -1,350 +1,135 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { courses } from "@/lib/courses-data";
-import { CheckCircle2, ShieldCheck, Lock, CreditCard, QrCode, Plus } from "lucide-react";
+import { Calendar, ShieldAlert, ArrowLeft, MessageCircle, Clock, BookOpen, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState, useEffect } from "react";
-import { useAuth } from "@/lib/auth-context";
-import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
-import { Timer, Copy, Check } from "lucide-react";
 
 export const Route = createFileRoute("/checkout/$courseId")({
-  head: () => ({ meta: [{ title: "Checkout Seguro — Vetmasterclass" }] }),
+  head: ({ loaderData }) => ({
+    meta: [
+      { title: `Inscrições Encerradas — ${loaderData?.course?.title || "Vetmasterclass"}` },
+      { name: "description", content: "Vendas pausadas. Próximas turmas em Março de 2027." }
+    ]
+  }),
   loader: ({ params }) => {
     const found = courses.find((x) => x.id === params.courseId);
     if (!found) throw notFound();
     return { course: found };
   },
-  component: CheckoutPage,
+  component: SalesPausedPage,
 });
 
-function CheckoutPage() {
+function SalesPausedPage() {
   const { course } = Route.useLoaderData();
-  const basePrice = course.id === 'mentoria-flix' ? 1 : 2300;
-  const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(15 * 60);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-  };
-
-  const availableOrderBumps = courses.filter(c => c.id !== course.id && c.id !== 'mentoria-flix');
-  const [selectedOrderBumps, setSelectedOrderBumps] = useState<string[]>([]);
-
-  const toggleOrderBump = (id: string) => {
-    setSelectedOrderBumps(prev => 
-      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
-    );
-  };
-
-  const getOrderBumpTotal = () => selectedOrderBumps.length * 2300;
-  const getGrandTotal = () => basePrice + getOrderBumpTotal();
-
-  const handleCopyPix = () => {
-    navigator.clipboard.writeText("00020126360014br.gov.bcb.pix0114+55119999999995204000053039865802BR5915Vetmasterclass6009Sao Paulo62070503***6304");
-    setCopied(true);
-    toast.success("Código PIX copiado!");
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  // Funções de máscara simples
-  const formatCPF = (v: string) => {
-    return v.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4').substring(0, 14);
-  };
-
-  const formatCC = (v: string) => {
-    return v.replace(/\D/g, '').replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1 $2 $3 $4').substring(0, 19);
-  };
-
-  const formatValidade = (v: string) => {
-    return v.replace(/\D/g, '').replace(/(\d{2})(\d{2})/, '$1/$2').substring(0, 5);
-  };
-
-  const handleCheckout = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) return;
-    setLoading(true);
-    
-    try {
-      const res = await fetch('/api/create-preference', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          courseId: course.id,
-          title: course.title,
-          price: basePrice,
-          userEmail: user.email,
-          userId: user.id
-        })
-      });
-
-      const data = await res.json();
-      
-      if (data.init_point) {
-        // Redireciona para a página segura do Mercado Pago
-        window.location.href = data.init_point;
-      } else {
-        toast.error("Erro ao gerar pagamento. Tente novamente.");
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Erro de conexão ao processar pagamento.");
-      setLoading(false);
-    }
-  };
+  const WHATSAPP_NUMBER = "5511999999999";
+  const message = encodeURIComponent(`Olá! Gostaria de colocar meu nome na lista de espera VIP para a turma de Março de 2027 do curso "${course.title}".`);
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] py-12 animate-fade-in">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="min-h-screen bg-[#F8F9FA] py-12 animate-fade-in flex flex-col justify-between">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 w-full">
         
-        {/* Header Simples do Checkout */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-          <div className="flex items-center gap-2">
-            <div className="bg-coral p-2 rounded-lg">
-              <ShieldCheck className="h-6 w-6 text-white" />
-            </div>
-            <span className="font-display font-bold text-2xl tracking-tight">Vetmaster<span className="text-coral">class</span></span>
-          </div>
-
-          {/* TIMER DE ESCASSEZ */}
-          <div className="flex items-center gap-2 bg-red-50 text-red-600 px-4 py-2 rounded-xl border border-red-100">
-            <Timer className="h-5 w-5 animate-pulse" />
-            <span className="text-sm font-bold">Oferta encerra em:</span>
-            <span className="font-display font-black text-xl tabular-nums">{formatTime(timeLeft)}</span>
-          </div>
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8 bg-white p-5 rounded-2xl shadow-xs border border-slate-200">
+          <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+            <span className="font-display font-bold text-2xl tracking-tight text-slate-900">
+              Vetmaster<span className="text-coral">class</span>
+            </span>
+          </Link>
+          <Link 
+            to="/cursos" 
+            className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" /> Voltar aos cursos
+          </Link>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8 items-start">
+        {/* Card Principal de Vendas Pausadas */}
+        <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200 text-center">
           
-          {/* COLUNA ESQUERDA: Resumo do Produto */}
-          <div className="lg:col-span-5 space-y-6 order-2 lg:order-1">
-            <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-200">
-              <div className="aspect-video rounded-xl overflow-hidden mb-4 relative">
-                <img src={course.cover} alt={course.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 flex items-center gap-2">
-                  <img src={course.teacher.avatar} alt="Professor" style={{ objectPosition: course.teacher.avatarPosition || "center" }} className="h-8 w-8 rounded-full border-2 border-white object-cover" />
-                  <span className="text-white text-sm font-medium">{course.teacher.name}</span>
-                </div>
-              </div>
-              
-              <h2 className="font-display font-bold text-xl leading-tight mb-2">{course.title}</h2>
-              <p className="text-sm text-slate-500 mb-6">{course.description}</p>
-              
-              <div className="space-y-3 mb-6">
-                {[
-                  "1 Ano de Acesso Total ao Curso",
-                  "Biblioteca e Casos Interativos do Curso",
-                  "Desconto VIP de 25% em novos cursos",
-                  "Acesso à Comunidade VIP de Alunos"
-                ].map((benefit, i) => (
-                  <div key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                    <span className="text-sm font-medium text-slate-700">{benefit}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 text-amber-700 mb-6">
+            <Calendar className="h-8 w-8" />
+          </div>
 
-              {/* Bônus */}
-              <div className="bg-coral/5 border border-coral/20 rounded-xl p-4 mb-6">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="bg-coral text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">Bônus Exclusivo</span>
-                  <span className="text-xs font-semibold text-coral animate-pulse">Restam poucas vagas</span>
+          <div className="inline-block bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full mb-4">
+            Inscrições Encerradas • Vendas Pausadas
+          </div>
+
+          <h1 className="font-display font-black text-2xl sm:text-4xl text-slate-900 tracking-tight mb-4">
+            Próximas Turmas em Março de 2027
+          </h1>
+
+          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-8">
+            As vagas para a turma atual foram preenchidas e as vendas estão temporariamente pausadas para garantirmos dedicação e acompanhamento total aos alunos matriculados. A abertura da nova turma para o curso <strong>{course.title}</strong> acontecerá em <strong>Março de 2027</strong>.
+          </p>
+
+          {/* Resumo do Curso */}
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 max-w-2xl mx-auto text-left mb-8">
+            <div className="flex flex-col sm:flex-row gap-5 items-center">
+              <img 
+                src={course.cover} 
+                alt={course.title} 
+                className="w-full sm:w-44 aspect-video rounded-xl object-cover shadow-sm"
+              />
+              <div className="flex-1">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-coral bg-coral/10 px-2 py-0.5 rounded">
+                  {course.specialty}
+                </span>
+                <h3 className="font-display font-bold text-lg text-slate-900 mt-1 mb-2 leading-tight">
+                  {course.title}
+                </h3>
+                <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
+                  <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-slate-400" /> {course.hours}h de carga</span>
+                  <span className="flex items-center gap-1"><BookOpen className="h-3.5 w-3.5 text-slate-400" /> {course.modules} módulos</span>
                 </div>
-                <h4 className="text-sm font-bold text-slate-900 mb-1">Mentoria Flix: Método P.E.T.</h4>
-                <p className="text-xs text-slate-600 mb-2">Transforme seu negócio pet com Dr. Rodrigo Nicola.</p>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-400 line-through">Valor R$ 799,00</span>
-                  <span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-0.5 rounded">GRÁTIS HOJE</span>
-                </div>
-              </div>
-
-              <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-4">
-                <ShieldCheck className="h-8 w-8 text-emerald-600 shrink-0" />
-                <div>
-                  <h4 className="text-sm font-bold text-emerald-900">Garantia de 7 Dias</h4>
-                  <p className="text-xs text-emerald-700">Satisfação garantida ou seu dinheiro 100% de volta.</p>
+                  <img 
+                    src={course.teacher.avatar} 
+                    alt={course.teacher.name} 
+                    className="h-6 w-6 rounded-full object-cover border border-slate-200" 
+                  />
+                  <span className="text-xs font-medium text-slate-700">Prof. {course.teacher.name}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* COLUNA DIREITA: Formulário de Pagamento */}
-          <div className="lg:col-span-7 order-1 lg:order-2">
-            <form onSubmit={handleCheckout} className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100">
-              
-              <h3 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
-                <span className="bg-coral text-white h-6 w-6 rounded-full flex items-center justify-center text-xs">1</span> 
-                Dados Pessoais
-              </h3>
-              
-              <div className="space-y-4 mb-8">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-700">Nome Completo</label>
-                    <Input required placeholder="Ex: João da Silva" className="bg-slate-50 border-slate-200" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-700">CPF</label>
-                    <Input required placeholder="000.000.000-00" className="bg-slate-50 border-slate-200" onChange={(e) => e.target.value = formatCPF(e.target.value)} />
-                  </div>
-                </div>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-700">E-mail (Acesso ao curso)</label>
-                    <Input required type="email" placeholder="seu@email.com" className="bg-slate-50 border-slate-200" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-700">Celular (WhatsApp)</label>
-                    <Input required placeholder="(00) 90000-0000" className="bg-slate-50 border-slate-200" />
-                  </div>
-                </div>
-              </div>
+          {/* Chamada para Lista de Espera */}
+          <div className="bg-emerald-50/80 border border-emerald-200 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto mb-6">
+            <div className="flex items-center justify-center gap-2 mb-2 text-emerald-800 font-bold text-base">
+              <Sparkles className="h-5 w-5 text-emerald-600" />
+              Entre na Lista de Espera VIP
+            </div>
+            <p className="text-xs sm:text-sm text-emerald-700 max-w-lg mx-auto mb-6 leading-relaxed">
+              Os inscritos na lista de espera recebem o link de matrícula com <strong>24 horas de antecedência</strong> e condições especiais exclusivas no lançamento da turma de <strong>Março de 2027</strong>.
+            </p>
 
-              <h3 className="font-display font-bold text-lg mb-4 flex items-center gap-2">
-                <span className="bg-coral text-white h-6 w-6 rounded-full flex items-center justify-center text-xs">2</span> 
-                Pagamento
-              </h3>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#25D366]/90 text-white font-bold text-base h-14 px-8 rounded-xl shadow-lg shadow-green-500/20 transition-all hover:scale-105"
+              >
+                <MessageCircle className="h-5 w-5" /> Entrar na Lista VIP no WhatsApp
+              </a>
+              <Button asChild variant="outline" className="h-14 px-6 text-sm font-semibold rounded-xl border-slate-300">
+                <Link to="/cursos">Ver outros cursos</Link>
+              </Button>
+            </div>
+          </div>
 
-              <Tabs defaultValue="pix" className="w-full mb-8">
-                <TabsList className="grid w-full grid-cols-2 mb-4 bg-slate-100 p-1 rounded-xl h-auto">
-                  <TabsTrigger value="pix" className="py-2.5 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-                    <QrCode className="h-4 w-4 mr-2" /> PIX (Aprovação na hora)
-                  </TabsTrigger>
-                  <TabsTrigger value="credit" className="py-2.5 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm">
-                    <CreditCard className="h-4 w-4 mr-2" /> Cartão de Crédito
-                  </TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="pix" className="bg-slate-50 border border-slate-200 rounded-xl p-6 text-center">
-                  <div className="bg-white p-4 rounded-xl border border-slate-200 inline-block mb-4 shadow-sm">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Vetmasterclasspixmock" alt="QR Code PIX" className="w-32 h-32 mx-auto" />
-                  </div>
-                  <h4 className="font-bold text-slate-800 mb-1">Escaneie o QR Code</h4>
-                  <p className="text-xs text-slate-500 mb-4">Abra o app do seu banco e aponte a câmera para pagar. Aprovação imediata.</p>
-                  
-                  <div className="relative max-w-sm mx-auto">
-                    <Input readOnly value="00020126360014br.gov.bcb.pix0114..." className="bg-white pr-24 font-mono text-xs" />
-                    <Button 
-                      type="button" 
-                      onClick={handleCopyPix}
-                      size="sm" 
-                      className={`absolute right-1 top-1 h-8 ${copied ? 'bg-green-500 hover:bg-green-600' : 'bg-slate-800 hover:bg-slate-900'}`}
-                    >
-                      {copied ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
-                      {copied ? 'Copiado!' : 'Copiar'}
-                    </Button>
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="credit" className="space-y-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-700">Número do Cartão</label>
-                    <Input required placeholder="0000 0000 0000 0000" className="bg-slate-50 border-slate-200" onChange={(e) => e.target.value = formatCC(e.target.value)} />
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="col-span-2 space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-700">Nome no Cartão</label>
-                      <Input required placeholder="Nome impresso" className="bg-slate-50 border-slate-200" />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-700">Validade</label>
-                      <Input required placeholder="MM/AA" className="bg-slate-50 border-slate-200" onChange={(e) => e.target.value = formatValidade(e.target.value)} />
-                    </div>
-                  </div>
-                </TabsContent>
-              </Tabs>
-
-              {/* SECTION: ORDER BUMP */}
-              {availableOrderBumps.length > 0 && (
-                <div className="mt-6 mb-8">
-                  <h3 className="text-sm font-bold text-slate-900 mb-3 uppercase tracking-wider">Aproveite e leve também:</h3>
-                  <div className="space-y-3">
-                    {availableOrderBumps.map(bump => {
-                      const isSelected = selectedOrderBumps.includes(bump.id);
-                      return (
-                        <div key={bump.id} className={`p-4 rounded-xl border-2 transition-all cursor-pointer ${isSelected ? 'border-coral bg-coral/5' : 'border-slate-200 bg-slate-50 border-dashed hover:border-slate-300'}`} onClick={() => toggleOrderBump(bump.id)}>
-                          <div className="flex items-start gap-4 pointer-events-none">
-                            <div className="mt-1 pointer-events-auto">
-                              <Switch checked={isSelected} onCheckedChange={() => toggleOrderBump(bump.id)} />
-                            </div>
-                            <div>
-                              <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                <h4 className="font-bold text-slate-900 leading-tight flex-1">Adicionar {bump.title}</h4>
-                                <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded animate-pulse whitespace-nowrap">OFERTA ESPECIAL</span>
-                              </div>
-                              <p className="text-xs text-slate-600 mb-2 leading-relaxed">{bump.description ? bump.description.substring(0, 80) : 'Curso premium Vetmasterclass'}...</p>
-                              <div className="flex items-center gap-2">
-                                <span className="text-xs text-slate-400 line-through">R$ 2.800,00</span>
-                                <span className="text-sm font-bold text-coral">Por R$ 2.300,00</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Resumo e Botão Final */}
-              <div className="border-t border-slate-200 pt-6">
-                <div className="flex justify-between items-end mb-6">
-                  <div>
-                    <p className="text-sm text-slate-500 line-through">De R$ {basePrice + 500 + selectedOrderBumps.length * 2800},00</p>
-                    <p className="text-xs font-semibold text-coral mt-1">
-                      Desconto de Pré-venda
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-display font-black text-3xl text-slate-900">
-                      R$ {getGrandTotal()}
-                      <span className="text-lg text-slate-500">,00</span>
-                    </p>
-                    <p className="text-xs font-bold text-slate-500 mt-1">
-                      ou 12x de R$ {(getGrandTotal() / 10).toFixed(2).replace('.', ',')}
-                    </p>
-                  </div>
-                </div>
-
-                <Button 
-                  type="button" 
-                  disabled={false}
-                  className="w-full h-16 text-sm sm:text-lg font-bold bg-[#34C759] hover:bg-[#34C759]/90 text-white shadow-xl shadow-green-500/20 rounded-xl transition-all hover:scale-105 flex items-center justify-center whitespace-nowrap px-4"
-                  onClick={() => window.open('https://buy.stripe.com/test_123', '_blank')}
-                >
-                  <Lock className="h-4 w-4 mr-2 shrink-0" />
-                  Finalizar Compra Segura
-                </Button>
-                
-                <p className="text-center text-[10px] text-slate-400 mt-4 flex justify-center items-center gap-1">
-                  <Lock className="h-3 w-3" /> Pagamento 100% Seguro e Criptografado
-                </p>
-              </div>
-
-            </form>
+          <div className="flex items-center justify-center gap-2 text-xs text-slate-400">
+            <ShieldAlert className="h-4 w-4" />
+            Nenhum valor será cobrado no momento da inscrição na lista de espera.
           </div>
 
         </div>
+
       </div>
+
+      <footer className="mt-12 text-center text-xs text-slate-400 py-4">
+        © {new Date().getFullYear()} Vetmasterclass — Todos os direitos reservados.
+      </footer>
     </div>
   );
 }

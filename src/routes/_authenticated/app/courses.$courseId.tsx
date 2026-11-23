@@ -354,13 +354,18 @@ function CourseDetail() {
                   </div>
                 </div>
 
-                <Link to="/checkout/$courseId" params={{ courseId: c.id }} className="inline-block w-full sm:w-auto">
-                  <Button className="w-full sm:w-auto bg-coral text-white hover:bg-coral/90 text-lg py-7 px-8 sm:px-12 rounded-xl shadow-[0_0_40px_-10px_#FF6F61] transition-transform hover:scale-105 font-bold">
-                    Quero Desbloquear Esse Conhecimento Agora
+                <a
+                  href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Gostaria de entrar na lista de espera para a turma de Março de 2027 do curso ${c.title}.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-block w-full sm:w-auto"
+                >
+                  <Button className="w-full sm:w-auto bg-amber-600 text-white hover:bg-amber-700 text-lg py-7 px-8 sm:px-12 rounded-xl shadow-lg transition-transform hover:scale-105 font-bold">
+                    Lista de Espera — Março de 2027
                   </Button>
-                </Link>
+                </a>
                 <p className="text-xs text-slate-400 mt-5 flex items-center gap-1.5 font-medium">
-                  <ShieldCheck className="h-4 w-4 text-green-500" /> Compra 100% segura. Você tem 7 dias de garantia ou seu dinheiro de volta.
+                  <Clock className="h-4 w-4 text-amber-500" /> Vendas pausadas no momento. Próximas turmas em Março de 2027.
                 </p>
               </div>
             </div>
@@ -401,17 +406,20 @@ function CourseDetail() {
               </>
             ) : (
               <>
-                <div className="text-xs font-bold text-coral uppercase tracking-wider mb-2 animate-pulse flex items-center gap-1">
-                  <Trophy className="h-3 w-3" /> Benefício Aluno: 25% OFF
+                <div className="text-xs font-bold text-amber-600 uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <Clock className="h-3 w-3" /> Vendas Pausadas
                 </div>
-                <div className="text-xs text-muted-foreground line-through">De R$ 997,00</div>
-                <div className="font-display text-3xl font-black text-foreground mb-1">R$ 747<span className="text-lg text-muted-foreground">,75</span></div>
-                <p className="text-xs text-muted-foreground">Pagamento único. 1 Ano de Acesso.</p>
-                <Link to="/checkout/$courseId" params={{ courseId: c.id }}>
-                  <Button className="mt-5 w-full bg-green-500 text-white hover:bg-green-600 shadow-xl shadow-green-500/20 font-bold">
-                    Desbloquear Curso Agora
+                <div className="font-display text-xl font-black text-foreground mb-1">Próxima Turma</div>
+                <p className="text-xs text-muted-foreground mb-4">Abertura de novas vagas em Março de 2027.</p>
+                <a
+                  href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Gostaria de entrar na lista de espera para a turma de Março de 2027 do curso ${c.title}.`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Button className="w-full bg-[#25D366] text-white hover:bg-[#25D366]/90 shadow-lg font-bold">
+                    Entrar na Lista VIP (WhatsApp)
                   </Button>
-                </Link>
+                </a>
               </>
             )}
           </div>
